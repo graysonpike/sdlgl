@@ -1,0 +1,4 @@
+# Build related items
+build/*
+*.out
+*.o
