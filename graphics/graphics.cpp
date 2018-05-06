@@ -1,9 +1,5 @@
 #include "graphics.h"
 
-// STATIC MEMBERS
-
-const int Graphics::WIDTH = 800, Graphics::HEIGHT = 800;
-
 // PRIVATE HELPER FUNCTIONS
 
 // Starts SDL2 and creates a window.
@@ -22,8 +18,8 @@ bool Graphics::init_sdl() {
         "SDL2 Game",                  // window title
         SDL_WINDOWPOS_UNDEFINED,      // initial x position
         SDL_WINDOWPOS_UNDEFINED,      // initial y position
-        WIDTH,                        // width, in pixels
-        HEIGHT,                       // height, in pixels
+        width,                        // width, in pixels
+        height,                       // height, in pixels
         SDL_WINDOW_OPENGL             // flags - see below
     );
     if (window == NULL) {
@@ -53,13 +49,14 @@ bool Graphics::init_sdl() {
 // PUBLIC FUNCTIONS
 
 // Initializes SDL and loads resources
-Graphics::Graphics() {
+Graphics::Graphics(int width, int height) {
 
+    this->width = width;
+    this->height = height;
     init_sdl();
     resources = new Resources(renderer);
     resources->load_resources();
     font_renderer = new FontRenderer(renderer, resources);
-    overlay = new Overlay(WIDTH, HEIGHT, renderer, resources);
     fps_counter = FPSCounter();
 
 }
@@ -72,6 +69,7 @@ void Graphics::clear_screen() {
 
 };
 
+// Present renderer and record delta time (in seconds)
 void Graphics::present_renderer(float delta) {
 
     SDL_RenderPresent(renderer);
@@ -80,11 +78,11 @@ void Graphics::present_renderer(float delta) {
 }
 
 int Graphics::get_width() {
-    return WIDTH;
+    return width;
 }
 
 int Graphics::get_height() {
-    return HEIGHT;
+    return height;
 }
 
 Graphics::~Graphics() {
@@ -93,6 +91,5 @@ Graphics::~Graphics() {
     SDL_DestroyRenderer(renderer);
     delete resources;
     delete font_renderer;
-    delete overlay;
 
 }

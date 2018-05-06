@@ -74,10 +74,10 @@ Resources::Resources(SDL_Renderer *renderer) {
 void Resources::load_resources() {
 
     // FONTS
-    load_font(&fonts["inconsolata"], "Inconsolata/Inconsolata-Regular.ttf", 18);
+    //load_font(&fonts["inconsolata"], "Inconsolata/Inconsolata-Regular.ttf", 18);
 
     // TEXTURES
-    load_texture(&textures["ship1"][1], "ship1/ship1.png");
+    //load_texture(&textures["ship1"][1], "ship1/ship1.png");
 
 }
 

@@ -23,7 +23,7 @@ FPSCounter::FPSCounter() {
 
 }
 
-// Records the delta time for a frame
+// Records the delta time for a frame (in seconds)
 // Should be called by Graphics::present_renderer()
 void FPSCounter::count(float delta) {
 

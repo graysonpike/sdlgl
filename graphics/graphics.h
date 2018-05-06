@@ -15,8 +15,8 @@ class FontRenderer;
 
 class Graphics {
 
-    // Width and heigh of the window in px
-    static const int WIDTH, HEIGHT;
+    // Width and height of the window in px
+    int width, height;
 
     Resources *resources;
     FPSCounter fps_counter;
@@ -28,7 +28,7 @@ class Graphics {
 
 public:
 
-    Graphics();
+    Graphics(int width, int height);
     void clear_screen();
     void present_renderer(float delta);
     int get_width();
