@@ -97,6 +97,10 @@ int Graphics::get_height() {
     return height;
 }
 
+SDL_Renderer *Graphics::get_renderer() {
+    return renderer;
+}
+
 Graphics::~Graphics() {
 
     SDL_DestroyWindow(window);

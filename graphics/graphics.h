@@ -34,6 +34,7 @@ public:
     void present_renderer(float delta);
     int get_width();
     int get_height();
+    SDL_Renderer *get_renderer();
     ~Graphics();
 
 };
