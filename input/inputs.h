@@ -3,13 +3,6 @@
 
 #include <SDL2/SDL.h>
 
-// KEY CODE DEFINITIONS
-// Edit this file to change key bindings
-
-#define KEY_UP      SDL_SCANCODE_W
-#define KEY_DOWN    SDL_SCANCODE_S
-#define KEY_LEFT    SDL_SCANCODE_A
-#define KEY_RIGHT   SDL_SCANCODE_D
 
 class Inputs {
 
