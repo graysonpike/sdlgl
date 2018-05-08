@@ -1,5 +1,5 @@
 // Example: Red Box
-// A simple red box moving around the screen, controlled with WASD
+// A simple red box moving around the screen, controlled with the arrow keys
 
 #include "../../graphics/graphics.h"
 #include "../../game/clock.h"
