@@ -24,11 +24,12 @@ class Graphics {
     SDL_Window *window;
     SDL_Renderer *renderer;
 
-    bool init_sdl();
+    bool init_sdl(std::string window_title);
 
 public:
 
     Graphics(int width, int height);
+    Graphics(int width, int height, std::string window_title);
     void clear_screen();
     void present_renderer(float delta);
     int get_width();

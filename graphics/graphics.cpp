@@ -5,7 +5,7 @@
 // Starts SDL2 and creates a window.
 // Also starts additional libraries like sdl_ttf
 // Some flags can be changed for different rendering settings
-bool Graphics::init_sdl() {
+bool Graphics::init_sdl(std::string window_title) {
 
     // Initialize SDL_video
     if(SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER) < 0) {
@@ -15,7 +15,7 @@ bool Graphics::init_sdl() {
 
     // Create SDL Window
     window = SDL_CreateWindow(
-        "SDL2 Game",                  // window title
+        window_title.c_str(),                  // window title
         SDL_WINDOWPOS_UNDEFINED,      // initial x position
         SDL_WINDOWPOS_UNDEFINED,      // initial y position
         width,                        // width, in pixels
@@ -53,7 +53,19 @@ Graphics::Graphics(int width, int height) {
 
     this->width = width;
     this->height = height;
-    init_sdl();
+    init_sdl("SDLGL Game");
+    resources = new Resources(renderer);
+    resources->load_resources();
+    font_renderer = new FontRenderer(renderer, resources);
+    fps_counter = FPSCounter();
+
+}
+
+Graphics::Graphics(int width, int height, std::string window_title) : Graphics(width, height) {
+
+    this->width = width;
+    this->height = height;
+    init_sdl(window_title);
     resources = new Resources(renderer);
     resources->load_resources();
     font_renderer = new FontRenderer(renderer, resources);
