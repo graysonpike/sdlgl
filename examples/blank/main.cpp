@@ -1,6 +1,5 @@
 // Example Game to Demonstrate Blank Screen
 
-#include <unistd.h>
 #include "../../graphics/graphics.h"
 #include "../../game/clock.h"
 #include "../../input/inputs.h"
