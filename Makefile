@@ -13,5 +13,6 @@ lib:
 	g++ $(FLAGS) graphics/fps_counter.cpp   -o build/fps_counter.o
 	g++ $(FLAGS) input/inputs.cpp           -o build/inputs.o
 	g++ $(FLAGS) game/clock.cpp             -o build/clock.o
+	g++ $(FLAGS) game/scene.cpp             -o build/scene.o
 
-	ar rcs build/libsdlgl.a build/graphics.o build/resources.o build/font_renderer.o build/fps_counter.o build/inputs.o build/clock.o
+	ar rcs build/libsdlgl.a build/graphics.o build/resources.o build/font_renderer.o build/fps_counter.o build/inputs.o build/clock.o build/scene.o
