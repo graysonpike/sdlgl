@@ -14,18 +14,20 @@ protected:
 
 	Inputs *inputs;
 	Graphics *graphics;
+	float delta;
 
 	std::vector<Entity*> entities;
 
 public:
 
 	Scene(Inputs *inputs, Graphics *graphics);
-	void update();
+	void update(float delta);
 	void render();
 	void add_entity(Entity *entity);
 
 	Inputs *get_inputs();
 	Graphics *get_graphics();
+	float get_delta();
 
 	~Scene();
 

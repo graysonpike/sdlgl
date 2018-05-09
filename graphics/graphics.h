@@ -35,6 +35,7 @@ public:
     int get_width();
     int get_height();
     SDL_Renderer *get_renderer();
+    float get_fps();
     ~Graphics();
 
 };

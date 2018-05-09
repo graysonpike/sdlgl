@@ -101,6 +101,10 @@ SDL_Renderer *Graphics::get_renderer() {
     return renderer;
 }
 
+float Graphics::get_fps() {
+    return fps_counter.get_fps();
+}
+
 Graphics::~Graphics() {
 
     SDL_DestroyWindow(window);

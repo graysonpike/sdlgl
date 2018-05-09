@@ -4,10 +4,12 @@
 Scene::Scene(Inputs *inputs, Graphics *graphics) {
 	this->inputs = inputs;
 	this->graphics = graphics;
+	delta = 0;
 }
 
 
-void Scene::update() {
+void Scene::update(float delta) {
+	this->delta = delta;
 	for (int i = 0; i < entities.size(); i++) {
 		entities[i]->update();
 	}
@@ -31,6 +33,10 @@ Inputs *Scene::get_inputs() {
 
 Graphics *Scene::get_graphics() {
 	return graphics;
+}
+
+float Scene::get_delta() {
+	return delta;
 }
 
 Scene::~Scene() {

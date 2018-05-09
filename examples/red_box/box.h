@@ -3,8 +3,7 @@
 
 #include <SDL2/SDL.h>
 #include "../../game/entity.h"
-
-#include "demo_world.h"
+#include "../../game/scene.h"
 
 class Box : public Entity {
 
@@ -14,8 +13,8 @@ class Box : public Entity {
 
 public:
 
-	Box(DemoWorld *world);
-	Box(DemoWorld *world, float x, float y, int width, int height, SDL_Color color);
+	Box(Scene *scene);
+	Box(Scene *scene, float x, float y, int width, int height, SDL_Color color);
 	void update();
 	void render();
 

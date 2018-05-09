@@ -3,9 +3,9 @@
 
 #include "../../graphics/graphics.h"
 #include "../../game/clock.h"
+#include "../../game/scene.h"
 #include "../../input/inputs.h"
 
-#include "demo_world.h"
 #include "box.h"
 
 
@@ -17,8 +17,8 @@ int main() {
     // Load a window
     Graphics graphics(640, 480);
 
-    DemoWorld world(&inputs, &graphics);
-    world.add_entity(new Box(&world));
+    Scene scene(&inputs, &graphics);
+    scene.add_entity(new Box(&scene));
 
     // Enter a simple update loop
     bool loop = true;
@@ -28,8 +28,8 @@ int main() {
         clock.tick();
         graphics.clear_screen();
 
-        world.update(clock.get_delta());
-        world.render();
+        scene.update(clock.get_delta());
+        scene.render();
 
         graphics.present_renderer(clock.get_delta());
 
