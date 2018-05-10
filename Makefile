@@ -1,6 +1,6 @@
 .DEFAULT_GOAL := lib
 
-FLAGS = -c -std=c++11
+FLAGS = -c -std=c++11 -g
 
 clean:
 	rm -f build/*

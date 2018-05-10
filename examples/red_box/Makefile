@@ -1,6 +1,6 @@
 .DEFAULT_GOAL := main.out
 
-FLAGS = -g -std=c++11
+FLAGS = -std=c++11 -g
 LIBS  = -L../../build -lsdlgl -lSDL2 -lSDL2_image -lSDL2_ttf
 
 clean:
