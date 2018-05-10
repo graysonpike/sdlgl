@@ -1,6 +1,9 @@
+#include <fstream>
+#include "../dependencies/json.hpp"
 #include "resources.h"
 
-#include <iostream>
+// for convenience
+using json = nlohmann::json;
 
 // STATIC MEMBERS
 
@@ -71,9 +74,20 @@ Resources::Resources(SDL_Renderer *renderer) {
 // load_font(&fonts["inconsolata"], "Inconsolata/Inconsolata-Regular.ttf", 18);
 // load_texture(&textures["player"][1], "player/player_standing.png");
 //
-void Resources::load_resources() {
+void Resources::load_resources(std::string json_filename) {
 
-    // FONTS
+    // Read JSON object from resources file
+    std::ifstream file(json_filename);
+    json resources;
+    file >> resources;
+
+    // Load Fonts
+    for (json::iterator it = resources["fonts"].begin(); it != resources["fonts"].end(); it++) {
+        TTF_Font *font = NULL;
+        load_font(&font, it.value()["filename"], it.value()["size"]);
+        fonts[it.key()] = font;
+    }
+
     //load_font(&fonts["inconsolata"], "Inconsolata/Inconsolata-Regular.ttf", 18);
 
     // TEXTURES
@@ -82,10 +96,12 @@ void Resources::load_resources() {
 }
 
 TTF_Font* Resources::get_font(std::string name) {
+    // TODO: Add check to see if name exists
     return fonts[name];
 }
 
 SDL_Texture* Resources::get_texture(std::string name, int frame) {
+    // TODO: Add check to see if name exists
     return textures[name][frame];
 }
 

@@ -1,5 +1,5 @@
 #include "scene.h"
-
+#include <iostream>
 
 Scene::Scene(Inputs *inputs, Graphics *graphics) {
 	this->inputs = inputs;

@@ -55,7 +55,6 @@ Graphics::Graphics(int width, int height) {
     this->height = height;
     init_sdl("SDLGL Game");
     resources = new Resources(renderer);
-    resources->load_resources();
     font_renderer = new FontRenderer(renderer, resources);
     fps_counter = FPSCounter();
 
@@ -67,7 +66,6 @@ Graphics::Graphics(int width, int height, std::string window_title) : Graphics(w
     this->height = height;
     init_sdl(window_title);
     resources = new Resources(renderer);
-    resources->load_resources();
     font_renderer = new FontRenderer(renderer, resources);
     fps_counter = FPSCounter();
 
@@ -99,6 +97,14 @@ int Graphics::get_height() {
 
 SDL_Renderer *Graphics::get_renderer() {
     return renderer;
+}
+
+FontRenderer *Graphics::get_font_renderer() {
+    return font_renderer;
+}
+
+Resources *Graphics::get_resources() {
+    return resources;
 }
 
 float Graphics::get_fps() {

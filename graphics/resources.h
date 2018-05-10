@@ -19,7 +19,7 @@ class Resources {
 public:
 
     Resources(SDL_Renderer *renderer);
-    void load_resources();
+    void load_resources(std::string json_filename);
     TTF_Font *get_font(std::string name);
     SDL_Texture *get_texture(std::string name, int frame);
     ~Resources();
