@@ -14,7 +14,7 @@
 #define KEY_LEFT    SDL_SCANCODE_LEFT
 #define KEY_RIGHT   SDL_SCANCODE_RIGHT
 
-#define SPEED 100
+#define SPEED 200
 
 Box::Box(Scene *scene, float x, float y, int width, int height, SDL_Color color) {
 	this->scene = scene;
