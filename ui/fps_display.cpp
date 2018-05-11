@@ -10,6 +10,7 @@ FPS_Display::FPS_Display(Scene *scene, std::string font, SDL_Color color) {
     update_delay_timer = 0;
     this->font = font;
     this->color = color;
+    fps = 0;
 }
 
 void FPS_Display::update() {
