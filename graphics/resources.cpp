@@ -88,10 +88,17 @@ void Resources::load_resources(std::string json_filename) {
         fonts[it.key()] = font;
     }
 
-    //load_font(&fonts["inconsolata"], "Inconsolata/Inconsolata-Regular.ttf", 18);
+    // Load Textures
 
-    // TEXTURES
-    //load_texture(&textures["ship1"][1], "ship1/ship1.png");
+    // Load Sprites
+    for (json::iterator it = resources["sprites"].begin(); it != resources["sprites"].end(); it++) {
+        for(int i = 0; i < it.value()["frames"].size(); i++) {
+            SDL_Texture *texture;
+            load_texture(&texture, it.value()["frames"][i]);
+            sprite_frames[it.key()].push_back(texture);
+            sprite_frame_delays[it.key()].push_back(it.value()["delays"][i]);
+        }
+    }
 
 }
 
@@ -100,9 +107,17 @@ TTF_Font* Resources::get_font(std::string name) {
     return fonts[name];
 }
 
-SDL_Texture* Resources::get_texture(std::string name, int frame) {
+SDL_Texture* Resources::get_texture(std::string name) {
     // TODO: Add check to see if name exists
-    return textures[name][frame];
+    return textures[name];
+}
+
+Sprite Resources::get_sprite(std::string name) {
+    Sprite sprite;
+    for(int i = 0; i < sprite_frames[name].size(); i++) {
+        sprite.add_frame(sprite_frames[name][i], sprite_frame_delays[name][i]);
+    }
+    return sprite;
 }
 
 Resources::~Resources() {
@@ -114,12 +129,16 @@ Resources::~Resources() {
     }
     
     // Iterate through textures and free them
-    std::map<std::string, std::map<int, SDL_Texture*> >::iterator frames;
-    for(frames = textures.begin(); frames != textures.end(); frames++) {
-        std::map<int, SDL_Texture*>::iterator frame;
-        for(frame = frames->second.begin(); frame != frames->second.end(); frame++) {
-            //SDL_DestroyTexture(frame->second);
-            frame->second = NULL;
+    std::map<std::string, SDL_Texture*>::iterator texture_it;
+    for(texture_it = textures.begin(); texture_it != textures.end(); texture_it++) {
+        SDL_DestroyTexture(texture_it->second);
+    }
+
+    // Iterate through sprite textures and free them
+    std::map<std::string, std::vector<SDL_Texture *> >::iterator sprite_it;
+    for(sprite_it = sprite_frames.begin(); sprite_it != sprite_frames.end(); sprite_it++) {
+        for(int i = 0; i < sprite_it->second.size(); i++) {
+            SDL_DestroyTexture(sprite_it->second[i]);
         }
     }
     
