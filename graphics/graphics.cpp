@@ -72,9 +72,9 @@ Graphics::Graphics(int width, int height, std::string window_title) : Graphics(w
 }
 
 // Clear the screen with a black background
-void Graphics::clear_screen() {
+void Graphics::clear_screen(SDL_Color color) {
 
-    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+    SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
     SDL_RenderClear(renderer);
 
 };

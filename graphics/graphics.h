@@ -30,7 +30,7 @@ public:
 
     Graphics(int width, int height);
     Graphics(int width, int height, std::string window_title);
-    void clear_screen();
+    void clear_screen(SDL_Color color={0, 0, 0, 255});
     void present_renderer(float delta);
     int get_width();
     int get_height();
