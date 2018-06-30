@@ -27,7 +27,7 @@ int main() {
     Scene scene(&inputs, &graphics);
     scene.add_entity(new Player(&scene, 320, 240));
     scene.add_entity(new FPS_Display(
-        &scene, "base_text", {255, 255, 255, 255}));
+        &scene, "base_text", {0, 0, 0, 255}));
 
     // Enter a simple update loop
     bool loop = true;
@@ -35,7 +35,7 @@ int main() {
 
         inputs.update();
         clock.tick();
-        graphics.clear_screen();
+        graphics.clear_screen({255, 255, 255, 255});
         
         scene.update(clock.get_delta());
         scene.render();

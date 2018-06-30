@@ -7,14 +7,45 @@
 	},
 
 	"sprites": {
+		"player_up": {
+			"frames": [
+				"player/up1.png",
+				"player/up2.png"
+			],
+			"delays": [
+				0.2, 0.2
+			]
+		},
 		"player_down": {
 			"frames": [
 				"player/down1.png",
 				"player/down2.png"
 			],
 			"delays": [
-				0.3, 0.3
+				0.2, 0.2
 			]
-		}
+		},
+		"player_left": {
+			"frames": [
+				"player/left1.png",
+				"player/left2.png"
+			],
+			"delays": [
+				0.2, 0.2
+			]
+		},
+		"player_right": {
+			"frames": [
+				"player/right1.png",
+				"player/right2.png"
+			],
+			"delays": [
+				0.2, 0.2
+			]
+		}	
+	},
+
+	"textures": {
+		"player_standing": "player/standing.png"
 	}
 }

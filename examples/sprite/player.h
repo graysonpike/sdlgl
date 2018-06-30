@@ -4,12 +4,14 @@
 #include "../../game/entity.h"
 #include "../../game/scene.h"
 #include "../../graphics/sprite.h"
+#include "../../graphics/texture.h"
 
 class Player : public Entity {
 
 	int x, y;
-	char dir;
-	Sprite sprites[5];
+	enum { UP, DOWN, LEFT, RIGHT, STANDING } dir;
+	Sprite sprites[4];
+	Texture standing_texture;
 
 public:
 
