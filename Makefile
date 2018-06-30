@@ -19,15 +19,7 @@ clean:
 	rm -f build/*
 
 
-%.o:
-	$(eval SOURCE := $@)
-	$(eval SOURCE := $(SOURCE:build/%=%))
-	$(eval SOURCE := $(SOURCE:%.o=%.cpp))
-	$(CC) $(FLAGS) $(SOURCE) -o $@
-
-
 lib: directories lib_compile;
-
 
 
 directories:
@@ -39,5 +31,12 @@ directories:
 
 
 lib_compile: $(OUTPUT)
-
 	ar rcs build/libsdlgl.a $(OUTPUT)
+
+
+.SECONDEXPANSION:
+$(OUTPUT) : %.o : $$(subst .o,.cpp,$$(subst build/,,$$@))
+	$(eval SOURCE := $@)
+	$(eval SOURCE := $(SOURCE:build/%=%))
+	$(eval SOURCE := $(SOURCE:%.o=%.cpp))
+	$(CC) $(FLAGS) $(SOURCE) -o $@
