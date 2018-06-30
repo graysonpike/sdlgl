@@ -89,6 +89,11 @@ void Resources::load_resources(std::string json_filename) {
     }
 
     // Load Textures
+    for (json::iterator it = resources["textures"].begin(); it != resources["textures"].end(); it++) {
+        SDL_Texture *texture;
+        load_texture(&texture, it.value());
+        textures[it.key()] = texture;
+    }
 
     // Load Sprites
     for (json::iterator it = resources["sprites"].begin(); it != resources["sprites"].end(); it++) {
@@ -107,13 +112,15 @@ TTF_Font* Resources::get_font(std::string name) {
     return fonts[name];
 }
 
-SDL_Texture* Resources::get_texture(std::string name) {
-    // TODO: Add check to see if name exists
-    return textures[name];
+Texture Resources::get_texture(std::string name) {
+    return Texture(textures[name]);
 }
 
 Sprite Resources::get_sprite(std::string name) {
     Sprite sprite;
+    if(sprite_frames[name].size() == 0) {
+        printf("Error: 0 frames in sprite: %s", name.c_str());
+    }
     for(int i = 0; i < sprite_frames[name].size(); i++) {
         sprite.add_frame(sprite_frames[name][i], sprite_frame_delays[name][i]);
     }

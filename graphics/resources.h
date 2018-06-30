@@ -9,6 +9,7 @@
 #include <SDL2/SDL_ttf.h>
 
 #include "sprite.h"
+#include "texture.h"
 
 class Resources {
 
@@ -26,7 +27,7 @@ public:
     Resources(SDL_Renderer *renderer);
     void load_resources(std::string json_filename);
     TTF_Font *get_font(std::string name);
-    SDL_Texture *get_texture(std::string name);
+    Texture get_texture(std::string name);
     Sprite get_sprite(std::string name);
     ~Resources();
 

@@ -8,6 +8,7 @@ FILES = graphics/graphics \
 		graphics/font_renderer \
 		graphics/fps_counter \
 		graphics/sprite \
+		graphics/texture \
 		input/inputs \
 		game/clock \
 		game/scene \
