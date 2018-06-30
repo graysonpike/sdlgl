@@ -20,7 +20,7 @@ public:
     void update();
     // Returns true if the ESC key or 'close window' event was triggered
     bool get_quit();
-    // Key codes defined above
+    // Keycode definitions: https://wiki.libsdl.org/SDL_Keycode
     bool is_key_down(int key);
 
 };
