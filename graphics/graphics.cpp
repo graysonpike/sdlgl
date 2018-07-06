@@ -117,5 +117,6 @@ Graphics::~Graphics() {
     SDL_DestroyRenderer(renderer);
     delete resources;
     delete font_renderer;
+    SDL_Quit();
 
 }
