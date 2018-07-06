@@ -1,0 +1,7 @@
+{
+	"sounds": {
+		"select": "select.wav",
+		"cancel": "cancel.wav",
+		"send": "send.wav"
+	}
+}

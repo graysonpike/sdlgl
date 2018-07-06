@@ -3,15 +3,17 @@ SHELL := /bin/bash
 
 CC = g++
 FLAGS = -c -std=c++11 -g3
-FILES = graphics/graphics \
+FILES = audio/sound \
+		audio/track \
+		game/clock \
+		game/scene \
+		graphics/graphics \
 		graphics/resources \
 		graphics/font_renderer \
 		graphics/fps_counter \
 		graphics/sprite \
 		graphics/texture \
 		input/inputs \
-		game/clock \
-		game/scene \
 		ui/fps_display
 
 OUTPUT = $(FILES:%=build/%.o)
@@ -25,9 +27,10 @@ lib: directories lib_compile;
 
 directories:
 	mkdir -p build
+	mkdir -p build/audio
+	mkdir -p build/game
 	mkdir -p build/graphics
 	mkdir -p build/input
-	mkdir -p build/game
 	mkdir -p build/ui
 
 
