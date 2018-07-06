@@ -1,9 +1,14 @@
 #include "graphics.h"
 
+#define AUDIO_FREQUENCY 44100
+#define HARDWARE_CHANNELS 2
+#define AUDIO_CHUNK_SIZE 2048
+#define ALLOCATED_CHANNELS 16
+
 // PRIVATE HELPER FUNCTIONS
 
 // Starts SDL2 and creates a window.
-// Also starts additional libraries like sdl_ttf
+// Also starts additional libraries like sdl_ttf and sdl_mixer
 // Some flags can be changed for different rendering settings
 bool Graphics::init_sdl(std::string window_title) {
 
@@ -41,6 +46,13 @@ bool Graphics::init_sdl(std::string window_title) {
         printf("SDL_ttf failed to initialize: %s\n", TTF_GetError());
         return false;
     }
+
+    //Initialize Mixer
+    if( Mix_OpenAudio(AUDIO_FREQUENCY, MIX_DEFAULT_FORMAT, HARDWARE_CHANNELS, AUDIO_CHUNK_SIZE) < 0 ) {
+        printf("SDL_mixer failed to initialize: %s\n", Mix_GetError());
+        return false;
+    }
+    Mix_AllocateChannels(ALLOCATED_CHANNELS);
 
     return true;
 
@@ -117,6 +129,8 @@ Graphics::~Graphics() {
     SDL_DestroyRenderer(renderer);
     delete resources;
     delete font_renderer;
+    Mix_Quit();
+    IMG_Quit();
     SDL_Quit();
 
 }

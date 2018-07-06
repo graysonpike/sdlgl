@@ -11,6 +11,30 @@ const std::string Resources::RES_DIR = "res/";
 
 // PRIVATE HELPER FUNCTIONS
 
+bool Resources::load_sound(Mix_Chunk **sound, std::string filename) {
+    // Concatenate filename to resource directory
+    std::string filepath = std::string(RES_DIR) + "sounds/" + filename;
+
+    *sound = Mix_LoadWAV(filepath.c_str());
+    if(*sound == NULL) {
+        printf("Failed to load sound: %s\n", Mix_GetError());
+        return false;
+    }
+    return true;
+}
+
+bool Resources::load_track(Mix_Music **track, std::string filename) {
+    // Concatenate filename to resource directory
+    std::string filepath = std::string(RES_DIR) + "tracks/" + filename;
+    
+    *track = Mix_LoadMUS(filepath.c_str());
+    if(*track == NULL) {
+        printf("Failed to load track: %s\n", Mix_GetError());
+        return false;
+    }
+    return false;
+}
+
 // Returns true on success
 bool Resources::load_font(TTF_Font **font, std::string filename, int size) {
 
@@ -81,6 +105,20 @@ void Resources::load_resources(std::string json_filename) {
     json resources;
     file >> resources;
 
+    // Load Sounds
+    for (json::iterator it = resources["sounds"].begin(); it != resources["sounds"].end(); it++) {
+        Mix_Chunk *sound;
+        load_sound(&sound, it.value());
+        sounds[it.key()] = sound;
+    }
+
+    // Load Tracks
+    for (json::iterator it = resources["tracks"].begin(); it != resources["tracks"].end(); it++) {
+        Mix_Music *track;
+        load_track(&track, it.value());
+        tracks[it.key()] = track;
+    }
+
     // Load Fonts
     for (json::iterator it = resources["fonts"].begin(); it != resources["fonts"].end(); it++) {
         TTF_Font *font = NULL;
@@ -105,6 +143,14 @@ void Resources::load_resources(std::string json_filename) {
         }
     }
 
+}
+
+Sound Resources::get_sound(std::string name) {
+    return Sound(sounds[name]);
+}
+
+Track Resources::get_track(std::string name) {
+    return Track(tracks[name]);
 }
 
 TTF_Font* Resources::get_font(std::string name) {
@@ -149,4 +195,15 @@ Resources::~Resources() {
         }
     }
     
+    // Iterate through sounds and free them
+    std::map<std::string, Mix_Chunk*>::iterator sound_it;
+    for(sound_it = sounds.begin(); sound_it != sounds.end(); sound_it++) {
+        Mix_FreeChunk(sound_it->second);
+    }
+
+    // Iterate through tracks and free them
+    std::map<std::string, Mix_Music*>::iterator track_it;
+    for(track_it = tracks.begin(); track_it != tracks.end(); track_it++) {
+        Mix_FreeMusic(track_it->second);
+    }
 }
