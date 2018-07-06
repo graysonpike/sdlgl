@@ -2,7 +2,7 @@
 SHELL := /bin/bash
 
 CC = g++
-FLAGS = -c -std=c++11 -g
+FLAGS = -c -std=c++11 -g3
 FILES = graphics/graphics \
 		graphics/resources \
 		graphics/font_renderer \
