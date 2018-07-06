@@ -26,6 +26,8 @@ bool Inputs::check_for_quit(SDL_Event event) {
 
 Inputs::Inputs() {
     quit = false;
+    mouse_button_state = false;
+    mouse_button_down_event = false;
 }
 
 bool Inputs::get_quit() {
@@ -35,6 +37,7 @@ bool Inputs::get_quit() {
 void Inputs::update() {
 
     key_states = SDL_GetKeyboardState(NULL);
+    mouse_button_down_event = false;
 
     SDL_Event event;
     while(SDL_PollEvent(&event) != 0) {
@@ -51,7 +54,12 @@ void Inputs::update() {
         }
 
         if(event.type == SDL_MOUSEBUTTONDOWN) {
-            //handle_mouse_down(event);
+            mouse_button_state = true;
+            mouse_button_down_event = true;
+        }
+
+        if(event.type == SDL_MOUSEBUTTONUP) {
+            mouse_button_state = false;
         }
     }
     
@@ -59,4 +67,31 @@ void Inputs::update() {
 
 bool Inputs::is_key_down(int key) {
     return key_states[key];
+}
+
+SDL_Point Inputs::get_mouse_pos() {
+    return {mouse_x, mouse_y};
+}
+
+bool Inputs::is_mouse_button_down() {
+    return mouse_button_state;
+}
+
+bool Inputs::get_mouse_button_down_event() {
+    return mouse_button_down_event;
+}
+
+bool Inputs::is_mouse_in_rect(SDL_Rect *rect) {
+    SDL_Point mouse_pos = {mouse_x, mouse_y};
+    return SDL_PointInRect(&mouse_pos, rect);
+}
+
+bool Inputs::is_mouse_down_in_rect(SDL_Rect *rect) {
+    SDL_Point mouse_pos = {mouse_x, mouse_y};
+    return mouse_button_state && SDL_PointInRect(&mouse_pos, rect);
+}
+
+bool Inputs::is_mouse_down_event_in_rect(SDL_Rect *rect) {
+    SDL_Point mouse_pos = {mouse_x, mouse_y};
+    return mouse_button_down_event && SDL_PointInRect(&mouse_pos, rect);
 }
