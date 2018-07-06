@@ -20,3 +20,15 @@ void Texture::draw(SDL_Renderer *renderer, int x, int y) {
 
 	SDL_RenderCopy(renderer, this->texture, NULL, &dst);
 }
+
+int Texture::get_width() {
+	int width, height;
+	SDL_QueryTexture(this->texture, NULL, NULL, &width, &height);
+	return width;
+}
+
+int Texture::get_height() {
+	int width, height;
+	SDL_QueryTexture(this->texture, NULL, NULL, &width, &height);
+	return height; 
+}
