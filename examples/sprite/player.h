@@ -8,7 +8,8 @@
 
 class Player : public Entity {
 
-	float x, y, width, height;
+	float x, y;
+	int width, height;
 	enum { UP, DOWN, LEFT, RIGHT, STANDING } dir;
 	Sprite sprites[4];
 	Texture standing_texture;
