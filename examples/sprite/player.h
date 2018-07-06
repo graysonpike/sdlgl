@@ -8,14 +8,16 @@
 
 class Player : public Entity {
 
-	int x, y;
+	float x, y, width, height;
 	enum { UP, DOWN, LEFT, RIGHT, STANDING } dir;
 	Sprite sprites[4];
 	Texture standing_texture;
 
+	void clamp();
+
 public:
 
-	Player(Scene *scene, int x, int y);
+	Player(Scene *scene, float x, float y);
 	void update();
 	void render();
 
