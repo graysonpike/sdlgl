@@ -1,6 +1,18 @@
 # sdlgl
 ### A SDL2 Game Library
 
-This is a simple game framework library I'm creating for use in my own games.
+This is a simple game framework library I'm creating for use in my own games. SDLGL currently provides support for 
+* A simple and extensible Entity + Scene organization
+* A simple 'Update and Render' game loop with time delta
+* Multi-channel audio mixing for sound effects and music
+* Easily configurable (JSON-defined) resources supporting:
+	* Animated Sprites
+	* Static Textures
+	* Sound Effects
+	* Music Tracks
+* An FPS Counter
+* Font renderer
+* Direct access to the SDL2 rendering context
+* Multiple clean, well commented example programs
 
-Documentation is coming soon!
+I'm currently working on improving documentation coverage. Documentation can be found in the `documentation/` directory.
