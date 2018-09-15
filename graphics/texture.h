@@ -13,6 +13,7 @@ public:
 	Texture();
 	Texture(SDL_Texture *texture);
 	void draw(SDL_Renderer *renderer, int x, int y);
+	void draw(SDL_Renderer *renderer, int x, int y, float angle);
 	int get_width();
 	int get_height();
 
