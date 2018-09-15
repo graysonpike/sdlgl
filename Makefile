@@ -19,7 +19,7 @@ FILES = audio/sound \
 OUTPUT = $(FILES:%=build/%.o)
 
 clean:
-	rm -f build/*
+	rm -rf build
 
 
 lib: directories lib_compile;
@@ -36,6 +36,12 @@ directories:
 
 lib_compile: $(OUTPUT)
 	ar rcs build/libsdlgl.a $(OUTPUT)
+
+install:
+	sudo cp build/libsdlgl.a /usr/lib/libsdlgl.a
+	sudo rm -rf /usr/include/sdlgl
+	sudo mkdir /usr/include/sdlgl
+	sudo cp -r * /usr/include/sdlgl
 
 
 .SECONDEXPANSION:
