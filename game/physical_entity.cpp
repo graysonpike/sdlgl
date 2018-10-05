@@ -1,4 +1,3 @@
-#include <sdlgl/game/scene.h>
 #include "physical_entity.h"
 
 

@@ -2,10 +2,11 @@
 #define SCENE_H
 
 #include <vector>
-#include "./entity.h"
+#include "entity.h"
 #include "../input/inputs.h"
 #include "../graphics/graphics.h"
 
+class Entity;
 
 // Class which has entities and manages an update+render loop
 class Scene {

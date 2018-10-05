@@ -1,7 +1,7 @@
 #ifndef PHYSICAL_ENTITY_H
 #define PHYSICAL_ENTITY_H
 
-#include <sdlgl/game/entity.h>
+#include "entity.h"
 
 class PhysicalEntity : public Entity {
 
