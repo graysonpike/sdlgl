@@ -13,6 +13,10 @@ protected:
 	float get_center_x();
 	float get_center_y();
 
+public:
+
+	PhysicalEntity(float x, float y, int w, int h);
+
 };
 
 #endif

@@ -1,6 +1,10 @@
 #include "physical_entity.h"
 
 
+PhysicalEntity::PhysicalEntity(float x, float y, int w, int h) :
+    x{x}, y{y}, w{w}, h{h} {}
+
+
 float PhysicalEntity::get_center_x() {
     return x + w/2;
 }
