@@ -7,6 +7,7 @@ FILES = audio/sound \
 		audio/track \
 		game/clock \
 		game/scene \
+		game/entity \
 		game/physical_entity \
 		graphics/graphics \
 		graphics/resources \
