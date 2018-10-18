@@ -14,7 +14,6 @@ protected:
 
 public:
 
-    Entity();
     Entity(Scene *scene);
     
 	virtual void update()=0;

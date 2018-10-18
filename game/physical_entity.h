@@ -16,7 +16,6 @@ protected:
 public:
 
     PhysicalEntity(Scene *scene, float x, float y, int w, int h);
-	PhysicalEntity(float x, float y, int w, int h);
 
 };
 
