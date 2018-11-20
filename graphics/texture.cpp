@@ -36,6 +36,28 @@ void Texture::draw(SDL_Renderer *renderer, int x, int y, float angle) {
                  NULL, SDL_FLIP_NONE);
 }
 
+void Texture::draw(SDL_Renderer *renderer, int x, int y, float angle, bool flip_h, bool flip_v) {
+
+    int width, height;
+    SDL_QueryTexture(this->texture, NULL, NULL, &width, &height);
+    SDL_Rect dst = {
+        x,
+        y,
+        width,
+        height
+    };
+
+    uint flip = (uint)SDL_FLIP_NONE;
+    if (flip_h) {
+        flip |= (uint)SDL_FLIP_HORIZONTAL; 
+    }
+    if (flip_v) {
+        flip |= (uint)SDL_FLIP_HORIZONTAL;
+    }
+    SDL_RenderCopyEx(renderer, texture, NULL, &dst, angle / M_PI * 180 + 90,
+                 NULL, (SDL_RendererFlip)flip);
+}
+
 int Texture::get_width() {
     int width, height;
     SDL_QueryTexture(this->texture, NULL, NULL, &width, &height);
