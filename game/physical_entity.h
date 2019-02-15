@@ -10,6 +10,7 @@ protected:
 	float x, y;
 	int w, h;
 	void wrap_bounds();
+	void clamp();
 	float get_center_x();
 	float get_center_y();
 

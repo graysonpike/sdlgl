@@ -29,3 +29,20 @@ void PhysicalEntity::wrap_bounds() {
     }
 
 }
+
+void PhysicalEntity::clamp() {
+    int screen_w = scene->get_graphics()->get_width();
+    int screen_h = scene->get_graphics()->get_height();
+    if(x < 0) {
+        x = 0;
+    }
+    if(y < 0) {
+        y = 0;
+    }
+    if(x + w > screen_w) {
+        x = screen_w - w;
+    }
+    if(y + h > screen_h) {
+        y = screen_h - h;
+    }
+}
