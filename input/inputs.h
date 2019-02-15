@@ -3,6 +3,8 @@
 
 #include <SDL2/SDL.h>
 
+#define NUM_KEYS 2014
+
 
 class Inputs {
 
@@ -13,6 +15,7 @@ class Inputs {
     bool mouse_button_down_event;
     // Boolean array for all keys. See above definitions
     const Uint8 *key_states;
+    bool key_down_event[NUM_KEYS];
     // Returns true if ESC or 'X' button is pressed
     bool check_for_quit(SDL_Event event);
 
@@ -24,6 +27,7 @@ public:
     bool get_quit();
     // Keycode definitions: https://wiki.libsdl.org/SDL_Keycode
     bool is_key_down(int key);
+    bool is_key_down_event(int key);
     SDL_Point get_mouse_pos();
     bool is_mouse_button_down();
     bool get_mouse_button_down_event();

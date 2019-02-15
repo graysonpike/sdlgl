@@ -36,6 +36,10 @@ bool Inputs::get_quit() {
 
 void Inputs::update() {
 
+    for(int i = 0; i < NUM_KEYS; i++) {
+        key_down_event[i] = false;
+    }
+
     key_states = SDL_GetKeyboardState(NULL);
     mouse_button_down_event = false;
 
@@ -61,12 +65,21 @@ void Inputs::update() {
         if(event.type == SDL_MOUSEBUTTONUP) {
             mouse_button_state = false;
         }
+
+        if(event.type == SDL_KEYDOWN && event.key.repeat == 0) {
+            printf("Keydown\n");
+            key_down_event[event.key.keysym.scancode] = true;
+        }
     }
     
 }
 
 bool Inputs::is_key_down(int key) {
     return key_states[key];
+}
+
+bool Inputs::is_key_down_event(int key) {
+    return key_down_event[key];
 }
 
 SDL_Point Inputs::get_mouse_pos() {
