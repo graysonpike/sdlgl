@@ -1,7 +1,7 @@
 .DEFAULT_GOAL := main.out
 
 FLAGS = -std=c++11 -g
-LIBS  = -L../../build -lsdlgl -lSDL2 -lSDL2_image -lSDL2_ttf
+LIBS  = -L../../build -lsdlgl -lSDL2 -lSDL2_image -lSDL2_ttf -lSDL2_mixer
 
 clean:
 	rm -f *.out *.o

@@ -1,9 +1,8 @@
-#include "../../game/entity.h"
+#include "../../game/physical_entity.h"
 #include "../../game/scene.h"
 
-class SoundButton : public Entity {
+class SoundButton : public PhysicalEntity {
 
-	int x, y, width, height;
 	SDL_Color color;
 	SDL_Color active_color;
 	Sound sound;

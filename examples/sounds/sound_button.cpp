@@ -6,12 +6,8 @@
 #define COLOR_CHANGE_AMOUNT 50
 
 
-SoundButton::SoundButton(Scene *scene, int x, int y, int width, int height, SDL_Color color, std::string sound) {
-	this->scene = scene;
-	this->x = x;
-	this->y = y;
-	this->width = width;
-	this->height = height;
+SoundButton::SoundButton(Scene *scene, int x, int y, int width, int height, SDL_Color color, std::string sound)
+: PhysicalEntity(scene, x, y, width, height) {
 	this->color = color;
 	this->active_color = get_lighter_color(color);
 
@@ -24,7 +20,7 @@ SoundButton::SoundButton(Scene *scene, int x, int y, int width, int height, SDL_
 void SoundButton::update() {
 	// If clicked on, play sound
 	Inputs *inputs = scene->get_inputs();
-	SDL_Rect rect = {x, y, width, height};
+	SDL_Rect rect = {(int)x, (int)y, w, h};
 	if(inputs->is_mouse_down_event_in_rect(&rect)) {
 		sound.play();
 	}
@@ -34,7 +30,7 @@ void SoundButton::update() {
 void SoundButton::render() {
 	Inputs *inputs = scene->get_inputs();
 	SDL_Renderer *renderer = scene->get_graphics()->get_renderer();
-	SDL_Rect rect = {x, y, width, height};
+	SDL_Rect rect = {(int)x, (int)y, w, h};
 	SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
 	if(inputs->is_mouse_down_in_rect(&rect)) {
 		SDL_SetRenderDrawColor(renderer, active_color.r, active_color.g, active_color.b, active_color.a);
