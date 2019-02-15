@@ -6,6 +6,7 @@ FLAGS = -c -std=c++11 -g3
 FILES = audio/sound \
 		audio/track \
 		game/clock \
+		game/timer \
 		game/scene \
 		game/entity \
 		game/physical_entity \
