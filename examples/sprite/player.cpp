@@ -11,10 +11,7 @@
 #define SPEED 200
 
 
-Player::Player(Scene *scene, float x, float y) {
-	this->scene = scene;
-	this->x = x;
-	this->y = y;
+Player::Player(Scene *scene, float x, float y) : PhysicalEntity(scene, x, y, 0, 0) {
 	// Player begins facing down
 	dir = STANDING;
 	// Set up sprites
@@ -25,8 +22,8 @@ Player::Player(Scene *scene, float x, float y) {
 	sprites[RIGHT] = resources->get_sprite("player_right");
 	standing_texture = resources->get_texture("player_standing");
 
-	width = standing_texture.get_width();
-	height = standing_texture.get_height();
+	w = standing_texture.get_width();
+	h = standing_texture.get_height();
 }
 
 void Player::update() {
@@ -59,22 +56,5 @@ void Player::render() {
 		standing_texture.draw(scene->get_graphics()->get_renderer(), x, y);
 	} else {
 		sprites[dir].draw(scene->get_graphics()->get_renderer(), x, y, scene->get_delta());
-	}
-}
-
-void Player::clamp() {
-	int screen_width = scene->get_graphics()->get_width();
-	int screen_height = scene->get_graphics()->get_height();
-	if(x < 0) {
-		x = 0;
-	}
-	if(y < 0) {
-		y = 0;
-	}
-	if(x + width > screen_width) {
-		x = screen_width - width;
-	}
-	if(y + height > screen_height) {
-		y = screen_height - height;
 	}
 }

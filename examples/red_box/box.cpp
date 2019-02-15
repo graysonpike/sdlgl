@@ -16,8 +16,7 @@
 
 #define SPEED 200
 
-Box::Box(Scene *scene, float x, float y, int width, int height, SDL_Color color) {
-	this->scene = scene;
+Box::Box(Scene *scene, float x, float y, int width, int height, SDL_Color color) : Entity(scene) {
 	this->x = x;
 	this->y = y;
 	this->width = width;
@@ -25,8 +24,7 @@ Box::Box(Scene *scene, float x, float y, int width, int height, SDL_Color color)
 	this->color = color;
 }
 
-Box::Box(Scene *scene) {
-	this->scene = scene;
+Box::Box(Scene *scene) : Entity(scene) {
 	width = DEFAULT_WIDTH;
 	height = DEFAULT_HEIGHT;
 	// Position box in the middle of the window

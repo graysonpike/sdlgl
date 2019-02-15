@@ -5,8 +5,7 @@
 #define X_COORD 16
 #define Y_COORD 16
 
-FPS_Display::FPS_Display(Scene *scene, std::string font, SDL_Color color) {
-    this->scene = scene;
+FPS_Display::FPS_Display(Scene *scene, std::string font, SDL_Color color) : Entity(scene) {
     update_delay_timer = 0;
     this->font = font;
     this->color = color;
