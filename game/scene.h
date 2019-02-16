@@ -29,6 +29,7 @@ public:
 	Inputs *get_inputs();
 	Graphics *get_graphics();
 	float get_delta();
+	int get_entity_count();
 
 	~Scene();
 

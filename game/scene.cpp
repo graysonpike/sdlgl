@@ -39,6 +39,10 @@ float Scene::get_delta() {
 	return delta;
 }
 
+int Scene::get_entity_count() {
+	return entities.size();
+}
+
 Scene::~Scene() {
 	for(int i = 0; i < entities.size(); i++) {
 		delete entities[i];

@@ -17,7 +17,8 @@ FILES = audio/sound \
 		graphics/sprite \
 		graphics/texture \
 		input/inputs \
-		ui/fps_display
+		ui/fps_display \
+		ui/entity_count
 
 OUTPUT = $(FILES:%=build/%.o)
 
