@@ -10,7 +10,7 @@ Scene::Scene(Inputs *inputs, Graphics *graphics) {
 
 void Scene::update(float delta) {
 	this->delta = delta;
-	for (int i = 0; i < entities.size(); i++) {
+	for (uint i = 0; i < entities.size(); i++) {
 		if (entities[i]->is_alive() == false) {
 			entities.erase(entities.begin() + i);
 			continue;
@@ -21,7 +21,7 @@ void Scene::update(float delta) {
 
 
 void Scene::render() {
-	for (int i = entities.size() - 1; i >= 0; i--) {
+	for (uint i = entities.size() - 1; i >= 0; i--) {
 		entities[i]->render();
 	}
 }
@@ -48,7 +48,7 @@ int Scene::get_entity_count() {
 }
 
 Scene::~Scene() {
-	for(int i = 0; i < entities.size(); i++) {
+	for(uint i = 0; i < entities.size(); i++) {
 		delete entities[i];
 	}
 }

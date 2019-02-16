@@ -135,7 +135,7 @@ void Resources::load_resources(std::string json_filename) {
 
     // Load Sprites
     for (json::iterator it = resources["sprites"].begin(); it != resources["sprites"].end(); it++) {
-        for(int i = 0; i < it.value()["frames"].size(); i++) {
+        for(uint i = 0; i < it.value()["frames"].size(); i++) {
             SDL_Texture *texture;
             load_texture(&texture, it.value()["frames"][i]);
             sprite_frames[it.key()].push_back(texture);
@@ -167,7 +167,7 @@ Sprite Resources::get_sprite(std::string name) {
     if(sprite_frames[name].size() == 0) {
         printf("Error: 0 frames in sprite: %s", name.c_str());
     }
-    for(int i = 0; i < sprite_frames[name].size(); i++) {
+    for(uint i = 0; i < sprite_frames[name].size(); i++) {
         sprite.add_frame(sprite_frames[name][i], sprite_frame_delays[name][i]);
     }
     return sprite;
@@ -190,7 +190,7 @@ Resources::~Resources() {
     // Iterate through sprite textures and free them
     std::map<std::string, std::vector<SDL_Texture *> >::iterator sprite_it;
     for(sprite_it = sprite_frames.begin(); sprite_it != sprite_frames.end(); sprite_it++) {
-        for(int i = 0; i < sprite_it->second.size(); i++) {
+        for(uint i = 0; i < sprite_it->second.size(); i++) {
             SDL_DestroyTexture(sprite_it->second[i]);
         }
     }
