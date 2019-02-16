@@ -67,7 +67,6 @@ void Inputs::update() {
         }
 
         if(event.type == SDL_KEYDOWN && event.key.repeat == 0) {
-            printf("Keydown\n");
             key_down_event[event.key.keysym.scancode] = true;
         }
     }
