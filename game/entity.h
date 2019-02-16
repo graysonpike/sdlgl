@@ -9,13 +9,15 @@ class Scene;
 class Entity {
 
 protected:
-
 	Scene *scene;
+	bool alive;
 
 public:
 
     Entity(Scene *scene);
     
+	void kill();
+	bool is_alive();
 	virtual void update()=0;
 	virtual void render()=0;
 	

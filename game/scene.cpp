@@ -11,6 +11,10 @@ Scene::Scene(Inputs *inputs, Graphics *graphics) {
 void Scene::update(float delta) {
 	this->delta = delta;
 	for (int i = 0; i < entities.size(); i++) {
+		if (entities[i]->is_alive() == false) {
+			entities.erase(entities.begin() + i);
+			continue;
+		}
 		entities[i]->update();
 	}
 }
