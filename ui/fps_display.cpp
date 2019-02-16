@@ -35,7 +35,7 @@ void FPS_Display::render() {
 
     SDL_Rect dst = {
         X_COORD,
-        X_COORD,
+        Y_COORD,
         texture_width,
         texture_height
     };
