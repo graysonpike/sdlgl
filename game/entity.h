@@ -20,7 +20,7 @@ public:
 	bool is_alive();
 	virtual void update()=0;
 	virtual void render()=0;
-	virtual ~Entity()=0;
+	virtual ~Entity()=default;
 	
 };
 
