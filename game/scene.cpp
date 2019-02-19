@@ -21,7 +21,7 @@ void Scene::update(float delta) {
 
 
 void Scene::render() {
-	for (uint i = entities.size() - 1; i >= 0; i--) {
+	for (int i = entities.size() - 1; i >= 0; i--) {
 		entities[i]->render();
 	}
 }
