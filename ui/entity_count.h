@@ -19,7 +19,6 @@ public:
 
 	EntityCount(Scene *scene);
 	EntityCount(Scene *scene, std::string font, SDL_Color color);
-	virtual ~EntityCount()=default;
 
 	void update();
 	void render();

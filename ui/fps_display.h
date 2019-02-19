@@ -19,7 +19,6 @@ public:
 
 	FPS_Display(Scene *scene);
 	FPS_Display(Scene *scene, std::string font, SDL_Color color);
-	virtual ~FPS_Display()=default;
 
 	void update();
 	void render();
