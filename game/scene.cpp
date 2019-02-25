@@ -12,6 +12,7 @@ void Scene::update(float delta) {
 	this->delta = delta;
 	for (uint i = 0; i < entities.size(); i++) {
 		if (entities[i]->is_alive() == false) {
+			delete entities[i];
 			entities.erase(entities.begin() + i);
 			continue;
 		}
