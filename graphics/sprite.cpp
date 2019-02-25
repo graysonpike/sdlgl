@@ -5,7 +5,7 @@ Sprite::Sprite() {
 	current_frame = 0;
 }
 
-void Sprite::add_frame(SDL_Texture *frame, float frame_delay) {
+void Sprite::add_frame(Texture frame, float frame_delay) {
 	frames.push_back(frame);
 	frame_times.push_back(frame_delay);
 }
@@ -20,17 +20,15 @@ void Sprite::draw(SDL_Renderer *renderer, int x, int y, float delta) {
 		frame_timer = 0;
 	}
 
-	// Once current frame is determined, render it
-	int texture_width, texture_height;
-	SDL_QueryTexture(frames[current_frame], NULL, NULL, &texture_width, &texture_height);
-	SDL_Rect dst = {
-	    x,
-	    y,
-	    texture_width,
-	    texture_height
-	};
+	frames[current_frame].draw(renderer, x, y);
+}
 
-	SDL_RenderCopy(renderer, frames[current_frame], NULL, &dst);
+int Sprite::get_width() {
+	return frames[0].get_width();
+}
+
+int Sprite::get_height() {
+	return frames[0].get_height();
 }
 
 void Sprite::reset() {

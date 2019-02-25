@@ -3,10 +3,11 @@
 
 #include <vector>
 #include <SDL2/SDL.h>
+#include "./texture.h"
 
 class Sprite {
 
-	std::vector<SDL_Texture *> frames;
+	std::vector<Texture> frames;
 	std::vector<float> frame_times;
 	float frame_timer;
 	int current_frame;
@@ -14,8 +15,10 @@ class Sprite {
 public:
 
 	Sprite();
-	void add_frame(SDL_Texture *frame, float frame_delay);
+	void add_frame(Texture frame, float frame_delay);
 	void draw(SDL_Renderer *renderer, int x, int y, float delta);
+	int get_width();
+	int get_height();
 	void reset();
 
 };

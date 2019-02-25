@@ -168,7 +168,7 @@ Sprite Resources::get_sprite(std::string name) {
         printf("Error: 0 frames in sprite: %s", name.c_str());
     }
     for(uint i = 0; i < sprite_frames[name].size(); i++) {
-        sprite.add_frame(sprite_frames[name][i], sprite_frame_delays[name][i]);
+        sprite.add_frame(Texture(sprite_frames[name][i]), sprite_frame_delays[name][i]);
     }
     return sprite;
 }
