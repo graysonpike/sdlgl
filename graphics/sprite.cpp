@@ -1,41 +1,40 @@
 #include "sprite.h"
 
 Sprite::Sprite() :
+	delay(0),
 	frame_timer(0),
-	current_frame(0) {}
+	total_time(0) { printf("What\n");}
 
-Sprite::Sprite(SpriteOffset offset) : 
+Sprite::Sprite(SpriteOffset offset, float delay) : 
+	delay(delay),
 	frame_timer(0),
-	current_frame(0),
-	offset(offset) {}
+	total_time(0),
+	offset(offset) { printf("Other constructor\n");}
 
-void Sprite::add_frame(Texture frame, float frame_delay) {
+void Sprite::add_frame(Texture frame) {
 	frames.push_back(frame);
-	frame_times.push_back(frame_delay);
+}
+
+int Sprite::get_frame_num(float delta) {
+	while (frame_timer > total_time) {
+		frame_timer -= total_time;
+	}
+	int frame = (int)(frame_timer / total_time * frames.size());
+	frame_timer += delta;
+	return frame;
 }
 
 void Sprite::draw(SDL_Renderer *renderer, int x, int y, float delta) {
 
-	// Timer to decide when to advance to the next frame
-	frame_timer += delta;
-	if(frame_timer >= frame_times[current_frame]) {
-		current_frame ++;
-		current_frame %= frames.size();
-		frame_timer = 0;
-	}
+	int current_frame = get_frame_num(delta);
 
 	frames[current_frame].draw(renderer, x + offset.x, y + offset.y);
 }
 
 void Sprite::draw(SDL_Renderer *renderer, int x, int y, float angle, bool flip_h, bool flip_v, float delta) {
 
-	// Timer to decide when to advance to the next frame
-	frame_timer += delta;
-	if(frame_timer >= frame_times[current_frame]) {
-		current_frame ++;
-		current_frame %= frames.size();
-		frame_timer = 0;
-	}
+	int current_frame = get_frame_num(delta);
+
 	if (flip_h) {
 		frames[current_frame].draw(renderer, x + offset.hflip_x, y + offset.hflip_y, angle, flip_h, flip_v);
 	} else {

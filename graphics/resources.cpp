@@ -133,8 +133,8 @@ void Resources::load_resources(std::string json_filename) {
             SDL_Texture *texture;
             load_texture(&texture, it.value()["frames"][i]);
             sprite_frames[it.key()].push_back(texture);
-            sprite_frame_delays[it.key()].push_back(it.value()["delays"][i]);
         }
+        sprite_frame_delays[it.key()] = it.value()["delay"];
         SpriteOffset offset = {0, 0, 0, 0};
         if(it.value().find("offset_x") != it.value().end()) {
             offset.x = it.value()["offset_x"];
@@ -172,12 +172,13 @@ Texture Resources::get_texture(std::string name) {
 
 Sprite Resources::get_sprite(std::string name) {
     SpriteOffset offset = sprite_offsets[name];
-    Sprite sprite(offset);
+    float delay = sprite_frame_delays[name];
+    Sprite sprite(offset, delay);
     if(sprite_frames[name].size() == 0) {
         printf("Error: 0 frames in sprite: %s", name.c_str());
     }
     for(uint i = 0; i < sprite_frames[name].size(); i++) {
-        sprite.add_frame(Texture(sprite_frames[name][i]), sprite_frame_delays[name][i]);
+        sprite.add_frame(Texture(sprite_frames[name][i]));
     }
     return sprite;
 }
