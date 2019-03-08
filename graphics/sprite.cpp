@@ -17,7 +17,7 @@ void Sprite::add_frame(Texture frame) {
 }
 
 int Sprite::get_frame_num(float delta) {
-	while (frame_timer > total_time) {
+	while (frame_timer >= total_time) {
 		frame_timer -= total_time;
 	}
 	int frame = (int)(frame_timer / total_time * frames.size());
