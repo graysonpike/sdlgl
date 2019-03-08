@@ -3,13 +3,13 @@
 Sprite::Sprite() :
 	delay(0),
 	frame_timer(0),
-	total_time(0) { printf("What\n");}
+	total_time(0) {}
 
 Sprite::Sprite(SpriteOffset offset, float delay) : 
 	delay(delay),
 	frame_timer(0),
 	total_time(0),
-	offset(offset) { printf("Other constructor\n");}
+	offset(offset) {}
 
 void Sprite::add_frame(Texture frame) {
 	frames.push_back(frame);
