@@ -11,8 +11,10 @@
 
 #include "sprite.h"
 #include "texture.h"
+#include "sprite_offset.h"
 #include "../audio/sound.h"
 #include "../audio/track.h"
+
 
 class Resources {
 
@@ -20,6 +22,7 @@ class Resources {
     std::map<std::string, TTF_Font*> fonts;
     std::map<std::string, SDL_Texture*> textures;
     std::map<std::string, std::vector<SDL_Texture *> > sprite_frames;
+    std::map<std::string, SpriteOffset> sprite_offsets;
     std::map<std::string, std::vector<float> > sprite_frame_delays;
     std::map<std::string, Mix_Chunk*> sounds;
     std::map<std::string, Mix_Music*> tracks;

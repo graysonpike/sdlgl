@@ -91,13 +91,7 @@ Resources::Resources(SDL_Renderer *renderer) {
     this->renderer = renderer;
 }
 
-//
-// Load all font and image files into memory
-// For textures, the key order is [sprite_name][frame_num]
-// Example:
-// load_font(&fonts["inconsolata"], "Inconsolata/Inconsolata-Regular.ttf", 18);
-// load_texture(&textures["player"][1], "player/player_standing.png");
-//
+
 void Resources::load_resources(std::string json_filename) {
 
     // Read JSON object from resources file
@@ -141,6 +135,20 @@ void Resources::load_resources(std::string json_filename) {
             sprite_frames[it.key()].push_back(texture);
             sprite_frame_delays[it.key()].push_back(it.value()["delays"][i]);
         }
+        SpriteOffset offset = {0, 0, 0, 0};
+        if(it.value().find("offset_x") != it.value().end()) {
+            offset.x = it.value()["offset_x"];
+        }
+        if(it.value().find("offset_y") != it.value().end()) {
+            offset.y = it.value()["offset_y"];
+        }
+        if(it.value().find("offset_hflip_x") != it.value().end()) {
+            offset.hflip_x = it.value()["offset_hflip_x"];
+        }
+        if(it.value().find("offset_hflip_y") != it.value().end()) {
+            offset.hflip_y = it.value()["offset_hflip_y"];
+        }
+        sprite_offsets[it.key()] = offset;
     }
 
 }
@@ -163,7 +171,8 @@ Texture Resources::get_texture(std::string name) {
 }
 
 Sprite Resources::get_sprite(std::string name) {
-    Sprite sprite;
+    SpriteOffset offset = sprite_offsets[name];
+    Sprite sprite(offset);
     if(sprite_frames[name].size() == 0) {
         printf("Error: 0 frames in sprite: %s", name.c_str());
     }
