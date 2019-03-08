@@ -54,3 +54,15 @@ int Sprite::get_height() {
 void Sprite::reset() {
 	frame_timer = 0;
 }
+
+void Sprite::set_frame_timer(float time) {
+	frame_timer = time;
+	if (frame_timer < 0) {
+		printf("Error, frame time reset to below zero\n");
+		frame_timer = 0;
+	}
+	if (frame_timer >= total_time) {
+		printf("Error, frame time reset beyond maximum\n");
+		frame_timer = 0;
+	}
+}

@@ -27,6 +27,7 @@ public:
 	int get_width();
 	int get_height();
 	void reset();
+	void set_frame_timer(float time);
 
 };
 
