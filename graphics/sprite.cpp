@@ -13,6 +13,7 @@ Sprite::Sprite(SpriteOffset offset, float delay) :
 
 void Sprite::add_frame(Texture frame) {
 	frames.push_back(frame);
+	total_time = frames.size() * delay;
 }
 
 int Sprite::get_frame_num(float delta) {
