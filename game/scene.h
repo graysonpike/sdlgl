@@ -8,7 +8,7 @@
 
 class Entity;
 
-// Class which has entities and manages an update+render loop
+
 class Scene {
 
 protected:
