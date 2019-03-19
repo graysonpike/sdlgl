@@ -1,0 +1,1 @@
+- More graceful failure when resources are missing (fonts, etc.) with proper error message

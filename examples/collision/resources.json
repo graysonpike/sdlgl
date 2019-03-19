@@ -1,0 +1,15 @@
+{
+	"textures": {
+		"black_box": "black_box.png",
+		"light_black_box": "light_black_box.png",
+		"red_box": "red_box.png",
+		"light_red_box": "light_red_box.png"
+	},
+
+	"fonts": {
+		"base_text": {
+			"filename": "Inconsolata/Inconsolata-Regular.ttf",
+			"size": 16
+		}
+	}
+}
