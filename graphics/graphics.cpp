@@ -99,12 +99,24 @@ void Graphics::present_renderer(float delta) {
 
 }
 
+void Graphics::toggle_debug_visuals() {
+    debug_visuals_enabled = !debug_visuals_enabled;
+}
+
+void Graphics::set_debug_visuals(bool enabled) {
+    debug_visuals_enabled = enabled;
+}
+
 int Graphics::get_width() {
     return width;
 }
 
 int Graphics::get_height() {
     return height;
+}
+
+bool Graphics::get_debug_visuals_enabled() {
+    return debug_visuals_enabled;
 }
 
 SDL_Renderer *Graphics::get_renderer() {
