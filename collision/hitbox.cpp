@@ -27,7 +27,7 @@ Hitbox::Hitbox(float x_offset, float y_offset, int w, int h) {
 	this->y_offset = y_offset;
 	this->w = w;
 	this->h = h;
-	radius = pow(w, 2) + pow(h, 2);
+	radius = pow(pow(w, 2) + pow(h, 2), 0.5f);
 
 }
 
