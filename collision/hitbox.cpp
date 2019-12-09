@@ -1,4 +1,5 @@
 
+#include <algorithm> 
 #include "hitbox.h"
 
 // Size of rects drawn on corners by render_corners()
@@ -27,7 +28,7 @@ Hitbox::Hitbox(float x_offset, float y_offset, int w, int h) {
 	this->y_offset = y_offset;
 	this->w = w;
 	this->h = h;
-	radius = pow(pow(w, 2) + pow(h, 2), 0.5f);
+	radius = pow(2 * pow(std::max(w, h), 2), 0.5f);
 
 }
 

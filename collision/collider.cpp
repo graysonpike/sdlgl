@@ -3,7 +3,7 @@
 
 // Returns the dot product of a given vector
 float dot(SDL_Point a, SDL_Point b) {
-	return a.x * b.x + a.y + b.y;
+	return a.x * b.x + a.y * b.y;
 }
 
 // Returns the magnitude of a given vector
@@ -15,7 +15,10 @@ float mag(float x, float y) {
 // projected along a given axis
 float project_point(SDL_Point point, SDL_Point axis) {
 	float multiplier = dot(point, axis) / dot(axis, axis);
-	return mag(axis.x * multiplier, axis.y * multiplier);
+	SDL_Point projected_point;
+	projected_point.x = axis.x * multiplier;
+	projected_point.y = axis.y * multiplier;
+	return dot(axis, projected_point);
 }
 
 // Determine minimum and maxiumum scalar values from all corners
@@ -52,8 +55,8 @@ bool test_axis(Hitbox *h1, Hitbox *h2, SDL_Point axis) {
 	set_min_max(h1, axis, &h1_min, &h1_max);
 	set_min_max(h2, axis, &h2_min, &h2_max);
 
-	printf("H1 (%f, %f)\n", h1_min, h1_max);
-	printf("H2 (%f, %f)\n", h2_min, h2_max);
+	printf("H1 (%f, %f), r: %f\n", h1_min, h1_max, h1->get_radius());
+	printf("H2 (%f, %f), r: %f\n", h2_min, h2_max, h2->get_radius());
 
 	return (h2_min >= h1_min && h2_min <= h1_max) || (h2_max >= h1_min && h2_min <= h1_max);
 
@@ -64,8 +67,7 @@ bool check_hitboxes(Hitbox *h1, Hitbox *h2) {
 
 	// Check by radius method to avoid expensive Separating Axis Method when possible
 	// Calculate distance of each center
-	float center_distance = pow(h1->get_center_x() - h2->get_center_x(), 2.0f) + pow(h1->get_center_y() - h2->get_center_y(), 2.0f);
-
+	float center_distance = pow(pow(h1->get_center_x() - h2->get_center_x(), 2.0f) + pow(h1->get_center_y() - h2->get_center_y(), 2.0f), 0.5f);
 	// Add radii from both hitboxes
 	float total_radii = h1->get_radius() + h2->get_radius();
 	if(total_radii > center_distance) {
@@ -83,12 +85,12 @@ bool check_hitboxes(Hitbox *h1, Hitbox *h2) {
 		axis4.x = h2->get_tl().x - h2->get_tr().x;
 		axis4.y = h2->get_tl().y - h2->get_tr().y;
 
-		if(!test_axis(h1, h2, axis1)) { return true; }
-		if(!test_axis(h1, h2, axis2)) { return true; }
-		if(!test_axis(h1, h2, axis3)) { return true; }
-		if(!test_axis(h1, h2, axis4)) { return true; }
+		if(!test_axis(h1, h2, axis1)) { return false; }
+		if(!test_axis(h1, h2, axis2)) { return false; }
+		if(!test_axis(h1, h2, axis3)) { return false; }
+		if(!test_axis(h1, h2, axis4)) { return false; }
 
-		return false;
+		return true;
 	}
 
 	return false;
