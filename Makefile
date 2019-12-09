@@ -18,7 +18,9 @@ FILES = audio/sound \
 		graphics/texture \
 		input/inputs \
 		ui/fps_display \
-		ui/entity_count
+		ui/entity_count \
+		collision/hitbox \
+		collision/collider 
 
 OUTPUT = $(FILES:%=build/%.o)
 
@@ -36,6 +38,7 @@ directories:
 	mkdir -p build/graphics
 	mkdir -p build/input
 	mkdir -p build/ui
+	mkdir -p build/collision
 
 
 lib_compile: $(OUTPUT)

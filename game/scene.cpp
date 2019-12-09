@@ -4,12 +4,14 @@
 Scene::Scene(Inputs *inputs, Graphics *graphics) {
 	this->inputs = inputs;
 	this->graphics = graphics;
+	collider = new Collider();
 	delta = 0;
 }
 
 
 void Scene::update(float delta) {
 	this->delta = delta;
+	collider->check_collisions();
 	for (uint i = 0; i < entities.size(); i++) {
 		if (entities[i]->is_alive() == false) {
 			delete entities[i];
@@ -38,6 +40,10 @@ Inputs *Scene::get_inputs() {
 
 Graphics *Scene::get_graphics() {
 	return graphics;
+}
+
+Collider *Scene::get_collider() {
+	return collider;
 }
 
 float Scene::get_delta() {

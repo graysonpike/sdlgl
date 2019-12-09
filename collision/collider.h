@@ -1,12 +1,30 @@
 #ifndef COLLIDER_H
 #define COLLIDER_H
 
+#include <vector>
+#include <functional>
 #include "hitbox.h"
+#include "../game/entity.h"
+
+class Entity;
 
 class Collider {
 
-	
+	struct HitboxInfo {
+		Hitbox *hitbox;
+		Entity *entity;
+		int type;
+		std::vector<int> targets;
+		std::function<void(Entity*, int)> callback;
+	};
 
-}
+	std::vector<HitboxInfo> hitboxes;
 
-#endif COLLIDER_H
+public:
+
+	void add_hitbox(Hitbox *hitbox, Entity *entity, int type, std::vector<int> targets, std::function<void(Entity*, int)> callback);
+	void check_collisions();
+
+};
+
+#endif
