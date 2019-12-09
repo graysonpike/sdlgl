@@ -25,6 +25,7 @@ int main() {
 
     // Load resources
     graphics.get_resources()->load_resources("resources.json");
+    graphics.set_debug_visuals(true);
 
     // Create and populate scene
     Scene scene(&inputs, &graphics);
