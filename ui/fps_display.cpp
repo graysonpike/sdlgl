@@ -24,6 +24,10 @@ void FPS_Display::update() {
 
 void FPS_Display::render() {
 
+    if (!scene->get_graphics()->get_debug_visuals_enabled()) {
+        return;
+    }
+
     SDL_Texture *text_texture = NULL;
     int texture_width, texture_height;
     
