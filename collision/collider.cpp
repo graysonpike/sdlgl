@@ -55,9 +55,6 @@ bool test_axis(Hitbox *h1, Hitbox *h2, SDL_Point axis) {
 	set_min_max(h1, axis, &h1_min, &h1_max);
 	set_min_max(h2, axis, &h2_min, &h2_max);
 
-	printf("H1 (%f, %f), r: %f\n", h1_min, h1_max, h1->get_radius());
-	printf("H2 (%f, %f), r: %f\n", h2_min, h2_max, h2->get_radius());
-
 	return (h2_min >= h1_min && h2_min <= h1_max) || (h2_max >= h1_min && h2_min <= h1_max);
 
 }
