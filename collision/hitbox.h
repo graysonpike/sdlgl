@@ -21,6 +21,7 @@ public:
 	int get_center_x();
 	int get_center_y();
 	float get_radius();
+	int get_radius_approx();
 	SDL_Point get_tl();
 	SDL_Point get_tr();
 	SDL_Point get_bl();

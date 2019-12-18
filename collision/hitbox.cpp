@@ -113,6 +113,10 @@ float Hitbox::get_radius() {
 	return radius;
 }
 
+int Hitbox::get_radius_approx() {
+	return w + h;
+}
+
 SDL_Point Hitbox::get_tl() {
 	return tl;
 }

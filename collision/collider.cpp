@@ -63,10 +63,11 @@ bool test_axis(Hitbox *h1, Hitbox *h2, SDL_Point axis) {
 bool check_hitboxes(Hitbox *h1, Hitbox *h2) {
 
 	// Check by radius method to avoid expensive Separating Axis Method when possible
-	// Calculate distance of each center
-	float center_distance = pow(pow(h1->get_center_x() - h2->get_center_x(), 2.0f) + pow(h1->get_center_y() - h2->get_center_y(), 2.0f), 0.5f);
+	// We will approximate the radius to avoid using pow()
+	// Calculate distance between boxes
+	int center_distance = abs(h1->get_center_x() - h2->get_center_x()) + abs(h1->get_center_y() - h2->get_center_y());
 	// Add radii from both hitboxes
-	float total_radii = h1->get_radius() + h2->get_radius();
+	int total_radii = h1->get_radius_approx() + h2->get_radius_approx();
 	if(total_radii > center_distance) {
 
 		// Radius method is inconclusive, measure with Separating Axis Theorem instead
