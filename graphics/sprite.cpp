@@ -51,6 +51,10 @@ int Sprite::get_height() {
 	return frames[0].get_height();
 }
 
+float Sprite::get_delay() {
+	return delay;
+}
+
 void Sprite::reset() {
 	frame_timer = 0;
 }
@@ -65,4 +69,9 @@ void Sprite::set_frame_timer(float time) {
 		printf("Error, frame time reset beyond maximum\n");
 		frame_timer = 0;
 	}
+}
+
+void Sprite::set_delay(float delay) {
+	this->delay = delay;
+	total_time = frames.size() * delay;
 }
