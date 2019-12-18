@@ -95,12 +95,13 @@ bool check_hitboxes(Hitbox *h1, Hitbox *h2) {
 
 }
 
-void Collider::add_hitbox(Hitbox *hitbox, Entity *entity, int type, std::vector<int> targets, std::function<void(Entity*, int)> callback) {
+void Collider::add_hitbox(Hitbox *hitbox, Entity *entity, int type, const int *targets, int num_targets, std::function<void(Entity*, int)> callback) {
 	HitboxInfo info;
 	info.hitbox = hitbox;
 	info.entity = entity;
 	info.type = type;
 	info.targets = targets;
+	info.num_targets = num_targets;
 	info.callback = callback;
 	hitboxes.push_back(info);
 }
@@ -108,11 +109,11 @@ void Collider::add_hitbox(Hitbox *hitbox, Entity *entity, int type, std::vector<
 void Collider::check_collisions() {
 	for (int i = 0; i < (int)hitboxes.size() - 1; i++) {
 		for (int j = i+1; j < (int)hitboxes.size(); j++) {
-			for (int k = 0; k < (int)hitboxes[i].targets.size(); k++) {
+			for (int k = 0; k < hitboxes[i].num_targets; k++) {
 				if (hitboxes[j].type == hitboxes[i].targets[k]) {
 					if (check_hitboxes(hitboxes[i].hitbox, hitboxes[j].hitbox)) {
 						hitboxes[i].callback(hitboxes[j].entity, hitboxes[j].type);
-						for (int l = 0; l < (int)hitboxes[j].targets.size(); l++) {
+						for (int l = 0; l < hitboxes[j].num_targets; l++) {
 							if (hitboxes[i].type == hitboxes[j].targets[l]) {
 								hitboxes[j].callback(hitboxes[i].entity, hitboxes[i].type);
 							}

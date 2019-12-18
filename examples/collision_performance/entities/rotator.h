@@ -6,6 +6,8 @@
 
 class Rotator : public PhysicalEntity {
 
+	static const int hitbox_targets[];
+
 	float angle;
 	float rot_speed;
 	float vx, vy;
