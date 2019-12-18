@@ -76,16 +76,18 @@ bool check_hitboxes(Hitbox *h1, Hitbox *h2) {
 
 		axis1.x = h1->get_tr().x - h1->get_tl().x;
 		axis1.y = h1->get_tr().y - h1->get_tl().y;
+		if(!test_axis(h1, h2, axis1)) { return false; }
+
 		axis2.x = h1->get_tr().x - h1->get_br().x;
 		axis2.y = h1->get_tr().y - h1->get_br().y;
+		if(!test_axis(h1, h2, axis2)) { return false; }
+		
 		axis3.x = h2->get_tl().x - h2->get_bl().x;
 		axis3.y = h2->get_tl().y - h2->get_bl().y;
+		if(!test_axis(h1, h2, axis3)) { return false; }
+		
 		axis4.x = h2->get_tl().x - h2->get_tr().x;
 		axis4.y = h2->get_tl().y - h2->get_tr().y;
-
-		if(!test_axis(h1, h2, axis1)) { return false; }
-		if(!test_axis(h1, h2, axis2)) { return false; }
-		if(!test_axis(h1, h2, axis3)) { return false; }
 		if(!test_axis(h1, h2, axis4)) { return false; }
 
 		return true;
