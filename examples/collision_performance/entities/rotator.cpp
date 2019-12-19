@@ -18,7 +18,7 @@ Rotator::Rotator(Scene *scene, int x, int y, float vx, float vy, float rot_speed
 		texture_normal = resources->get_texture("red_box");	
 		texture_light = resources->get_texture("light_red_box");
 		scene->get_collider()->add_hitbox(&hitbox, this, 0, std::vector<int>{0}, std::bind(&Rotator::collision_callback, this, _1, _2));
-	}
+}
 
 void Rotator::collision_callback(Entity *entity, int type) {
 	is_touched = true;

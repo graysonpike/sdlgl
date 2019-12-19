@@ -1,9 +1,9 @@
 {
 	"textures": {
-		"black_box": "black_box.png",
-		"light_black_box": "light_black_box.png",
-		"red_box": "red_box.png",
-		"light_red_box": "light_red_box.png"
+		"black_box": { "filename": "black_box.png" },
+		"light_black_box": { "filename": "light_black_box.png" },
+		"red_box": { "filename": "red_box.png" },
+		"light_red_box": { "filename": "light_red_box.png" }
 	},
 
 	"fonts": {

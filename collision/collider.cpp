@@ -76,16 +76,18 @@ bool check_hitboxes(Hitbox *h1, Hitbox *h2) {
 
 		axis1.x = h1->get_tr().x - h1->get_tl().x;
 		axis1.y = h1->get_tr().y - h1->get_tl().y;
+		if(!test_axis(h1, h2, axis1)) { return false; }
+
 		axis2.x = h1->get_tr().x - h1->get_br().x;
 		axis2.y = h1->get_tr().y - h1->get_br().y;
+		if(!test_axis(h1, h2, axis2)) { return false; }
+		
 		axis3.x = h2->get_tl().x - h2->get_bl().x;
 		axis3.y = h2->get_tl().y - h2->get_bl().y;
+		if(!test_axis(h1, h2, axis3)) { return false; }
+		
 		axis4.x = h2->get_tl().x - h2->get_tr().x;
 		axis4.y = h2->get_tl().y - h2->get_tr().y;
-
-		if(!test_axis(h1, h2, axis1)) { return false; }
-		if(!test_axis(h1, h2, axis2)) { return false; }
-		if(!test_axis(h1, h2, axis3)) { return false; }
 		if(!test_axis(h1, h2, axis4)) { return false; }
 
 		return true;
@@ -96,11 +98,16 @@ bool check_hitboxes(Hitbox *h1, Hitbox *h2) {
 }
 
 void Collider::add_hitbox(Hitbox *hitbox, Entity *entity, int type, std::vector<int> targets, std::function<void(Entity*, int)> callback) {
+	int *hitbox_targets = (int*)malloc(sizeof(int) * targets.size());
+	for (int i = 0; i < (int)targets.size(); i++) {
+		hitbox_targets[i] = targets[i];
+	}
 	HitboxInfo info;
 	info.hitbox = hitbox;
 	info.entity = entity;
 	info.type = type;
-	info.targets = targets;
+	info.targets = hitbox_targets;
+	info.num_targets = targets.size();
 	info.callback = callback;
 	hitboxes.push_back(info);
 }
@@ -108,11 +115,11 @@ void Collider::add_hitbox(Hitbox *hitbox, Entity *entity, int type, std::vector<
 void Collider::check_collisions() {
 	for (int i = 0; i < (int)hitboxes.size() - 1; i++) {
 		for (int j = i+1; j < (int)hitboxes.size(); j++) {
-			for (int k = 0; k < (int)hitboxes[i].targets.size(); k++) {
+			for (int k = 0; k < hitboxes[i].num_targets; k++) {
 				if (hitboxes[j].type == hitboxes[i].targets[k]) {
 					if (check_hitboxes(hitboxes[i].hitbox, hitboxes[j].hitbox)) {
 						hitboxes[i].callback(hitboxes[j].entity, hitboxes[j].type);
-						for (int l = 0; l < (int)hitboxes[j].targets.size(); l++) {
+						for (int l = 0; l < hitboxes[j].num_targets; l++) {
 							if (hitboxes[i].type == hitboxes[j].targets[l]) {
 								hitboxes[j].callback(hitboxes[i].entity, hitboxes[i].type);
 							}

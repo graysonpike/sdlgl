@@ -2,9 +2,13 @@
 
 Texture::Texture() {}
 
-
 Texture::Texture(SDL_Texture *texture) {
     this->texture = texture;
+}
+
+Texture::Texture(SDL_Texture *texture, Offset offset) {
+    this->texture = texture;
+    this->offset = offset;
 }
 
 void Texture::draw(SDL_Renderer *renderer, int x, int y) {
@@ -12,8 +16,8 @@ void Texture::draw(SDL_Renderer *renderer, int x, int y) {
     int width, height;
     SDL_QueryTexture(this->texture, NULL, NULL, &width, &height);
     SDL_Rect dst = {
-        x,
-        y,
+        x + offset.x,
+        y + offset.y,
         width,
         height
     };
@@ -26,8 +30,8 @@ void Texture::draw(SDL_Renderer *renderer, int x, int y, float angle) {
     int width, height;
     SDL_QueryTexture(this->texture, NULL, NULL, &width, &height);
     SDL_Rect dst = {
-        x,
-        y,
+        x + offset.x,
+        y + offset.y,
         width,
         height
     };
@@ -40,12 +44,22 @@ void Texture::draw(SDL_Renderer *renderer, int x, int y, float angle, bool flip_
 
     int width, height;
     SDL_QueryTexture(this->texture, NULL, NULL, &width, &height);
-    SDL_Rect dst = {
-        x,
-        y,
-        width,
-        height
-    };
+    SDL_Rect dst;
+    if (flip_h) {
+        dst = {
+            x + offset.hflip_x,
+            y + offset.hflip_y,
+            width,
+            height
+        };
+    } else {
+        dst = {
+            x + offset.x,
+            y + offset.y,
+            width,
+            height
+        };
+    }
 
     uint flip = (uint)SDL_FLIP_NONE;
     if (flip_h) {
@@ -56,6 +70,10 @@ void Texture::draw(SDL_Renderer *renderer, int x, int y, float angle, bool flip_
     }
     SDL_RenderCopyEx(renderer, texture, NULL, &dst, angle / M_PI * 180,
                  NULL, (SDL_RendererFlip)flip);
+}
+
+void Texture::set_offset(Offset offset) {
+    this->offset = offset;
 }
 
 int Texture::get_width() {

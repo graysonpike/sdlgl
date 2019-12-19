@@ -5,13 +5,14 @@ Sprite::Sprite() :
 	frame_timer(0),
 	total_time(0) {}
 
-Sprite::Sprite(SpriteOffset offset, float delay) : 
+Sprite::Sprite(Offset offset, float delay) : 
 	delay(delay),
 	frame_timer(0),
 	total_time(0),
 	offset(offset) {}
 
 void Sprite::add_frame(Texture frame) {
+	frame.set_offset(offset);
 	frames.push_back(frame);
 	total_time = frames.size() * delay;
 }
@@ -28,19 +29,13 @@ int Sprite::get_frame_num(float delta) {
 void Sprite::draw(SDL_Renderer *renderer, int x, int y, float delta) {
 
 	int current_frame = get_frame_num(delta);
-
-	frames[current_frame].draw(renderer, x + offset.x, y + offset.y);
+	frames[current_frame].draw(renderer, x, y);
 }
 
 void Sprite::draw(SDL_Renderer *renderer, int x, int y, float angle, bool flip_h, bool flip_v, float delta) {
 
 	int current_frame = get_frame_num(delta);
-
-	if (flip_h) {
-		frames[current_frame].draw(renderer, x + offset.hflip_x, y + offset.hflip_y, angle, flip_h, flip_v);
-	} else {
-		frames[current_frame].draw(renderer, x + offset.x, y + offset.y, angle, flip_h, flip_v);
-	}
+	frames[current_frame].draw(renderer, x, y, angle, flip_h, flip_v);
 }
 
 int Sprite::get_width() {
