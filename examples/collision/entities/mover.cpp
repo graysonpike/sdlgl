@@ -20,7 +20,7 @@ Mover::Mover(Scene *scene, int x, int y) :
 	hitbox(Hitbox(0, 0, 64, 64)) {
 		Resources *resources = scene->get_graphics()->get_resources();
 		texture_normal = resources->get_texture("black_box");	
-		texture_light = resources->get_texture("light_black_box"); 
+		texture_light = resources->get_texture("light_black_box");
 		scene->get_collider()->add_hitbox(&hitbox, this, 0, std::vector<int>{1}, std::bind(&Mover::collision_callback, this, _1, _2));
 	}
 
