@@ -14,7 +14,7 @@ class Collider {
 		Hitbox *hitbox;
 		Entity *entity;
 		int type;
-		const int *targets;
+		int *targets;
 		int num_targets;
 		std::function<void(Entity*, int)> callback;
 	};
@@ -23,7 +23,7 @@ class Collider {
 
 public:
 
-	void add_hitbox(Hitbox *hitbox, Entity *entity, int type, const int *targets, int num_targets, std::function<void(Entity*, int)> callback);
+	void add_hitbox(Hitbox *hitbox, Entity *entity, int type, std::vector<int> targets, std::function<void(Entity*, int)> callback);
 	void check_collisions();
 
 };

@@ -97,13 +97,17 @@ bool check_hitboxes(Hitbox *h1, Hitbox *h2) {
 
 }
 
-void Collider::add_hitbox(Hitbox *hitbox, Entity *entity, int type, const int *targets, int num_targets, std::function<void(Entity*, int)> callback) {
+void Collider::add_hitbox(Hitbox *hitbox, Entity *entity, int type, std::vector<int> targets, std::function<void(Entity*, int)> callback) {
+	int *hitbox_targets = (int*)malloc(sizeof(int) * targets.size());
+	for (int i = 0; i < (int)targets.size(); i++) {
+		hitbox_targets[i] = targets[i];
+	}
 	HitboxInfo info;
 	info.hitbox = hitbox;
 	info.entity = entity;
 	info.type = type;
-	info.targets = targets;
-	info.num_targets = num_targets;
+	info.targets = hitbox_targets;
+	info.num_targets = targets.size();
 	info.callback = callback;
 	hitboxes.push_back(info);
 }
