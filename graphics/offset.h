@@ -1,7 +1,7 @@
 #ifndef SPRITE_OFFSET_H
 #define SPRITE_OFFSET_H
 
-struct SpriteOffset {
+struct Offset {
     int x;
     int y;
     int hflip_x;

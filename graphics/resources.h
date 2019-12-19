@@ -9,9 +9,9 @@
 #include <SDL2/SDL_ttf.h>
 #include <SDL2/SDL_mixer.h>
 
-#include "sprite.h"
-#include "texture.h"
-#include "sprite_offset.h"
+#include "./sprite.h"
+#include "./texture.h"
+#include "./offset.h"
 #include "../audio/sound.h"
 #include "../audio/track.h"
 
@@ -21,8 +21,9 @@ class Resources {
     static const std::string RES_DIR;
     std::map<std::string, TTF_Font*> fonts;
     std::map<std::string, SDL_Texture*> textures;
+    std::map<std::string, Offset> texture_offsets;
     std::map<std::string, std::vector<SDL_Texture *> > sprite_frames;
-    std::map<std::string, SpriteOffset> sprite_offsets;
+    std::map<std::string, Offset> sprite_offsets;
     std::map<std::string, float> sprite_frame_delays;
     std::map<std::string, Mix_Chunk*> sounds;
     std::map<std::string, Mix_Music*> tracks;

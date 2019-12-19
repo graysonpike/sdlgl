@@ -123,8 +123,22 @@ void Resources::load_resources(std::string json_filename) {
     // Load Textures
     for (json::iterator it = resources["textures"].begin(); it != resources["textures"].end(); it++) {
         SDL_Texture *texture;
-        load_texture(&texture, it.value());
+        load_texture(&texture, it.value()["filename"]);
         textures[it.key()] = texture;
+        Offset offset = {0, 0, 0, 0};
+        if(it.value().find("offset_x") != it.value().end()) {
+            offset.x = it.value()["offset_x"];
+        }
+        if(it.value().find("offset_y") != it.value().end()) {
+            offset.y = it.value()["offset_y"];
+        }
+        if(it.value().find("offset_hflip_x") != it.value().end()) {
+            offset.hflip_x = it.value()["offset_hflip_x"];
+        }
+        if(it.value().find("offset_hflip_y") != it.value().end()) {
+            offset.hflip_y = it.value()["offset_hflip_y"];
+        }
+        texture_offsets[it.key()] = offset;
     }
 
     // Load Sprites
@@ -135,7 +149,7 @@ void Resources::load_resources(std::string json_filename) {
             sprite_frames[it.key()].push_back(texture);
         }
         sprite_frame_delays[it.key()] = it.value()["delay"];
-        SpriteOffset offset = {0, 0, 0, 0};
+        Offset offset = {0, 0, 0, 0};
         if(it.value().find("offset_x") != it.value().end()) {
             offset.x = it.value()["offset_x"];
         }
@@ -167,11 +181,11 @@ TTF_Font* Resources::get_font(std::string name) {
 }
 
 Texture Resources::get_texture(std::string name) {
-    return Texture(textures[name]);
+    return Texture(textures[name], texture_offsets[name]);
 }
 
 Sprite Resources::get_sprite(std::string name) {
-    SpriteOffset offset = sprite_offsets[name];
+    Offset offset = sprite_offsets[name];
     float delay = sprite_frame_delays[name];
     Sprite sprite(offset, delay);
     if(sprite_frames[name].size() == 0) {

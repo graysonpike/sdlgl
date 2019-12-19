@@ -4,7 +4,7 @@
 #include <vector>
 #include <SDL2/SDL.h>
 #include "./texture.h"
-#include "./sprite_offset.h"
+#include "./offset.h"
 
 
 class Sprite {
@@ -12,7 +12,7 @@ class Sprite {
 	float delay;
 	float frame_timer;
 	float total_time;
-	SpriteOffset offset;
+	Offset offset;
 	std::vector<Texture> frames;
 
 	int get_frame_num(float delta);
@@ -20,7 +20,7 @@ class Sprite {
 public:
 
 	Sprite();
-	Sprite(SpriteOffset offset, float delay);
+	Sprite(Offset offset, float delay);
 	void add_frame(Texture frame);
 	void draw(SDL_Renderer *renderer, int x, int y, float delta);
 	void draw(SDL_Renderer *renderer, int x, int y, float angle, bool flip_h, bool flip_v, float delta);
