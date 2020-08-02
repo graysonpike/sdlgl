@@ -5,7 +5,9 @@
 #include <SDL2/SDL.h>
 #include "./texture.h"
 #include "./offset.h"
+#include "../game/scene.h"
 
+class Texture;
 
 class Sprite {
 
@@ -22,6 +24,8 @@ public:
 	Sprite();
 	Sprite(Offset offset, float delay);
 	void add_frame(Texture frame);
+	void draw(Scene *scene, int x, int y, float delta);
+	void draw(Scene *scene, int x, int y, float angle, bool flip_h, bool flip_v, float delta);
 	void draw(SDL_Renderer *renderer, int x, int y, float delta);
 	void draw(SDL_Renderer *renderer, int x, int y, float angle, bool flip_h, bool flip_v, float delta);
 	int get_width();

@@ -9,6 +9,7 @@
 
 class Entity;
 class Collider;
+class Graphics;
 
 class Scene {
 

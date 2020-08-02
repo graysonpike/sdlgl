@@ -11,6 +11,10 @@ Texture::Texture(SDL_Texture *texture, Offset offset) {
     this->offset = offset;
 }
 
+void Texture::draw(Scene *scene, int x, int y) {
+    draw(scene->get_graphics()->get_renderer(), x, y);
+}
+
 void Texture::draw(SDL_Renderer *renderer, int x, int y) {
 
     int width, height;
@@ -23,6 +27,10 @@ void Texture::draw(SDL_Renderer *renderer, int x, int y) {
     };
 
     SDL_RenderCopy(renderer, this->texture, NULL, &dst);
+}
+
+void Texture::draw(Scene *scene, int x, int y, float angle) {
+    draw(scene->get_graphics()->get_renderer(), x, y, angle);
 }
 
 void Texture::draw(SDL_Renderer *renderer, int x, int y, float angle) {
@@ -38,6 +46,10 @@ void Texture::draw(SDL_Renderer *renderer, int x, int y, float angle) {
 
     SDL_RenderCopyEx(renderer, texture, NULL, &dst, angle / M_PI * 180,
                  NULL, SDL_FLIP_NONE);
+}
+
+void Texture::draw(Scene *scene, int x, int y, float angle, bool flip_h, bool flip_v) {
+    draw(scene->get_graphics()->get_renderer(), x, y, angle, flip_h, flip_v);
 }
 
 void Texture::draw(SDL_Renderer *renderer, int x, int y, float angle, bool flip_h, bool flip_v) {

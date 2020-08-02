@@ -16,6 +16,10 @@
 #include "../audio/track.h"
 
 
+class Sprite;
+class Texture;
+
+
 class Resources {
 
     static const std::string RES_DIR;

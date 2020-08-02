@@ -2,6 +2,9 @@
 #define FONT_RENDERER_H
 
 #include "graphics.h"
+#include "resources.h"
+
+class Resources;
 
 class FontRenderer {
 

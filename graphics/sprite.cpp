@@ -26,10 +26,18 @@ int Sprite::get_frame_num(float delta) {
 	return frame;
 }
 
+void Sprite::draw(Scene *scene, int x, int y, float delta) {
+	draw(scene->get_graphics()->get_renderer(), x, y, delta);
+}
+
 void Sprite::draw(SDL_Renderer *renderer, int x, int y, float delta) {
 
 	int current_frame = get_frame_num(delta);
 	frames[current_frame].draw(renderer, x, y);
+}
+
+void Sprite::draw(Scene *scene, int x, int y, float angle, bool flip_h, bool flip_v, float delta) {
+	draw(scene->get_graphics()->get_renderer(), x, y, angle, flip_h, flip_v, delta);
 }
 
 void Sprite::draw(SDL_Renderer *renderer, int x, int y, float angle, bool flip_h, bool flip_v, float delta) {
