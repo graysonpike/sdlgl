@@ -65,6 +65,7 @@ Graphics::Graphics(int width, int height) {
 
     this->width = width;
     this->height = height;
+    debug_visuals_enabled = false;
     init_sdl("SDLGL Game");
     resources = new Resources(renderer);
     font_renderer = new FontRenderer(renderer, resources);
@@ -76,6 +77,7 @@ Graphics::Graphics(int width, int height, std::string window_title) : Graphics(w
 
     this->width = width;
     this->height = height;
+    debug_visuals_enabled = false;
     init_sdl(window_title);
     resources = new Resources(renderer);
     font_renderer = new FontRenderer(renderer, resources);
