@@ -1,4 +1,6 @@
 # sdlgl
+
+
 ### A SDL2 Game Library
 
 This is a simple game framework library I'm creating for use in my own games. SDLGL currently provides support for 
@@ -17,3 +19,17 @@ This is a simple game framework library I'm creating for use in my own games. SD
 * Multiple clean, well commented example programs
 
 I'm currently working on improving documentation coverage. Documentation can be found in the `documentation/` directory.
+
+### Installation
+
+To install SDLGL, you will have to build from source. The Makefile currently requires a linux environment and the following packages:
+
+```
+sudo apt-get install -y g++ libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-ttf-dev
+```
+
+Finally, use the Makefile to build and install the library for development:
+```
+make
+make install
+```
