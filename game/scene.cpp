@@ -13,25 +13,39 @@ void Scene::update(float delta) {
 	this->delta = delta;
 	collider->check_collisions();
 	for (uint i = 0; i < entities.size(); i++) {
-		if (entities[i]->is_alive() == false) {
-			delete entities[i];
+		if (entities[i].entity->is_alive() == false) {
+			delete entities[i].entity;
 			entities.erase(entities.begin() + i);
 			continue;
 		}
-		entities[i]->update();
+		entities[i].entity->update();
 	}
 }
 
 
 void Scene::render() {
 	for (int i = entities.size() - 1; i >= 0; i--) {
-		entities[i]->render();
+		entities[i].entity->render();
 	}
 }
 
 
 void Scene::add_entity(Entity *entity) {
-	entities.push_back(entity);
+	entities.push_back(EntityEntry(entity, 0));
+}
+
+void Scene::add_entity(Entity *entity, int entity_type) {
+	entities.push_back(EntityEntry(entity, entity_type));
+}
+
+std::vector<Entity*> Scene::get_entities_of_type(int entity_type) {
+	std::vector<Entity*> query;
+	for (uint i = 0; i < entities.size(); i++) {
+		if (entities[i].entity_type == entity_type) {
+			query.push_back(entities[i].entity);
+		}
+	}
+	return query;
 }
 
 Inputs *Scene::get_inputs() {
@@ -56,6 +70,6 @@ int Scene::get_entity_count() {
 
 Scene::~Scene() {
 	for(uint i = 0; i < entities.size(); i++) {
-		delete entities[i];
+		delete entities[i].entity;
 	}
 }
