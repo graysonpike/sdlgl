@@ -21,6 +21,7 @@ FILES = audio/sound \
 		ui/entity_count \
 		collision/hitbox \
 		collision/collider 
+		utilities/noise
 
 OUTPUT = $(FILES:%=build/%.o)
 
@@ -39,6 +40,7 @@ directories:
 	mkdir -p build/input
 	mkdir -p build/ui
 	mkdir -p build/collision
+	mkdir -p build/utilities
 
 
 lib_compile: $(OUTPUT)
