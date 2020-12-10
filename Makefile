@@ -22,6 +22,7 @@ FILES = audio/sound \
 		collision/hitbox \
 		collision/collider 
 		utilities/noise
+		utilities/math
 
 OUTPUT = $(FILES:%=build/%.o)
 
