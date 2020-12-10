@@ -46,3 +46,13 @@ void PhysicalEntity::clamp() {
         y = screen_h - h;
     }
 }
+
+
+std::pair<int, int> PhysicalEntity::get_position() {
+    return std::pair<int, int>(x, y);
+}
+
+
+std::pair<int, int> PhysicalEntity::get_size() {
+    return std::pair<int, int>(x, y);
+}

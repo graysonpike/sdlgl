@@ -18,6 +18,8 @@ public:
 
     PhysicalEntity(Scene *scene, float x, float y, int w, int h);
     virtual ~PhysicalEntity()=default;
+    std::pair<int, int> get_position();
+    std::pair<int, int> get_size();
 
 };
 
