@@ -16,12 +16,16 @@ FILES = audio/sound \
 		graphics/fps_counter \
 		graphics/sprite \
 		graphics/texture \
+		graphics/effects/particle \
+		graphics/effects/linear_particle \
+		graphics/effects/particles \
 		input/inputs \
 		ui/fps_display \
 		ui/entity_count \
 		collision/hitbox \
-		collision/collider 
-		utilities/noise
+		collision/collider \
+		utilities/noise \
+		utilities/random \
 		utilities/math
 
 OUTPUT = $(FILES:%=build/%.o)
@@ -38,6 +42,7 @@ directories:
 	mkdir -p build/audio
 	mkdir -p build/game
 	mkdir -p build/graphics
+	mkdir -p build/graphics/effects
 	mkdir -p build/input
 	mkdir -p build/ui
 	mkdir -p build/collision
