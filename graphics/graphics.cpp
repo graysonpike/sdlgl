@@ -41,6 +41,8 @@ bool Graphics::init_sdl(std::string window_title) {
         return false;
     }
 
+    SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
+
     // Initialize TTF
     if(TTF_Init() == -1) {
         printf("SDL_ttf failed to initialize: %s\n", TTF_GetError());
