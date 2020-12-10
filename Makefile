@@ -18,7 +18,8 @@ FILES = audio/sound \
 		graphics/texture \
 		graphics/effects/particle \
 		graphics/effects/linear_particle \
-		graphics/effects/particles \
+		graphics/effects/emitter \
+		graphics/effects/linear_emitter \
 		input/inputs \
 		ui/fps_display \
 		ui/entity_count \
