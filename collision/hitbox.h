@@ -15,6 +15,7 @@ class Hitbox {
 
 public:
 
+	Hitbox();
 	Hitbox(float x_offset, float y_offset, int w, int h);
 	void update_pos(float x, float y, float angle);
 	void render_corners(SDL_Renderer *renderer); // DEBUG METHOD
@@ -22,6 +23,7 @@ public:
 	int get_center_y();
 	float get_radius();
 	int get_radius_approx();
+	bool check_point(SDL_Point point);
 	SDL_Point get_tl();
 	SDL_Point get_tr();
 	SDL_Point get_bl();

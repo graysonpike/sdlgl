@@ -22,6 +22,9 @@ void rotate_point(int *x, int *y, float angle) {
 }
 
 
+Hitbox::Hitbox() {}
+
+
 Hitbox::Hitbox(float x_offset, float y_offset, int w, int h) {
 
 	this->x_offset = x_offset;
@@ -115,6 +118,10 @@ float Hitbox::get_radius() {
 
 int Hitbox::get_radius_approx() {
 	return w + h;
+}
+
+bool Hitbox::check_point(SDL_Point point) {
+	return (point.x >= tl.x && point.x <= tr.x) && (point.y >= tl.y && point.y <= bl.y);
 }
 
 SDL_Point Hitbox::get_tl() {
