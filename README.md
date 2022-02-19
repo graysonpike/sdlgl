@@ -1,7 +1,7 @@
 # sdlgl
 
 
-### A SDL2 Game Library
+## An SDL2 Game Library
 
 This is a simple game framework library I'm creating for use in my own games. SDLGL currently provides support for 
 * A simple and extensible Entity + Scene organization
@@ -18,9 +18,23 @@ This is a simple game framework library I'm creating for use in my own games. SD
 * Direct access to the SDL2 rendering context
 * Multiple clean, well commented example programs
 
-I'm currently working on improving documentation coverage. Documentation can be found in the `documentation/` directory.
 
-### Installation
+## Demo Projects
+
+In addition to the example programs, I have some other projects that are built with SDLGL.
+
+### [SDLGL Knight Game](https://github.com/graysonpike/sdlgl-knight-game)
+![Knight game gameplay](screenshots/knight.gif)
+
+### [SDLGL Visuals](https://github.com/graysonpike/sdlgl-visuals)
+![Perlin noise waves simulation](screenshots/waves.gif)
+
+### [SDGL Tank Game](https://github.com/graysonpike/sdlgl-tank-game)
+![Tank game gameplay](screenshots/tanks.png)
+
+
+
+## Installation
 
 To install SDLGL, you will have to build from source. The Makefile currently requires a linux environment and the following packages:
 
