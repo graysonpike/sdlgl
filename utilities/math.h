@@ -13,6 +13,8 @@ public:
     //           rotate_vector(1, M_PI/2) => (1, 0) 
     //           rotate_vector(1, M_PI) => (0, 1) 
     static std::pair<int, int> rotate_vector(int magnitude, float angle);
+
+    static std::pair<float, float> rotate_about_point(std::pair<float, float> center, std::pair<float, float> moved_point, float angle);
     
 };
 
