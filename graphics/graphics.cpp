@@ -60,6 +60,26 @@ bool Graphics::init_sdl(std::string window_title) {
 
 }
 
+void Graphics::init_capture_surface() {
+
+    // Account for endianness
+    Uint32 rmask, gmask, bmask, amask;
+    #if SDL_BYTEORDER == SDL_BIG_ENDIAN
+        rmask = 0xff000000;
+        gmask = 0x00ff0000;
+        bmask = 0x0000ff00;
+        amask = 0x000000ff;
+    #else
+        rmask = 0x000000ff;
+        gmask = 0x0000ff00;
+        bmask = 0x00ff0000;
+        amask = 0xff000000;
+    #endif
+    capture_surface = SDL_CreateRGBSurface(0, this->width, this->height, 32, 0, 0, 0, 0);
+
+}
+
+
 // PUBLIC FUNCTIONS
 
 // Initializes SDL and loads resources
@@ -72,6 +92,7 @@ Graphics::Graphics(int width, int height) {
     resources = new Resources(renderer);
     font_renderer = new FontRenderer(renderer, resources);
     fps_counter = FPSCounter();
+    init_capture_surface();
 
 }
 
@@ -139,10 +160,16 @@ float Graphics::get_fps() {
     return fps_counter.get_fps();
 }
 
+void Graphics::capture_bmp(std::string filename) {
+    SDL_RenderReadPixels(renderer, NULL, SDL_GetWindowPixelFormat(window), capture_surface->pixels, capture_surface->pitch);
+    SDL_SaveBMP(capture_surface, filename.c_str());
+}
+
 Graphics::~Graphics() {
 
     SDL_DestroyWindow(window);
     SDL_DestroyRenderer(renderer);
+    SDL_FreeSurface(capture_surface);
     delete resources;
     delete font_renderer;
     Mix_Quit();

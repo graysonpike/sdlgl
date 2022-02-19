@@ -25,8 +25,10 @@ class Graphics {
     FontRenderer *font_renderer;
     SDL_Window *window;
     SDL_Renderer *renderer;
+    SDL_Surface* capture_surface;
 
     bool init_sdl(std::string window_title);
+    void init_capture_surface();
 
 public:
 
@@ -43,6 +45,7 @@ public:
     FontRenderer *get_font_renderer();
     Resources *get_resources();
     float get_fps();
+    void capture_bmp(std::string filename);
     ~Graphics();
 
 };
