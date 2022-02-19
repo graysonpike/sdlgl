@@ -29,6 +29,8 @@ int main() {
     scene.add_entity(new FPS_Display(
         &scene, "base_text", {255, 255, 255, 255}));
 
+    graphics.set_debug_visuals(true);
+
     // Enter a simple update loop
     bool loop = true;
     while (loop) {
