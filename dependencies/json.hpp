@@ -1,3 +1,7 @@
+// Disable GCC warnings for SDLGL Project:
+#pragma GCC diagnostic push 
+#pragma GCC diagnostic ignored "-Wtautological-overlap-compare"
+
 /*
     __ _____ _____ _____
  __|  |   __|     |   | |  JSON for Modern C++
@@ -17298,3 +17302,6 @@ inline nlohmann::json::json_pointer operator "" _json_pointer(const char* s, std
 
 
 #endif
+
+// SDLGL Project
+#pragma GCC diagnostic pop
