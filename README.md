@@ -36,13 +36,30 @@ In addition to the example programs, I have some other projects that are built w
 
 ## Installation
 
-To install SDLGL, you will have to build from source. The Makefile currently requires a linux environment and the following packages:
+To install SDLGL, you will have to build from source using GCC's `g++` compiler.
+### Linux
+
+The Makefile currently requires the following packages:
 
 ```
 sudo apt-get install -y g++ libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-ttf-dev
 ```
 
-Finally, use the Makefile to build and install the library for development:
+Finally, use the Makefile to build and install the library for development. The `install` rule creates `/usr/local/lib/libsdlgl.a` and copies headers to `/usr/local/lib/sdlgl`.
+```
+make
+make install
+```
+
+### MacOS
+
+The Makefile currently requires the following packages:
+
+```
+brew install sdl2 sdl2_image sdl2_mixer sdl2_ttf
+```
+
+Use the Makefile to build and install the library for development:
 ```
 make
 make install

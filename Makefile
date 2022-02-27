@@ -56,10 +56,10 @@ lib_compile: $(OUTPUT)
 	ar rcs build/libsdlgl.a $(OUTPUT)
 
 install:
-	sudo cp build/libsdlgl.a /usr/lib/libsdlgl.a
-	sudo rm -rf /usr/include/sdlgl
-	sudo mkdir /usr/include/sdlgl
-	sudo cp -r * /usr/include/sdlgl
+	sudo cp build/libsdlgl.a /usr/local/lib/libsdlgl.a
+	sudo rm -rf /usr/local/include/sdlgl
+	sudo mkdir /usr/local/include/sdlgl
+	sudo cp -r * /usr/local/include/sdlgl
 
 
 .SECONDEXPANSION:
