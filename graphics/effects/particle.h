@@ -9,7 +9,6 @@ class Particle : public PhysicalEntity {
 
     SDL_Color color;
     Timer timer;
-    float duration;
 
 public:
 

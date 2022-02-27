@@ -2,7 +2,7 @@
 #include "../../graphics/graphics.h"
 
 
-Particle::Particle(Scene *scene, int x, int y, int size, SDL_Color color, float duration) : PhysicalEntity(scene, x, y, size, size), color(color), timer(duration), duration(duration) {
+Particle::Particle(Scene *scene, int x, int y, int size, SDL_Color color, float duration) : PhysicalEntity(scene, x, y, size, size), color(color), timer(duration) {
     timer.reset();
 }
 
