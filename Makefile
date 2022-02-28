@@ -10,7 +10,6 @@ FILES = audio/audio \
 		game/timer \
 		game/scene \
 		game/context \
-		game/simple_context \
 		game/entity \
 		game/physical_entity \
 		graphics/graphics \
