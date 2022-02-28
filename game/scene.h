@@ -6,6 +6,7 @@
 #include "../input/inputs.h"
 #include "../graphics/graphics.h"
 #include "../collision/collider.h"
+#include "../audio/audio.h"
 
 class Entity;
 class Collider;
@@ -22,16 +23,19 @@ class Scene {
 
 protected:
 
-	Inputs *inputs;
+	
 	Graphics *graphics;
+	Audio *audio;
+	Inputs *inputs;
 	Collider *collider;
+	
 	float delta;
 
 	std::vector<EntityEntry> entities;
 
 public:
 
-	Scene(Inputs *inputs, Graphics *graphics);
+	Scene(Graphics *graphics, Audio *audio, Inputs *inputs);
 	void update(float delta);
 	void render();
 	void add_entity(Entity *entity);
@@ -41,6 +45,7 @@ public:
 	Inputs *get_inputs();
 	Graphics *get_graphics();
 	Collider *get_collider();
+	Audio *get_audio();
 	float get_delta();
 	int get_entity_count();
 

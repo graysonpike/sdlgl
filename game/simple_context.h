@@ -10,7 +10,8 @@ public:
 
 	Scene *scene;
 
-	SimpleContext(Graphics *graphics, Inputs *inputs, Clock *clock);
+	SimpleContext(Graphics *graphics);
+	SimpleContext(Graphics *graphics, Audio *audio, Inputs *inputs, Clock *clock);
 
 };
 

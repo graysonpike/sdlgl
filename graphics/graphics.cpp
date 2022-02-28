@@ -1,9 +1,5 @@
 #include "graphics.h"
 
-#define AUDIO_FREQUENCY 44100
-#define HARDWARE_CHANNELS 2
-#define AUDIO_CHUNK_SIZE 2048
-#define ALLOCATED_CHANNELS 16
 
 // PRIVATE HELPER FUNCTIONS
 
@@ -49,13 +45,6 @@ bool Graphics::init_sdl(std::string window_title) {
         return false;
     }
 
-    //Initialize Mixer
-    if( Mix_OpenAudio(AUDIO_FREQUENCY, MIX_DEFAULT_FORMAT, HARDWARE_CHANNELS, AUDIO_CHUNK_SIZE) < 0 ) {
-        printf("SDL_mixer failed to initialize: %s\n", Mix_GetError());
-        return false;
-    }
-    Mix_AllocateChannels(ALLOCATED_CHANNELS);
-
     return true;
 
 }
@@ -70,20 +59,7 @@ void Graphics::init_capture_surface() {
 // PUBLIC FUNCTIONS
 
 // Initializes SDL and loads resources
-Graphics::Graphics(int width, int height) {
-
-    this->width = width;
-    this->height = height;
-    debug_visuals_enabled = false;
-    init_sdl("SDLGL Game");
-    resources = new Resources(renderer);
-    font_renderer = new FontRenderer(renderer, resources);
-    fps_counter = FPSCounter();
-    init_capture_surface();
-
-}
-
-Graphics::Graphics(int width, int height, std::string window_title) : Graphics(width, height) {
+Graphics::Graphics(int width, int height, std::string window_title) {
 
     this->width = width;
     this->height = height;
@@ -92,6 +68,7 @@ Graphics::Graphics(int width, int height, std::string window_title) : Graphics(w
     resources = new Resources(renderer);
     font_renderer = new FontRenderer(renderer, resources);
     fps_counter = FPSCounter();
+    init_capture_surface();
 
 }
 

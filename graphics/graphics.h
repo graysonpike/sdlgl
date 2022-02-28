@@ -11,6 +11,7 @@
 #include "fps_counter.h"
 #include "font_renderer.h"
 
+
 class FontRenderer;
 
 class Graphics {
@@ -32,9 +33,8 @@ class Graphics {
 
 public:
 
-    Graphics(int width, int height);
-    Graphics(int width, int height, std::string window_title);
-    void clear_screen(SDL_Color color={0, 0, 0, 255});
+    Graphics(int width, int height, std::string window_title = "SDLGL Game");
+    void clear_screen(SDL_Color color=(SDL_Color){0, 0, 0, 255});
     void present_renderer(float delta);
     void toggle_debug_visuals();
     void set_debug_visuals(bool enabled);

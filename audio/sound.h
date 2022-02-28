@@ -7,13 +7,13 @@
 
 class Sound {
 
-	Mix_Chunk *sound;
-
 public:
+
+	Mix_Chunk *sound;
 
 	Sound();
 	Sound(Mix_Chunk *sound);
-	void play();
+
 };
 
 #endif

@@ -5,6 +5,7 @@
 #include "../graphics/graphics.h"
 #include "./scene.h"
 #include "./clock.h"
+#include "../audio/audio.h"
 
 
 class Context {
@@ -12,11 +13,13 @@ class Context {
 public:
 
     Graphics *graphics;
+    Audio *audio;
     Inputs *inputs;
     Clock *clock;
     bool *loop;
 
-    Context(Graphics *graphics, Inputs *inputs, Clock *clock);
+    Context(Graphics *graphics);
+    Context(Graphics *graphics, Audio *audio, Inputs *inputs, Clock *clock);
 };
 
 #endif

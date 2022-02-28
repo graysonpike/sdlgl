@@ -1,9 +1,10 @@
 #include "scene.h"
 #include <iostream>
 
-Scene::Scene(Inputs *inputs, Graphics *graphics) {
-	this->inputs = inputs;
+Scene::Scene(Graphics *graphics, Audio *audio, Inputs *inputs) {
 	this->graphics = graphics;
+	this->audio = audio;
+	this->inputs = inputs;
 	collider = new Collider();
 	delta = 0;
 }
@@ -58,6 +59,10 @@ Graphics *Scene::get_graphics() {
 
 Collider *Scene::get_collider() {
 	return collider;
+}
+
+Audio *Scene::get_audio() {
+	return audio;
 }
 
 float Scene::get_delta() {
