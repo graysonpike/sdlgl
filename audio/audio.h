@@ -23,12 +23,12 @@ public:
 	Audio();
 	int reserve_channel();
 	void free_channel(int channel);
-	void play_sound(Sound sound);
-	void play_sound(Sound sound, int channel, bool repeat = false);
+	int play_sound(Sound sound);
+	int play_sound(Sound sound, int channel, bool repeat = false);
 	void stop_channel(int channel);
 	void set_channel_volume(int channel, int volume);
 	void fade_out_channel(int channel, float time);
-	void fade_in_channel(int channel, Sound sound, float time, bool repeat);
+	int fade_in_channel(int channel, Sound sound, float time, bool repeat);
     
 };
 

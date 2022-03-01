@@ -38,13 +38,13 @@ void Audio::free_channel(int channel) {
     reserved[channel] = false;
 }
 
-void Audio::play_sound(Sound sound) {
+int Audio::play_sound(Sound sound) {
     int channel = get_free_channel();
-    play_sound(sound, channel);
+    return play_sound(sound, channel);
 }
 
-void Audio::play_sound(Sound sound, int channel, bool repeat) {
-    Mix_PlayChannel(channel, sound.sound, repeat ? REPEAT : NO_REPEAT);
+int Audio::play_sound(Sound sound, int channel, bool repeat) {
+    return Mix_PlayChannel(channel, sound.sound, repeat ? REPEAT : NO_REPEAT);
 }
 
 void Audio::stop_channel(int channel) {
@@ -59,6 +59,6 @@ void Audio::fade_out_channel(int channel, float time) {
     Mix_FadeOutChannel(channel, time * 1000);
 }
 
-void Audio::fade_in_channel(int channel, Sound sound, float time, bool repeat) {
-    Mix_FadeInChannel(channel, sound.sound, repeat ? REPEAT : NO_REPEAT, time * 1000);
+int Audio::fade_in_channel(int channel, Sound sound, float time, bool repeat) {
+    return Mix_FadeInChannel(channel, sound.sound, repeat ? REPEAT : NO_REPEAT, time * 1000);
 }
