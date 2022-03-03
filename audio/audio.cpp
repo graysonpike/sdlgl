@@ -14,51 +14,28 @@ Audio::Audio() {
     Mix_AllocateChannels(ALLOCATED_CHANNELS);
 
     for (unsigned int i = 0; i < ALLOCATED_CHANNELS; i++) {
-        reserved[i] = false;
+        channels[i] = Channel(i);
     }
-    
+       
 }
 
-int Audio::get_free_channel() {
+int Audio::get_next_free_channel_index() {
     for (unsigned int i = 0; i < ALLOCATED_CHANNELS; i++) {
-        if (!reserved[i] && !Mix_Playing(i)) {
+        if (channels[i].is_free_and_not_playing()) {
             return i;
         }
     }
     return -1;
 }
 
-int Audio::reserve_channel() {
-    int channel = get_free_channel();
-    reserved[channel] = true;
-    return channel;
+Channel *Audio::reserve_channel() {
+    int index = get_next_free_channel_index();
+    channels[index].reserved = true;
+    return &channels[index];
 }
 
-void Audio::free_channel(int channel) {
-    reserved[channel] = false;
-}
-
-int Audio::play_sound(Sound sound) {
-    int channel = get_free_channel();
-    return play_sound(sound, channel);
-}
-
-int Audio::play_sound(Sound sound, int channel, bool repeat) {
-    return Mix_PlayChannel(channel, sound.sound, repeat ? REPEAT : NO_REPEAT);
-}
-
-void Audio::stop_channel(int channel) {
-    Mix_HaltChannel(channel);
-}
-
-void Audio::set_channel_volume(int channel, int volume) {
-    Mix_Volume(channel, volume);
-}
-
-void Audio::fade_out_channel(int channel, float time) {
-    Mix_FadeOutChannel(channel, time * 1000);
-}
-
-int Audio::fade_in_channel(int channel, Sound sound, float time, bool repeat) {
-    return Mix_FadeInChannel(channel, sound.sound, repeat ? REPEAT : NO_REPEAT, time * 1000);
+Channel *Audio::play_sound(Sound sound, bool repeat) {
+    int index = get_next_free_channel_index();
+    channels[index].play_sound(sound, repeat);
+    return &channels[index];
 }

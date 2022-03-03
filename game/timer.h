@@ -14,6 +14,7 @@ public:
     Timer();
     Timer(float duration);
     void reset();
+    void set_duration(float duration);
     bool is_done();
     bool is_active();
     float remaining(); // fraction of time remaining

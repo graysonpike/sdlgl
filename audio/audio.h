@@ -5,6 +5,7 @@
 #include <SDL2/SDL_mixer.h>
 
 #include "sound.h"
+#include "channel.h"
 
 
 #define AUDIO_FREQUENCY 44100
@@ -15,20 +16,14 @@
 
 class Audio {
 
-	bool reserved[ALLOCATED_CHANNELS];
-	int get_free_channel();
+	Channel channels[ALLOCATED_CHANNELS];
+	int get_next_free_channel_index();
 
 public:
 
 	Audio();
-	int reserve_channel();
-	void free_channel(int channel);
-	int play_sound(Sound sound);
-	int play_sound(Sound sound, int channel, bool repeat = false);
-	void stop_channel(int channel);
-	void set_channel_volume(int channel, int volume);
-	void fade_out_channel(int channel, float time);
-	int fade_in_channel(int channel, Sound sound, float time, bool repeat);
+	Channel *reserve_channel();
+	Channel *play_sound(Sound sound, bool repeat = false);
     
 };
 

@@ -4,6 +4,7 @@ SHELL := /bin/bash
 CC = g++
 FLAGS = -c -std=c++11 -g3 -Wall
 FILES = audio/audio \
+		audio/channel \
 		audio/sound \
 		audio/track \
 		game/clock \

@@ -28,6 +28,13 @@ void Timer::reset() {
 }
 
 
+void Timer::set_duration(float duration) {
+
+    this->duration = duration;
+
+}
+
+
 bool Timer::is_done() {
 
     update();
