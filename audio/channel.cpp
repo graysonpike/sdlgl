@@ -1,4 +1,5 @@
 #include "channel.h"
+#include <iostream>
 
 
 Channel::Channel() {}
@@ -47,6 +48,7 @@ void Channel::update(float delta) {
 
 
 int Channel::get_sdl_volume(float volume) {
+    // Use x^4 curve to approximate logarithmic scale for volume dB
     return volume * volume * volume * volume * 128.0f;
 }
 
@@ -57,6 +59,9 @@ float Channel::get_volume() {
 
 
 void Channel::set_volume(float volume) {
+    if (volume > 1.0f) { volume = 1.0f;}
+    if (volume < 0.0f) { volume = 0.0f;}
+    this->volume = volume;
     Mix_Volume(channel, get_sdl_volume(volume));
 }
 
@@ -81,7 +86,7 @@ void Channel::fade_time(float volume, float time) {
 
 void Channel::fade_time(float from_volume, float to_volume, float time) {
     set_volume(from_volume);
-    fade_time(volume, time);
+    fade_time(to_volume, time);
 }
 
 

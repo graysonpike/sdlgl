@@ -28,6 +28,12 @@ int Audio::get_next_free_channel_index() {
     return -1;
 }
 
+void Audio::update(float delta) {
+    for (unsigned int i = 0; i < ALLOCATED_CHANNELS; i++) {
+        channels[i].update(delta);
+    }
+}
+
 Channel *Audio::reserve_channel() {
     int index = get_next_free_channel_index();
     channels[index].reserved = true;

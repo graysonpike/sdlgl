@@ -22,6 +22,7 @@ class Audio {
 public:
 
 	Audio();
+	void update(float delta);
 	Channel *reserve_channel();
 	Channel *play_sound(Sound sound, bool repeat = false);
     
