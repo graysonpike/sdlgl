@@ -2,6 +2,10 @@
 #include <iostream>
 
 
+#define REPEAT -1
+#define NO_REPEAT 0
+
+
 Channel::Channel() {}
 
 
@@ -49,7 +53,7 @@ void Channel::update(float delta) {
 
 int Channel::get_sdl_volume(float volume) {
     // Use x^4 curve to approximate logarithmic scale for volume dB
-    return volume * volume * volume * volume * 128.0f;
+    return int(volume * volume * volume * volume * 128.0f);
 }
 
 
@@ -67,7 +71,12 @@ void Channel::set_volume(float volume) {
 
 
 void Channel::play_sound(Sound sound, bool repeat) {
-    Mix_PlayChannel(channel, sound.sound, repeat);
+    if (repeat) {
+        std::cout << "REPEATING" << std::endl;
+    }
+    Mix_HaltChannel(channel);
+    std::cout << "Playing sound to Mixer" << std::endl;
+    Mix_PlayChannel(channel, sound.sound, repeat ? REPEAT : NO_REPEAT);
 }
 
 

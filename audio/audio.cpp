@@ -1,8 +1,5 @@
 #include "audio.h"
-
-
-#define REPEAT -1
-#define NO_REPEAT 0
+#include <iostream>
 
 
 Audio::Audio() {
@@ -43,5 +40,6 @@ Channel *Audio::reserve_channel() {
 Channel *Audio::play_sound(Sound sound, bool repeat) {
     int index = get_next_free_channel_index();
     channels[index].play_sound(sound, repeat);
+    std::cout << index << std::endl;
     return &channels[index];
 }
