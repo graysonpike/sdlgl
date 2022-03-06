@@ -64,3 +64,8 @@ Use the Makefile to build and install the library for development:
 make
 make install
 ```
+
+### License
+SDLGL is licensed under the [MIT License](https://github.com/graysonpike/sdlgl/blob/master/LICENSE).
+
+This library uses the [JSON C++ library by Niels Lohmann](https://github.com/nlohmann/json) which is licensed under the MIT License.
