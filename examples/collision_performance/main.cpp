@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 
+#include <sdlgl/game/context.h>
 #include <sdlgl/graphics/graphics.h>
 #include <sdlgl/game/clock.h>
 #include <sdlgl/game/scene.h>
@@ -24,49 +25,46 @@ float rand_float(float min, float max) {
 }
 
 
+void game_loop(Context context, Scene *scene) {
+
+    context.inputs->update();
+    context.clock->tick();
+    context.graphics->clear_screen((SDL_Color){255, 255, 255, 255});
+
+    scene->update(context.clock->get_delta());
+    scene->render();
+
+    context.audio->update(context.clock->get_delta());
+
+    if (context.inputs->get_quit()) {
+        *context.loop = false;
+    }
+
+    context.graphics->present_renderer(context.clock->get_delta());
+
+}
+
+
 int main() {
 
     srand(time(NULL));
 
-    Clock clock;
-    Inputs inputs;
+    Context context(new Graphics(640, 480), new Audio(), new Inputs(), new Clock());
+    context.graphics->get_resources()->load_resources("resources.json");
+    context.graphics->set_debug_visuals(true);
 
-    // Load a window
-    Graphics graphics(640, 480);
-
-    // Load resources
-    graphics.get_resources()->load_resources("resources.json");
-    graphics.set_debug_visuals(true);
-
-    // Create and populate scene
-    Scene scene(&inputs, &graphics);
-    scene.add_entity(new FPS_Display(
-        &scene, "base_text", {0, 0, 0, 255}));
-    scene.add_entity(new EntityCount(
-        &scene, "base_text", {0, 0, 0, 255}));
+    Scene *scene = new Scene(context.graphics, context.audio, context.inputs);
+    scene->add_entity(new FPS_Display(
+        scene, "base_text", {0, 0, 0, 255}));
+    scene->add_entity(new EntityCount(
+        scene, "base_text", {0, 0, 0, 255}));
     for (int i = 0; i < NUM_ROTATORS; i++) {
-        SDL_Point p = rand_coord(&graphics);
-        scene.add_entity(new Rotator(&scene, p.x, p.y, rand_float(-100, 100), rand_float(-100, 100), rand_float(-10, 10)));
+        SDL_Point p = rand_coord(context.graphics);
+        scene->add_entity(new Rotator(scene, p.x, p.y, rand_float(-100, 100), rand_float(-100, 100), rand_float(-10, 10)));
     }
 
-    // Enter a simple update loop
-    bool loop = true;
-    while (loop) {
-
-        inputs.update();
-        clock.tick();
-        graphics.clear_screen({255, 255, 255, 255});
-        
-        scene.update(clock.get_delta());
-        scene.render();
-
-        graphics.present_renderer(clock.get_delta());
-
-        // If ESC or 'X' button is pressed, leave the update loop and exit
-        if(inputs.get_quit()) {
-            loop = false;
-        }
-
+    while (*context.loop) {
+        game_loop(context, scene);
     }
 
     return 0;
