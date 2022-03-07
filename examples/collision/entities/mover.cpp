@@ -15,7 +15,7 @@ using namespace std::placeholders;
 
 Mover::Mover(Scene *scene, int x, int y) :
 	PhysicalEntity(scene, x, y, 64, 64),
-	angle(angle),
+	angle(0),
 	is_touched(false),
 	hitbox(Hitbox(0, 0, 64, 64)) {
 		Resources *resources = scene->get_graphics()->get_resources();

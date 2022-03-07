@@ -4,6 +4,7 @@
 
 #include <sdlgl/graphics/graphics.h>
 #include <sdlgl/game/clock.h>
+#include <sdlgl/game/context.h>
 #include <sdlgl/game/scene.h>
 #include <sdlgl/input/inputs.h>
 #include <sdlgl/ui/fps_display.h>
@@ -27,12 +28,12 @@ int main() {
     graphics.get_resources()->load_resources("resources.json");
     graphics.set_debug_visuals(true);
 
-    // Create and populate scene
-    Scene scene(&inputs, &graphics);
+    Context context(new Graphics(720, 640), new Audio(), new Inputs(), new Clock());
+    Scene scene(context.graphics, context.audio, context.inputs);
     scene.add_entity(new FPS_Display(
-        &scene, "base_text", {0, 0, 0, 255}));
+        &scene, "base_text", (SDL_Color){0, 0, 0, 255}));
     scene.add_entity(new EntityCount(
-        &scene, "base_text", {0, 0, 0, 255}));
+        &scene, "base_text", (SDL_Color){0, 0, 0, 255}));
     scene.add_entity(new Rotator(&scene, graphics.get_width()/2, graphics.get_height()/2, 0.0f));
     scene.add_entity(new Mover(&scene, 100, 100));
 
@@ -42,7 +43,7 @@ int main() {
 
         inputs.update();
         clock.tick();
-        graphics.clear_screen({255, 255, 255, 255});
+        graphics.clear_screen((SDL_Color){255, 255, 255, 255});
         
         scene.update(clock.get_delta());
         scene.render();
