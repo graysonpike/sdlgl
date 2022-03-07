@@ -2,9 +2,10 @@
 #include <stdlib.h>
 #include <time.h>
 
-#include <sdlgl/graphics/graphics.h>
-#include <sdlgl/game/clock.h>
 #include <sdlgl/game/context.h>
+#include <sdlgl/graphics/graphics.h>
+#include <sdlgl/graphics/resources.h>
+#include <sdlgl/game/clock.h>
 #include <sdlgl/game/scene.h>
 #include <sdlgl/input/inputs.h>
 #include <sdlgl/ui/fps_display.h>
@@ -14,47 +15,46 @@
 #include "entities/mover.h"
 
 
+void game_loop(Context context, Scene *scene) {
+
+    context.inputs->update();
+    context.clock->tick();
+    context.graphics->clear_screen((SDL_Color){255, 255, 255, 255});
+
+    scene->update(context.clock->get_delta());
+    scene->render();
+
+    context.audio->update(context.clock->get_delta());
+
+    if (context.inputs->get_quit()) {
+        *context.loop = false;
+    }
+
+    context.graphics->present_renderer(context.clock->get_delta());
+
+}
+
+
 int main() {
 
     srand(time(NULL));
 
-    Clock clock;
-    Inputs inputs;
-
     // Load a window
-    Graphics graphics(640, 480);
-
-    // Load resources
-    graphics.get_resources()->load_resources("resources.json");
-    graphics.set_debug_visuals(true);
-
     Context context(new Graphics(720, 640), new Audio(), new Inputs(), new Clock());
-    Scene scene(context.graphics, context.audio, context.inputs);
-    scene.add_entity(new FPS_Display(
-        &scene, "base_text", (SDL_Color){0, 0, 0, 255}));
-    scene.add_entity(new EntityCount(
-        &scene, "base_text", (SDL_Color){0, 0, 0, 255}));
-    scene.add_entity(new Rotator(&scene, graphics.get_width()/2, graphics.get_height()/2, 0.0f));
-    scene.add_entity(new Mover(&scene, 100, 100));
+    context.graphics->get_resources()->load_resources("resources.json");
+    context.graphics->set_debug_visuals(true);
 
-    // Enter a simple update loop
-    bool loop = true;
-    while (loop) {
+    Scene *scene = new Scene(context.graphics, context.audio, context.inputs);
+    
+    scene->add_entity(new FPS_Display(
+        scene, "base_text", (SDL_Color){0, 0, 0, 255}));
+    scene->add_entity(new EntityCount(
+        scene, "base_text", (SDL_Color){0, 0, 0, 255}));
+    scene->add_entity(new Rotator(scene, context.graphics->get_width()/2, context.graphics->get_height()/2, 0.0f));
+    scene->add_entity(new Mover(scene, 100, 100));
 
-        inputs.update();
-        clock.tick();
-        graphics.clear_screen((SDL_Color){255, 255, 255, 255});
-        
-        scene.update(clock.get_delta());
-        scene.render();
-
-        graphics.present_renderer(clock.get_delta());
-
-        // If ESC or 'X' button is pressed, leave the update loop and exit
-        if(inputs.get_quit()) {
-            loop = false;
-        }
-
+    while (*context.loop) {
+        game_loop(context, scene);
     }
 
     return 0;
