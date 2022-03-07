@@ -16,15 +16,11 @@ int main() {
 
     Clock clock;
     Inputs inputs;
-
-    // Load a window
     Graphics graphics(640, 480);
-
-    // Load resources
+    Scene scene(&graphics, new Audio(), &inputs);
     graphics.get_resources()->load_resources("resources.json");
 
-    // Create and populate scene
-    Scene scene(&inputs, &graphics);
+
     scene.add_entity(new SoundButton(
         &scene,
         91, 195, 91, 91,

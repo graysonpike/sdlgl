@@ -3,11 +3,11 @@
 
 #include <iostream>
 
-#include "../../graphics/graphics.h"
-#include "../../game/clock.h"
-#include "../../game/scene.h"
-#include "../../input/inputs.h"
-#include "../../ui/fps_display.h"
+#include <sdlgl/graphics/graphics.h>
+#include <sdlgl/game/clock.h>
+#include <sdlgl/game/scene.h>
+#include <sdlgl/input/inputs.h>
+#include <sdlgl/ui/fps_display.h>
 
 #include "box.h"
 
@@ -24,7 +24,7 @@ int main() {
     graphics.get_resources()->load_resources("resources.json");
 
     // Create and populate scene
-    Scene scene(&inputs, &graphics);
+    Scene scene(&graphics, new Audio(), &inputs);
     scene.add_entity(new Box(&scene));
     scene.add_entity(new FPS_Display(
         &scene, "base_text", {255, 255, 255, 255}));

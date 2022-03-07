@@ -24,7 +24,7 @@ int main() {
     graphics.get_resources()->load_resources("resources.json");
 
     // Create and populate scene
-    Scene scene(&inputs, &graphics);
+    Scene scene(&graphics, new Audio(), &inputs);
     scene.add_entity(new Player(&scene, 320.0f, 240.0f));
     scene.add_entity(new FPS_Display(
         &scene, "base_text", {0, 0, 0, 255}));

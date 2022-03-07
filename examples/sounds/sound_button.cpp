@@ -22,7 +22,7 @@ void SoundButton::update() {
 	Inputs *inputs = scene->get_inputs();
 	SDL_Rect rect = {(int)x, (int)y, w, h};
 	if(inputs->is_mouse_down_event_in_rect(&rect)) {
-		sound.play();
+		scene->get_audio()->play_sound(sound);
 	}
 }
 
