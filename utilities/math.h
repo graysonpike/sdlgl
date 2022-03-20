@@ -27,6 +27,8 @@ public:
     static std::pair<float, float> add_vectors(std::pair<float, float> a, std::pair<float, float> b);
 
     static std::pair<float, float> scale_vector(std::pair<float, float> v, float factor);
+
+    static float clamp(float x, float min, float max);
     
 };
 

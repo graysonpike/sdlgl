@@ -71,11 +71,7 @@ void Channel::set_volume(float volume) {
 
 
 void Channel::play_sound(Sound sound, bool repeat) {
-    if (repeat) {
-        std::cout << "REPEATING" << std::endl;
-    }
     Mix_HaltChannel(channel);
-    std::cout << "Playing sound to Mixer" << std::endl;
     Mix_PlayChannel(channel, sound.sound, repeat ? REPEAT : NO_REPEAT);
 }
 

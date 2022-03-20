@@ -55,3 +55,14 @@ std::pair<float, float> Math::add_vectors(std::pair<float, float> a, std::pair<f
 std::pair<float, float> Math::scale_vector(std::pair<float, float> v, float factor) {
     return std::pair<float, float>(v.first * factor, v.second * factor);
 }
+
+
+float Math::clamp(float x, float min, float max) {
+    if (x < min) {
+        return min;
+    }
+    if (x > max) {
+        return max;
+    }
+    return x;
+}
