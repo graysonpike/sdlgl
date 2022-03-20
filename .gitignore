@@ -5,3 +5,5 @@ build/*
 
 # Development / IDE
 .vscode
+.idea
+
