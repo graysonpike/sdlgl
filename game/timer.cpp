@@ -2,7 +2,7 @@
 #include <SDL2/SDL.h>
 
 
-Timer::Timer() : duration(0) {}
+Timer::Timer() : duration(0), active(false) {}
 
 
 Timer::Timer(float duration) {
@@ -58,6 +58,39 @@ float Timer::remaining() {
         return 0.0f;
     }
     return 1 - (SDL_GetTicks() - start_time) / (float)duration;
+
+}
+
+
+float Timer::elapsed() {
+
+    update();
+    if (!active) {
+        return 0.0f;
+    }
+    return (duration - (SDL_GetTicks() - start_time)) / (float)duration;
+
+}
+
+
+float Timer::duration_remaining() {
+
+    update();
+    if (!active) {
+        return 0.0f;
+    }
+    return (SDL_GetTicks() - start_time) / 1000.0f;
+
+}
+
+
+float Timer::duration_elapsed() {
+
+    update();
+    if (!active) {
+        return 0.0f;
+    }
+    return (SDL_GetTicks() - start_time) / 1000.0f;
 
 }
 

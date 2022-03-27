@@ -5,7 +5,7 @@
 class Timer {
 
     unsigned int start_time;
-    unsigned int duration;
+    unsigned int duration; // in milliseconds
     bool active = false;
     void update();
 
@@ -17,7 +17,10 @@ public:
     void set_duration(float duration);
     bool is_done();
     bool is_active();
-    float remaining(); // fraction of time remaining
+    float remaining(); // Fraction of time remaining
+    float elapsed(); // Fraction of time elapsed
+    float duration_remaining();
+    float duration_elapsed();
     float get_duration();
 
 };
