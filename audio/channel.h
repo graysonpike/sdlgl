@@ -34,7 +34,7 @@ public:
     void update(float delta);
     float get_volume();
     void set_volume(float volume);
-    void play_sound(Sound sonud, bool repeat = false);
+    void play_sound(Sound sound, bool repeat = false);
     void stop_playing();
     void fade_time(float volume, float time);
     void fade_time(float from_volume, float to_volume, float time);

@@ -24,7 +24,7 @@ public:
 	Audio();
 	void update(float delta);
 	Channel *reserve_channel();
-	Channel *play_sound(Sound sound, bool repeat = false);
+	Channel *play_sound(Sound sound, bool repeat = false, float volume=1.0f);
     
 };
 

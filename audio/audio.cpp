@@ -37,8 +37,9 @@ Channel *Audio::reserve_channel() {
     return &channels[index];
 }
 
-Channel *Audio::play_sound(Sound sound, bool repeat) {
+Channel *Audio::play_sound(Sound sound, bool repeat, float volume) {
     int index = get_next_free_channel_index();
+    channels[index].set_volume(volume);
     channels[index].play_sound(sound, repeat);
     return &channels[index];
 }
