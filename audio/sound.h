@@ -4,16 +4,12 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_mixer.h>
 
-
 class Sound {
+   public:
+    Mix_Chunk *sound;
 
-public:
-
-	Mix_Chunk *sound;
-
-	Sound();
-	Sound(Mix_Chunk *sound);
-
+    Sound();
+    Sound(Mix_Chunk *sound);
 };
 
 #endif

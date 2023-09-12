@@ -1,17 +1,14 @@
 #ifndef CONTEXT_H
 #define CONTEXT_H
 
-#include "../input/inputs.h"
-#include "../graphics/graphics.h"
-#include "./scene.h"
-#include "./clock.h"
 #include "../audio/audio.h"
-
+#include "../graphics/graphics.h"
+#include "../input/inputs.h"
+#include "./clock.h"
+#include "./scene.h"
 
 class Context {
-
-public:
-
+   public:
     Graphics *graphics;
     Audio *audio;
     Inputs *inputs;

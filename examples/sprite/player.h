@@ -7,17 +7,14 @@
 #include "../../graphics/texture.h"
 
 class Player : public PhysicalEntity {
+    enum { UP, DOWN, LEFT, RIGHT, STANDING } dir;
+    Sprite sprites[4];
+    Texture standing_texture;
 
-	enum { UP, DOWN, LEFT, RIGHT, STANDING } dir;
-	Sprite sprites[4];
-	Texture standing_texture;
-
-public:
-
-	Player(Scene *scene, float x, float y);
-	void update();
-	void render();
-
+   public:
+    Player(Scene *scene, float x, float y);
+    void update();
+    void render();
 };
 
 #endif

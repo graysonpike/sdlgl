@@ -5,9 +5,7 @@
 
 #include "emitter.h"
 
-
 class LinearParticleEmitter : public ParticleEmitter {
-
     int vx_min;
     int vx_max;
     int vy_min;
@@ -17,14 +15,13 @@ class LinearParticleEmitter : public ParticleEmitter {
     void new_particle();
     void reset_particle(Particle *particle);
 
-public:
-
-    LinearParticleEmitter(Scene *scene, int x, int y,
-        int vx_min, int vx_max, int vy_min, int vy_max,
-        std::vector<SDL_Color> colors, int quantity, int size,
-        float particle_duration=1.0f, float lifetime=0.0f, bool emit_delay=true);
+   public:
+    LinearParticleEmitter(Scene *scene, int x, int y, int vx_min, int vx_max,
+                          int vy_min, int vy_max, std::vector<SDL_Color> colors,
+                          int quantity, int size,
+                          float particle_duration = 1.0f, float lifetime = 0.0f,
+                          bool emit_delay = true);
     void set_velocity(int vx_min, int vx_max, int vy_min, int vy_max);
-    
 };
 
 #endif

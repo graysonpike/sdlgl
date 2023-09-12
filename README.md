@@ -16,7 +16,7 @@ This is a simple game framework library I'm creating for use in my own games. SD
 * An FPS counter
 * Font renderer
 * Direct access to the SDL2 rendering context
-* Multiple clean, well commented example programs
+* Multiple commented example programs demonstrating each engine feature
 
 
 ## Demo Projects
@@ -37,7 +37,7 @@ In addition to the example programs, I have some other projects that are built w
 ## Installation
 
 To install SDLGL, you will have to build from source using GCC's `g++` compiler.
-### Linux
+### Linux (Debian/Ubuntu)
 
 The Makefile currently requires the following packages:
 
@@ -63,6 +63,29 @@ Use the Makefile to build and install the library for development:
 ```
 make
 make install
+```
+
+## Development
+
+### Additional Development Requirements
+In addition to the build requirements, additional tools are required for development.
+You can install them with the following commands:
+#### Linux (Debian/Ubuntu)
+```shell
+sudo apt install clang-format
+```
+#### macOS
+```shell
+brew install clang-format
+```
+
+### Formatting
+This project is auto-formatted to the Google style (modified to an indent of 4 spaces)
+using the clang-format tool.
+
+To run the auto-formatter on all files, use the following command:
+```shell
+find . -name '*.h' -or -name '*.cpp' | xargs clang-format -i
 ```
 
 ## License

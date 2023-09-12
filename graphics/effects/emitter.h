@@ -4,11 +4,8 @@
 #include "../../game/physical_entity.h"
 #include "particle.h"
 
-
 class ParticleEmitter : public PhysicalEntity {
-
-protected:
-
+   protected:
     std::vector<SDL_Color> colors;
     int color_index;
     int particle_size;
@@ -18,24 +15,22 @@ protected:
     Timer emit_timer;
     bool emit_delay;
     bool stopping;
-    std::vector<Particle*> particles;
+    std::vector<Particle *> particles;
 
     virtual void new_particle() = 0;
     virtual void reset_particle(Particle *particle) = 0;
     void handle_emission();
     SDL_Color next_color();
 
-public:
-
-    ParticleEmitter(Scene *scene, int x, int y,
-        std::vector<SDL_Color> colors, int quantity, int size,
-        float particle_duration=1.0f, float lifetime=0.0f, bool emit_delay=true);
+   public:
+    ParticleEmitter(Scene *scene, int x, int y, std::vector<SDL_Color> colors,
+                    int quantity, int size, float particle_duration = 1.0f,
+                    float lifetime = 0.0f, bool emit_delay = true);
     void set_location(int x, int y);
     void stop();
     void update();
     void render();
     ~ParticleEmitter();
-
 };
 
 #endif

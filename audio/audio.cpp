@@ -1,11 +1,11 @@
 #include "audio.h"
+
 #include <iostream>
 
-
 Audio::Audio() {
-
-    //Initialize Mixer
-    if( Mix_OpenAudio(AUDIO_FREQUENCY, MIX_DEFAULT_FORMAT, HARDWARE_CHANNELS, AUDIO_CHUNK_SIZE) < 0 ) {
+    // Initialize Mixer
+    if (Mix_OpenAudio(AUDIO_FREQUENCY, MIX_DEFAULT_FORMAT, HARDWARE_CHANNELS,
+                      AUDIO_CHUNK_SIZE) < 0) {
         printf("SDL_mixer failed to initialize: %s\n", Mix_GetError());
     }
     Mix_AllocateChannels(ALLOCATED_CHANNELS);
@@ -13,7 +13,6 @@ Audio::Audio() {
     for (unsigned int i = 0; i < ALLOCATED_CHANNELS; i++) {
         channels[i] = Channel(i);
     }
-       
 }
 
 int Audio::get_next_free_channel_index() {

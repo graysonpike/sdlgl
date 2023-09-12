@@ -1,10 +1,5 @@
 #include "track.h"
 
+Track::Track() {}
 
-Track::Track() {
-
-}
-
-Track::Track(Mix_Music *track) {
-	this->track = track;
-}
+Track::Track(Mix_Music *track) { this->track = track; }

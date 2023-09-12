@@ -1,12 +1,10 @@
 // Example Game to Demonstrate Blank Screen
 
-#include "../../graphics/graphics.h"
 #include "../../game/clock.h"
+#include "../../graphics/graphics.h"
 #include "../../input/inputs.h"
 
-
 int main() {
-
     Clock clock;
     Inputs inputs;
 
@@ -21,7 +19,7 @@ int main() {
         graphics.clear_screen();
         graphics.present_renderer(clock.get_delta());
         // If ESC or 'X' button is pressed, leave the update loop and exit
-        if(inputs.get_quit()) {
+        if (inputs.get_quit()) {
             loop = false;
         }
     }

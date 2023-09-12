@@ -5,9 +5,7 @@
 
 #define NUM_KEYS 2014
 
-
 class Inputs {
-
     bool quit;
     int mouse_x;
     int mouse_y;
@@ -19,8 +17,7 @@ class Inputs {
     // Returns true if ESC or 'X' button is pressed
     bool check_for_quit(SDL_Event event);
 
-public:
-
+   public:
     Inputs();
     void update();
     // Returns true if the ESC key or 'close window' event was triggered
@@ -34,7 +31,6 @@ public:
     bool is_mouse_in_rect(SDL_Rect *rect);
     bool is_mouse_down_in_rect(SDL_Rect *rect);
     bool is_mouse_down_event_in_rect(SDL_Rect *rect);
-
 };
 
 #endif

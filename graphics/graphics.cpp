@@ -1,27 +1,24 @@
 #include "graphics.h"
 
-
 // PRIVATE HELPER FUNCTIONS
 
 // Starts SDL2 and creates a window.
 // Also starts additional libraries like sdl_ttf and sdl_mixer
 // Some flags can be changed for different rendering settings
 bool Graphics::init_sdl(std::string window_title) {
-
     // Initialize SDL_video
-    if(SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER) < 0) {
+    if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER) < 0) {
         printf("Error: Failed to init SDL2: %s\n", SDL_GetError());
         return false;
     }
 
     // Create SDL Window
-    window = SDL_CreateWindow(
-        window_title.c_str(),                  // window title
-        SDL_WINDOWPOS_UNDEFINED,      // initial x position
-        SDL_WINDOWPOS_UNDEFINED,      // initial y position
-        width,                        // width, in pixels
-        height,                       // height, in pixels
-        SDL_WINDOW_OPENGL             // flags - see below
+    window = SDL_CreateWindow(window_title.c_str(),     // window title
+                              SDL_WINDOWPOS_UNDEFINED,  // initial x position
+                              SDL_WINDOWPOS_UNDEFINED,  // initial y position
+                              width,                    // width, in pixels
+                              height,                   // height, in pixels
+                              SDL_WINDOW_OPENGL         // flags - see below
     );
     if (window == NULL) {
         printf("Could not create window: %s\n", SDL_GetError());
@@ -29,10 +26,9 @@ bool Graphics::init_sdl(std::string window_title) {
     }
 
     // Initialize renderer with flags
-    renderer = SDL_CreateRenderer(window, -1,
-                                  SDL_RENDERER_ACCELERATED |
-                                  SDL_RENDERER_PRESENTVSYNC);
-    if(renderer == NULL) {
+    renderer = SDL_CreateRenderer(
+        window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+    if (renderer == NULL) {
         printf("Could not init renderer: %s\n", SDL_GetError());
         return false;
     }
@@ -40,27 +36,23 @@ bool Graphics::init_sdl(std::string window_title) {
     SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
 
     // Initialize TTF
-    if(TTF_Init() == -1) {
+    if (TTF_Init() == -1) {
         printf("SDL_ttf failed to initialize: %s\n", TTF_GetError());
         return false;
     }
 
     return true;
-
 }
 
 void Graphics::init_capture_surface() {
-    
-    capture_surface = SDL_CreateRGBSurface(0, this->width, this->height, 32, 0, 0, 0, 0);
-
+    capture_surface =
+        SDL_CreateRGBSurface(0, this->width, this->height, 32, 0, 0, 0, 0);
 }
-
 
 // PUBLIC FUNCTIONS
 
 // Initializes SDL and loads resources
 Graphics::Graphics(int width, int height, std::string window_title) {
-
     this->width = width;
     this->height = height;
     debug_visuals_enabled = false;
@@ -69,23 +61,18 @@ Graphics::Graphics(int width, int height, std::string window_title) {
     font_renderer = new FontRenderer(renderer, resources);
     fps_counter = FPSCounter();
     init_capture_surface();
-
 }
 
 // Clear the screen with a black background
 void Graphics::clear_screen(SDL_Color color) {
-
     SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
     SDL_RenderClear(renderer);
-
 };
 
 // Present renderer and record delta time (in seconds)
 void Graphics::present_renderer(float delta) {
-
     SDL_RenderPresent(renderer);
     fps_counter.count(delta);
-
 }
 
 void Graphics::toggle_debug_visuals() {
@@ -96,41 +83,27 @@ void Graphics::set_debug_visuals(bool enabled) {
     debug_visuals_enabled = enabled;
 }
 
-int Graphics::get_width() {
-    return width;
-}
+int Graphics::get_width() { return width; }
 
-int Graphics::get_height() {
-    return height;
-}
+int Graphics::get_height() { return height; }
 
-bool Graphics::get_debug_visuals_enabled() {
-    return debug_visuals_enabled;
-}
+bool Graphics::get_debug_visuals_enabled() { return debug_visuals_enabled; }
 
-SDL_Renderer *Graphics::get_renderer() {
-    return renderer;
-}
+SDL_Renderer *Graphics::get_renderer() { return renderer; }
 
-FontRenderer *Graphics::get_font_renderer() {
-    return font_renderer;
-}
+FontRenderer *Graphics::get_font_renderer() { return font_renderer; }
 
-Resources *Graphics::get_resources() {
-    return resources;
-}
+Resources *Graphics::get_resources() { return resources; }
 
-float Graphics::get_fps() {
-    return fps_counter.get_fps();
-}
+float Graphics::get_fps() { return fps_counter.get_fps(); }
 
 void Graphics::capture_bmp(std::string filename) {
-    SDL_RenderReadPixels(renderer, NULL, SDL_GetWindowPixelFormat(window), capture_surface->pixels, capture_surface->pitch);
+    SDL_RenderReadPixels(renderer, NULL, SDL_GetWindowPixelFormat(window),
+                         capture_surface->pixels, capture_surface->pitch);
     SDL_SaveBMP(capture_surface, filename.c_str());
 }
 
 Graphics::~Graphics() {
-
     SDL_DestroyWindow(window);
     SDL_DestroyRenderer(renderer);
     SDL_FreeSurface(capture_surface);
@@ -139,5 +112,4 @@ Graphics::~Graphics() {
     Mix_Quit();
     IMG_Quit();
     SDL_Quit();
-
 }
