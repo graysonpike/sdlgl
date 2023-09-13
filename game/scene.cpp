@@ -13,54 +13,76 @@ Scene::Scene(Graphics *graphics, Audio *audio, Inputs *inputs) {
 void Scene::update(float delta) {
     this->delta = delta;
     collider->check_collisions();
-    for (uint i = 0; i < entities.size(); i++) {
-        if (entities[i].entity->is_alive() == false) {
-            delete entities[i].entity;
-            entities.erase(entities.begin() + i);
-            continue;
+
+    std::vector<Entity *> &all_entities = entities["all"];
+
+    // Remove dead entities using the erase-remove idiom
+    all_entities.erase(std::remove_if(all_entities.begin(), all_entities.end(),
+                                      [](Entity *entity) {
+                                          if (!entity->is_alive()) {
+                                              delete entity;
+                                              return true;
+                                          }
+                                          return false;
+                                      }),
+                       all_entities.end());
+
+    for (Entity *entity : all_entities) {
+        entity->update();
+    }
+}
+
+void Scene::render() const {
+    const std::vector<Entity *> &all_entities = get_entities_with_tag("all");
+    for (Entity *entity : all_entities) {
+        entity->render();
+    }
+}
+
+void Scene::add_entity(Entity *entity) { entities["all"].push_back(entity); }
+
+void Scene::add_entity(Entity *entity, const std::vector<std::string> &tags) {
+    add_entity(entity);
+    for (const std::string &tag : tags) {
+        if (tag != "all") {
+            entities[tag].push_back(entity);
         }
-        entities[i].entity->update();
     }
 }
 
-void Scene::render() {
-    for (int i = entities.size() - 1; i >= 0; i--) {
-        entities[i].entity->render();
+const std::vector<Entity *> &Scene::get_entities_with_tag(
+    const std::string &tag) const {
+    auto it = entities.find(tag);
+    if (it != entities.end()) {
+        return it->second;
     }
+    // Handle the case where the tag isn't found. You cannot return a temporary.
+    static const std::vector<Entity *> empty_vector;
+    return empty_vector;
 }
 
-void Scene::add_entity(Entity *entity) {
-    entities.push_back(EntityEntry(entity, 0));
-}
+Inputs *Scene::get_inputs() const { return inputs; }
 
-void Scene::add_entity(Entity *entity, int entity_type) {
-    entities.push_back(EntityEntry(entity, entity_type));
-}
+Graphics *Scene::get_graphics() const { return graphics; }
 
-std::vector<Entity *> Scene::get_entities_of_type(int entity_type) {
-    std::vector<Entity *> query;
-    for (uint i = 0; i < entities.size(); i++) {
-        if (entities[i].entity_type == entity_type) {
-            query.push_back(entities[i].entity);
-        }
+Collider *Scene::get_collider() const { return collider; }
+
+Audio *Scene::get_audio() const { return audio; }
+
+float Scene::get_delta() const { return delta; }
+
+unsigned Scene::get_entity_count() const {
+    auto it = entities.find("all");
+    if (it != entities.end()) {
+        const std::vector<Entity *> &vec = it->second;
+        return vec.size();
     }
-    return query;
+    return 0;
 }
-
-Inputs *Scene::get_inputs() { return inputs; }
-
-Graphics *Scene::get_graphics() { return graphics; }
-
-Collider *Scene::get_collider() { return collider; }
-
-Audio *Scene::get_audio() { return audio; }
-
-float Scene::get_delta() { return delta; }
-
-int Scene::get_entity_count() { return entities.size(); }
 
 Scene::~Scene() {
-    for (uint i = 0; i < entities.size(); i++) {
-        delete entities[i].entity;
+    const std::vector<Entity *> &all_entities = get_entities_with_tag("all");
+    for (Entity *entity : all_entities) {
+        delete entity;
     }
 }

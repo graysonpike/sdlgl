@@ -13,13 +13,6 @@ class Entity;
 class Collider;
 class Graphics;
 
-struct EntityEntry {
-    Entity *entity;
-    int entity_type;
-    EntityEntry(Entity *entity, int entity_type)
-        : entity(entity), entity_type(entity_type) {}
-};
-
 class Scene {
    protected:
     Graphics *graphics;
@@ -29,22 +22,23 @@ class Scene {
 
     float delta;
 
-    std::vector<EntityEntry> entities;
+    std::unordered_map<std::string, std::vector<Entity *>> entities;
 
    public:
     Scene(Graphics *graphics, Audio *audio, Inputs *inputs);
     void update(float delta);
-    void render();
+    void render() const;
     void add_entity(Entity *entity);
-    void add_entity(Entity *entity, int entity_type);
-    std::vector<Entity *> get_entities_of_type(int type);
+    void add_entity(Entity *entity, const std::vector<std::string> &tags);
+    const std::vector<Entity *> &get_entities_with_tag(
+        const std::string &tag) const;
 
-    Inputs *get_inputs();
-    Graphics *get_graphics();
-    Collider *get_collider();
-    Audio *get_audio();
-    float get_delta();
-    int get_entity_count();
+    Inputs *get_inputs() const;
+    Graphics *get_graphics() const;
+    Collider *get_collider() const;
+    Audio *get_audio() const;
+    float get_delta() const;
+    unsigned get_entity_count() const;
 
     ~Scene();
 };
