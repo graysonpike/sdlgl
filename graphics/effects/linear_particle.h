@@ -8,8 +8,8 @@ class LinearParticle : public Particle {
     int vy;
 
    public:
-    LinearParticle(Scene *scene, int x, int y, int size, int vx, int vy,
-                   SDL_Color color, float duration);
+    LinearParticle(const std::shared_ptr<Scene>& scene, int x, int y, int size,
+                   int vx, int vy, SDL_Color color, float duration);
     void update();
     void reset(int x, int y, int vx, int vy);
 };

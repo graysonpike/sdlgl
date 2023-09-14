@@ -11,16 +11,17 @@
 
 class EntityCount : public Entity {
     float update_delay_timer;
-    int entity_count;
+    unsigned entity_count;
     std::string font;
     SDL_Color color;
 
    public:
-    EntityCount(Scene *scene);
-    EntityCount(Scene *scene, std::string font, SDL_Color color);
+    EntityCount(std::shared_ptr<Scene>& scene);
+    EntityCount(std::shared_ptr<Scene>& scene, std::string font,
+                SDL_Color color);
 
-    void update();
-    void render();
+    void update() override;
+    void render() override;
 };
 
 #endif

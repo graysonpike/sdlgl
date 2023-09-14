@@ -1,5 +1,7 @@
 #include "collider.h"
 
+#include <utility>
+
 // Returns the dot product of a given vector
 float dot(SDL_Point a, SDL_Point b) { return a.x * b.x + a.y * b.y; }
 
@@ -111,30 +113,25 @@ bool check_hitboxes(Hitbox *h1, Hitbox *h2) {
 void Collider::add_hitbox(Hitbox *hitbox, Entity *entity, int type,
                           std::vector<int> targets,
                           std::function<void(Entity *, int)> callback) {
-    int *hitbox_targets = (int *)malloc(sizeof(int) * targets.size());
-    for (int i = 0; i < (int)targets.size(); i++) {
-        hitbox_targets[i] = targets[i];
-    }
     HitboxInfo info;
     info.hitbox = hitbox;
     info.entity = entity;
     info.type = type;
-    info.targets = hitbox_targets;
-    info.num_targets = targets.size();
-    info.callback = callback;
+    info.targets = std::move(targets);
+    info.callback = std::move(callback);
     hitboxes.push_back(info);
 }
 
 void Collider::check_collisions() {
     for (int i = 0; i < (int)hitboxes.size() - 1; i++) {
         for (int j = i + 1; j < (int)hitboxes.size(); j++) {
-            for (int k = 0; k < hitboxes[i].num_targets; k++) {
+            for (int k = 0; k < hitboxes[i].targets.size(); k++) {
                 if (hitboxes[j].type == hitboxes[i].targets[k]) {
                     if (check_hitboxes(hitboxes[i].hitbox,
                                        hitboxes[j].hitbox)) {
                         hitboxes[i].callback(hitboxes[j].entity,
                                              hitboxes[j].type);
-                        for (int l = 0; l < hitboxes[j].num_targets; l++) {
+                        for (int l = 0; l < hitboxes[j].targets.size(); l++) {
                             if (hitboxes[i].type == hitboxes[j].targets[l]) {
                                 hitboxes[j].callback(hitboxes[i].entity,
                                                      hitboxes[i].type);

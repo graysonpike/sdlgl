@@ -4,6 +4,7 @@
 #include <iostream>
 
 #include "../../game/clock.h"
+#include "../../game/context.h"
 #include "../../game/scene.h"
 #include "../../graphics/graphics.h"
 #include "../../input/inputs.h"
@@ -11,34 +12,33 @@
 #include "player.h"
 
 int main() {
-    Clock clock;
-    Inputs inputs;
-
-    // Load a window
-    Graphics graphics(640, 480);
+    Context context(std::make_shared<Graphics>(640, 480),
+                    std::make_shared<Audio>(), std::make_shared<Inputs>(),
+                    std::make_shared<Clock>());
+    std::shared_ptr<Scene> scene = std::make_shared<Scene>(
+        context.graphics, context.audio, context.inputs);
 
     // Load resources
-    graphics.get_resources()->load_resources("resources.json");
+    context.graphics->get_resources()->load_resources("resources.json");
 
-    // Create and populate scene
-    Scene scene(&graphics, new Audio(), &inputs);
-    scene.add_entity(new Player(&scene, 320.0f, 240.0f));
-    scene.add_entity(new FPS_Display(&scene, "base_text", {0, 0, 0, 255}));
+    scene->add_entity(std::make_shared<FPS_Display>(scene, "base_text",
+                                                    (SDL_Color){0, 0, 0, 255}));
+    scene->add_entity(std::make_shared<Player>(scene, 320.0f, 240.0f));
 
     // Enter a simple update loop
     bool loop = true;
     while (loop) {
-        inputs.update();
-        clock.tick();
-        graphics.clear_screen({255, 255, 255, 255});
+        context.inputs->update();
+        context.clock->tick();
+        context.graphics->clear_screen({255, 255, 255, 255});
 
-        scene.update(clock.get_delta());
-        scene.render();
+        scene->update(context.clock->get_delta());
+        scene->render();
 
-        graphics.present_renderer(clock.get_delta());
+        context.graphics->present_renderer(context.clock->get_delta());
 
         // If ESC or 'X' button is pressed, leave the update loop and exit
-        if (inputs.get_quit()) {
+        if (context.inputs->get_quit()) {
             loop = false;
         }
     }

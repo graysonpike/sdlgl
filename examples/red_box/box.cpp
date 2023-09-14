@@ -17,7 +17,8 @@
 
 #define SPEED 200
 
-Box::Box(Scene *scene, float x, float y, int width, int height, SDL_Color color)
+Box::Box(const std::shared_ptr<Scene>& scene, float x, float y, int width,
+         int height, SDL_Color color)
     : Entity(scene) {
     this->x = x;
     this->y = y;
@@ -26,7 +27,7 @@ Box::Box(Scene *scene, float x, float y, int width, int height, SDL_Color color)
     this->color = color;
 }
 
-Box::Box(Scene *scene) : Entity(scene) {
+Box::Box(const std::shared_ptr<Scene>& scene) : Entity(scene) {
     width = DEFAULT_WIDTH;
     height = DEFAULT_HEIGHT;
     // Position box in the middle of the window
@@ -36,7 +37,7 @@ Box::Box(Scene *scene) : Entity(scene) {
 }
 
 void Box::update() {
-    Inputs *inputs = scene->get_inputs();
+    std::shared_ptr<Inputs> inputs = scene->get_inputs();
 
     if (inputs->is_key_down(KEY_UP)) {
         y -= SPEED * scene->get_delta();
@@ -56,7 +57,7 @@ void Box::update() {
 }
 
 void Box::render() {
-    SDL_Renderer *renderer = scene->get_graphics()->get_renderer();
+    SDL_Renderer* renderer = scene->get_graphics()->get_renderer();
 
     // Draw box
     SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);

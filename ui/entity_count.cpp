@@ -1,13 +1,16 @@
 #include "entity_count.h"
 
+#include <utility>
+
 #define REFRESH_INTERVAL 0
 #define X_COORD 16
 #define Y_COORD 32
 
-EntityCount::EntityCount(Scene *scene, std::string font, SDL_Color color)
+EntityCount::EntityCount(std::shared_ptr<Scene>& scene, std::string font,
+                         SDL_Color color)
     : Entity(scene), entity_count(scene->get_entity_count()) {
     update_delay_timer = 0;
-    this->font = font;
+    this->font = std::move(font);
     this->color = color;
 }
 
@@ -24,7 +27,7 @@ void EntityCount::render() {
         return;
     }
 
-    SDL_Texture *text_texture = NULL;
+    SDL_Texture* text_texture = NULL;
     int texture_width, texture_height;
 
     std::string text = "Entity Count: " + std::to_string(entity_count);

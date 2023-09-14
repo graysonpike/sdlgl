@@ -1,6 +1,7 @@
 #include "entity.h"
 
-Entity::Entity(Scene *scene) : scene(scene), alive(true) { alive = true; };
+Entity::Entity(const std::shared_ptr<Scene>& scene)
+    : scene(scene), alive(true){};
 
 void Entity::kill() { alive = false; }
 

@@ -12,10 +12,10 @@ class Rotator : public PhysicalEntity {
     Texture texture_light;
     bool is_touched;
 
-    void collision_callback(Entity *entity, int type);
+    void collision_callback(Entity*, int type);
 
    public:
-    Rotator(Scene *scene, int x, int y, float speed);
+    Rotator(const std::shared_ptr<Scene>& scene, int x, int y, float speed);
     void update();
     void render();
 };

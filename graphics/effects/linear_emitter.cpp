@@ -4,9 +4,9 @@
 #include "linear_particle.h"
 
 LinearParticleEmitter::LinearParticleEmitter(
-    Scene *scene, int x, int y, int vx_min, int vx_max, int vy_min, int vy_max,
-    std::vector<SDL_Color> colors, int quantity, int size,
-    float particle_duration, float lifetime, bool emit_delay)
+    const std::shared_ptr<Scene> &scene, int x, int y, int vx_min, int vx_max,
+    int vy_min, int vy_max, std::vector<SDL_Color> colors, int quantity,
+    int size, float particle_duration, float lifetime, bool emit_delay)
     : ParticleEmitter(scene, x, y, colors, quantity, size, particle_duration,
                       lifetime, emit_delay),
       vx_min(vx_min),

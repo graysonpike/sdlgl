@@ -2,6 +2,7 @@
 
 #include <sdlgl/graphics/resources.h>
 
+#include <functional>
 #include <vector>
 
 #define MOVE_UP SDL_SCANCODE_W
@@ -15,22 +16,25 @@
 
 using namespace std::placeholders;
 
-Mover::Mover(Scene *scene, int x, int y)
+Mover::Mover(const std::shared_ptr<Scene>& scene, int x, int y)
     : PhysicalEntity(scene, x, y, 64, 64),
       angle(0),
       is_touched(false),
       hitbox(Hitbox(0, 0, 64, 64)) {
-    Resources *resources = scene->get_graphics()->get_resources();
+    Resources* resources = scene->get_graphics()->get_resources();
     texture_normal = resources->get_texture("black_box");
     texture_light = resources->get_texture("light_black_box");
+    int hitbox_type = 1;
+    std::vector<int> hitbox_targets = {0};
     scene->get_collider()->add_hitbox(
-        &hitbox, this, 0, std::vector<int>{1},
-        std::bind(&Mover::collision_callback, this, _1, _2));
+        &hitbox, this, hitbox_type, hitbox_targets,
+        std::bind(&Mover::collision_callback, this, std::placeholders::_1,
+                  std::placeholders::_2));
 }
 
-void Mover::collision_callback(Entity *entity, int type) { is_touched = true; }
+void Mover::collision_callback(Entity* entity, int type) { is_touched = true; }
 
-void Mover::move(Inputs *inputs, float delta) {
+void Mover::move(const std::shared_ptr<Inputs>& inputs, float delta) {
     if (inputs->is_key_down(MOVE_UP)) {
         y -= SPEED * delta;
     } else if (inputs->is_key_down(MOVE_DOWN)) {
@@ -52,13 +56,13 @@ void Mover::move(Inputs *inputs, float delta) {
 
 void Mover::update() {
     float delta = scene->get_delta();
-    Inputs *inputs = scene->get_inputs();
+    const std::shared_ptr<Inputs>& inputs = scene->get_inputs();
     move(inputs, delta);
     hitbox.update_pos(x, y, angle);
 }
 
 void Mover::render() {
-    SDL_Renderer *renderer = scene->get_graphics()->get_renderer();
+    SDL_Renderer* renderer = scene->get_graphics()->get_renderer();
     if (!is_touched) {
         texture_normal.draw(renderer, x, y, angle, false, false);
     } else {

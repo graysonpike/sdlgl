@@ -23,14 +23,15 @@ class ParticleEmitter : public PhysicalEntity {
     SDL_Color next_color();
 
    public:
-    ParticleEmitter(Scene *scene, int x, int y, std::vector<SDL_Color> colors,
-                    int quantity, int size, float particle_duration = 1.0f,
-                    float lifetime = 0.0f, bool emit_delay = true);
+    ParticleEmitter(const std::shared_ptr<Scene> &scene, int x, int y,
+                    std::vector<SDL_Color> colors, int quantity, int size,
+                    float particle_duration = 1.0f, float lifetime = 0.0f,
+                    bool emit_delay = true);
     void set_location(int x, int y);
     void stop();
-    void update();
-    void render();
-    ~ParticleEmitter();
+    void update() override;
+    void render() override;
+    ~ParticleEmitter() override;
 };
 
 #endif

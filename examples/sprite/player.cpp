@@ -10,7 +10,7 @@
 
 #define SPEED 200
 
-Player::Player(Scene *scene, float x, float y)
+Player::Player(const std::shared_ptr<Scene>& scene, float x, float y)
     : PhysicalEntity(scene, x, y, 0, 0) {
     // Player begins facing down
     dir = STANDING;
@@ -27,7 +27,7 @@ Player::Player(Scene *scene, float x, float y)
 }
 
 void Player::update() {
-    Inputs *inputs = scene->get_inputs();
+    std::shared_ptr<Inputs> inputs = scene->get_inputs();
     float delta = scene->get_delta();
     dir = STANDING;
 

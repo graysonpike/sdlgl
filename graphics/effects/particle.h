@@ -9,9 +9,9 @@ class Particle : public PhysicalEntity {
     Timer timer;
 
    public:
-    Particle(Scene *scene, int x, int y, int size, SDL_Color color,
-             float duration);
-    void render();
+    Particle(const std::shared_ptr<Scene> &scene, int x, int y, int size,
+             SDL_Color color, float duration);
+    void render() override;
     void reset(int x, int y);
     bool is_finished();
 };

@@ -11,11 +11,11 @@ class Mover : public PhysicalEntity {
     Texture texture_light;
     bool is_touched;
 
-    void collision_callback(Entity *entity, int type);
-    void move(Inputs *inputs, float delta);
+    void collision_callback(Entity* entity, int type);
+    void move(const std::shared_ptr<Inputs>& inputs, float delta);
 
    public:
-    Mover(Scene *scene, int x, int y);
+    Mover(const std::shared_ptr<Scene>& scene, int x, int y);
     void update();
     void render();
 };

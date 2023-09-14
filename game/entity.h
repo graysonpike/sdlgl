@@ -6,13 +6,13 @@
 class Scene;
 
 // Class which has entities and manages an update+render loop
-class Entity {
+class Entity : public std::enable_shared_from_this<Entity>  {
    protected:
-    Scene *scene;
+    std::shared_ptr<Scene> scene;
     bool alive;
 
    public:
-    Entity(Scene *scene);
+    Entity(const std::shared_ptr<Scene>& scene);
 
     void kill();
     bool is_alive();

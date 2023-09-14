@@ -16,11 +16,12 @@ class FPS_Display : public Entity {
     SDL_Color color;
 
    public:
-    FPS_Display(Scene *scene);
-    FPS_Display(Scene *scene, std::string font, SDL_Color color);
+    FPS_Display(const std::shared_ptr<Scene>& scene);
+    FPS_Display(const std::shared_ptr<Scene>& scene, std::string font,
+                SDL_Color color);
 
-    void update();
-    void render();
+    void update() override;
+    void render() override;
 };
 
 #endif

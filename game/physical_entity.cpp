@@ -1,11 +1,12 @@
 #include "physical_entity.h"
 
-PhysicalEntity::PhysicalEntity(Scene *scene, float x, float y, int w, int h)
+PhysicalEntity::PhysicalEntity(const std::shared_ptr<Scene>& scene, float x,
+                               float y, int w, int h)
     : Entity(scene), x(x), y(y), w(w), h(h) {}
 
-float PhysicalEntity::get_center_x() { return x + w / 2; }
+float PhysicalEntity::get_center_x() const { return x + (w / 2); }
 
-float PhysicalEntity::get_center_y() { return y + h / 2; }
+float PhysicalEntity::get_center_y() const { return y + (h / 2); }
 
 void PhysicalEntity::wrap_bounds() {
     int screen_w = scene->get_graphics()->get_width();
@@ -40,10 +41,6 @@ void PhysicalEntity::clamp() {
     }
 }
 
-std::pair<int, int> PhysicalEntity::get_position() {
-    return std::pair<int, int>(x, y);
-}
+std::pair<int, int> PhysicalEntity::get_position() { return {x, y}; }
 
-std::pair<int, int> PhysicalEntity::get_size() {
-    return std::pair<int, int>(x, y);
-}
+std::pair<int, int> PhysicalEntity::get_size() { return {w, h}; }

@@ -2,7 +2,6 @@
 #include <sdlgl/game/context.h>
 #include <sdlgl/game/scene.h>
 #include <sdlgl/graphics/graphics.h>
-#include <sdlgl/graphics/resources.h>
 #include <sdlgl/input/inputs.h>
 #include <sdlgl/ui/entity_count.h>
 #include <sdlgl/ui/fps_display.h>
@@ -14,7 +13,7 @@
 #include "entities/mover.h"
 #include "entities/rotator.h"
 
-void game_loop(Context context, Scene *scene) {
+void game_loop(Context& context, std::shared_ptr<Scene>& scene) {
     context.inputs->update();
     context.clock->tick();
     context.graphics->clear_screen((SDL_Color){255, 255, 255, 255});
@@ -35,20 +34,23 @@ int main() {
     srand(time(NULL));
 
     // Load a window
-    Context context(new Graphics(720, 640), new Audio(), new Inputs(),
-                    new Clock());
+    Context context(std::make_shared<Graphics>(720, 640),
+                    std::make_shared<Audio>(), std::make_shared<Inputs>(),
+                    std::make_shared<Clock>());
     context.graphics->get_resources()->load_resources("resources.json");
     context.graphics->set_debug_visuals(true);
 
-    Scene *scene = new Scene(context.graphics, context.audio, context.inputs);
+    std::shared_ptr<Scene> scene = std::make_shared<Scene>(
+        context.graphics, context.audio, context.inputs);
 
+    scene->add_entity(std::make_shared<FPS_Display>(scene, "base_text",
+                                                    (SDL_Color){0, 0, 0, 255}));
+    scene->add_entity(std::make_shared<EntityCount>(scene, "base_text",
+                                                    (SDL_Color){0, 0, 0, 255}));
     scene->add_entity(
-        new FPS_Display(scene, "base_text", (SDL_Color){0, 0, 0, 255}));
-    scene->add_entity(
-        new EntityCount(scene, "base_text", (SDL_Color){0, 0, 0, 255}));
-    scene->add_entity(new Rotator(scene, context.graphics->get_width() / 2,
+        std::make_shared<Rotator>(scene, context.graphics->get_width() / 2,
                                   context.graphics->get_height() / 2, 0.0f));
-    scene->add_entity(new Mover(scene, 100, 100));
+    scene->add_entity(std::make_shared<Mover>(scene, 100, 100));
 
     while (*context.loop) {
         game_loop(context, scene);

@@ -2,14 +2,14 @@
 
 #include "../../graphics/graphics.h"
 
-Particle::Particle(Scene *scene, int x, int y, int size, SDL_Color color,
-                   float duration)
+Particle::Particle(const std::shared_ptr<Scene>& scene, int x, int y, int size,
+                   SDL_Color color, float duration)
     : PhysicalEntity(scene, x, y, size, size), color(color), timer(duration) {
     timer.reset();
 }
 
 void Particle::render() {
-    SDL_Renderer *renderer = scene->get_graphics()->get_renderer();
+    SDL_Renderer* renderer = scene->get_graphics()->get_renderer();
 
     int alpha = 255 * timer.remaining();
 

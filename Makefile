@@ -69,3 +69,11 @@ $(OUTPUT) : %.o : $$(subst .o,.cpp,$$(subst build/,,$$@))
 	$(eval SOURCE := $(SOURCE:build/%=%))
 	$(eval SOURCE := $(SOURCE:%.o=%.cpp))
 	$(CC) $(FLAGS) $(SOURCE) -o $@
+
+EXAMPLE_DIRS := $(wildcard examples/*/)
+.PHONY: examples
+
+examples:
+	for dir in $(EXAMPLE_DIRS); do \
+		$(MAKE) -C $$dir; \
+	done

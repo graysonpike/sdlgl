@@ -1,9 +1,10 @@
 #include "emitter.h"
 
-ParticleEmitter::ParticleEmitter(Scene *scene, int x, int y,
-                                 std::vector<SDL_Color> colors, int quantity,
-                                 int size, float particle_duration,
-                                 float lifetime, bool emit_delay)
+ParticleEmitter::ParticleEmitter(const std::shared_ptr<Scene>& scene, int x,
+                                 int y, std::vector<SDL_Color> colors,
+                                 int quantity, int size,
+                                 float particle_duration, float lifetime,
+                                 bool emit_delay)
     : PhysicalEntity(scene, x, y, 0, 0),
       colors(colors),
       color_index(0),

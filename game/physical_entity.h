@@ -9,11 +9,12 @@ class PhysicalEntity : public Entity {
     int w, h;
     void wrap_bounds();
     void clamp();
-    float get_center_x();
-    float get_center_y();
+    float get_center_x() const;
+    float get_center_y() const;
 
    public:
-    PhysicalEntity(Scene *scene, float x, float y, int w, int h);
+    PhysicalEntity(const std::shared_ptr<Scene>& scene, float x, float y, int w,
+                   int h);
     virtual ~PhysicalEntity() = default;
     std::pair<int, int> get_position();
     std::pair<int, int> get_size();

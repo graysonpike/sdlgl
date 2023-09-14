@@ -1,7 +1,8 @@
 #include "linear_particle.h"
 
-LinearParticle::LinearParticle(Scene *scene, int x, int y, int size, int vx,
-                               int vy, SDL_Color color, float duration)
+LinearParticle::LinearParticle(const std::shared_ptr<Scene>& scene, int x,
+                               int y, int size, int vx, int vy, SDL_Color color,
+                               float duration)
     : Particle(scene, x, y, size, color, duration), vx(vx), vy(vy) {}
 
 void LinearParticle::update() {

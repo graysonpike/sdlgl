@@ -12,9 +12,9 @@ class Player : public PhysicalEntity {
     Texture standing_texture;
 
    public:
-    Player(Scene *scene, float x, float y);
-    void update();
-    void render();
+    Player(const std::shared_ptr<Scene>& scene, float x, float y);
+    void update() override;
+    void render() override;
 };
 
 #endif
