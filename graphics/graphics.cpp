@@ -1,5 +1,7 @@
 #include "graphics.h"
 
+#include <utility>
+
 // PRIVATE HELPER FUNCTIONS
 
 // Starts SDL2 and creates a window.
@@ -13,27 +15,28 @@ bool Graphics::init_sdl(std::string window_title) {
     }
 
     // Create SDL Window
-    window = SDL_CreateWindow(window_title.c_str(),     // window title
-                              SDL_WINDOWPOS_UNDEFINED,  // initial x position
-                              SDL_WINDOWPOS_UNDEFINED,  // initial y position
-                              width,                    // width, in pixels
-                              height,                   // height, in pixels
-                              SDL_WINDOW_OPENGL         // flags - see below
+    SDL_Window *window_ptr = SDL_CreateWindow(window_title.c_str(),
+                              SDL_WINDOWPOS_UNDEFINED,
+                              SDL_WINDOWPOS_UNDEFINED,
+                              width,
+                              height,
+                              SDL_WINDOW_OPENGL
     );
-    if (window == NULL) {
+    if (window_ptr == nullptr) {
         printf("Could not create window: %s\n", SDL_GetError());
         return false;
     }
+    window = std::shared_ptr<SDL_Window>(window_ptr, SDL_DestroyWindow);
 
     // Initialize renderer with flags
-    renderer = SDL_CreateRenderer(
-        window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
-    if (renderer == NULL) {
+    SDL_Renderer* renderer_ptr = SDL_CreateRenderer(window.get(), -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+    if (renderer_ptr == nullptr) {
         printf("Could not init renderer: %s\n", SDL_GetError());
         return false;
     }
+    renderer = std::shared_ptr<SDL_Renderer>(renderer_ptr, SDL_DestroyRenderer);
 
-    SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
+    SDL_SetRenderDrawBlendMode(renderer.get(), SDL_BLENDMODE_BLEND);
 
     // Initialize TTF
     if (TTF_Init() == -1) {
@@ -45,8 +48,9 @@ bool Graphics::init_sdl(std::string window_title) {
 }
 
 void Graphics::init_capture_surface() {
-    capture_surface =
-        SDL_CreateRGBSurface(0, this->width, this->height, 32, 0, 0, 0, 0);
+    SDL_Surface *capture_surface_ptr =
+        SDL_CreateRGBSurface(0, width, height, 32, 0, 0, 0, 0);
+    capture_surface = std::shared_ptr<SDL_Surface>(capture_surface_ptr, SDL_FreeSurface);
 }
 
 // PUBLIC FUNCTIONS
@@ -56,22 +60,22 @@ Graphics::Graphics(int width, int height, std::string window_title) {
     this->width = width;
     this->height = height;
     debug_visuals_enabled = false;
-    init_sdl(window_title);
-    resources = new Resources(renderer);
-    font_renderer = new FontRenderer(renderer, resources);
+    init_sdl(std::move(window_title));
+    resources = std::make_shared<Resources>(renderer);
+    font_renderer = std::make_shared<FontRenderer>(renderer, resources);
     fps_counter = FPSCounter();
     init_capture_surface();
 }
 
 // Clear the screen with a black background
 void Graphics::clear_screen(SDL_Color color) {
-    SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
-    SDL_RenderClear(renderer);
+    SDL_SetRenderDrawColor(renderer.get(), color.r, color.g, color.b, color.a);
+    SDL_RenderClear(renderer.get());
 };
 
 // Present renderer and record delta time (in seconds)
 void Graphics::present_renderer(float delta) {
-    SDL_RenderPresent(renderer);
+    SDL_RenderPresent(renderer.get());
     fps_counter.count(delta);
 }
 
@@ -89,27 +93,23 @@ int Graphics::get_height() { return height; }
 
 bool Graphics::get_debug_visuals_enabled() { return debug_visuals_enabled; }
 
-SDL_Renderer *Graphics::get_renderer() { return renderer; }
+std::shared_ptr<SDL_Renderer> Graphics::get_renderer() { return renderer; }
 
-FontRenderer *Graphics::get_font_renderer() { return font_renderer; }
+std::shared_ptr<FontRenderer> Graphics::get_font_renderer() { return font_renderer; }
 
-Resources *Graphics::get_resources() { return resources; }
+std::shared_ptr<Resources> Graphics::get_resources() { return resources; }
 
 float Graphics::get_fps() { return fps_counter.get_fps(); }
 
 void Graphics::capture_bmp(std::string filename) {
-    SDL_RenderReadPixels(renderer, NULL, SDL_GetWindowPixelFormat(window),
+    SDL_RenderReadPixels(renderer.get(), nullptr, SDL_GetWindowPixelFormat(window.get()),
                          capture_surface->pixels, capture_surface->pitch);
-    SDL_SaveBMP(capture_surface, filename.c_str());
+    SDL_SaveBMP(capture_surface.get(), filename.c_str());
 }
 
 Graphics::~Graphics() {
-    SDL_DestroyWindow(window);
-    SDL_DestroyRenderer(renderer);
-    SDL_FreeSurface(capture_surface);
-    delete resources;
-    delete font_renderer;
     Mix_Quit();
     IMG_Quit();
+    TTF_Quit();
     SDL_Quit();
 }

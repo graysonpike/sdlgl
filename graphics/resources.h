@@ -21,29 +21,29 @@ class Texture;
 
 class Resources {
     static const std::string RES_DIR;
-    std::map<std::string, TTF_Font *> fonts;
-    std::map<std::string, SDL_Texture *> textures;
+    std::map<std::string, std::shared_ptr<TTF_Font>> fonts;
+    std::map<std::string, std::shared_ptr<SDL_Texture>> textures;
     std::map<std::string, Offset> texture_offsets;
-    std::map<std::string, std::vector<SDL_Texture *> > sprite_frames;
+    std::map<std::string, std::vector<std::shared_ptr<SDL_Texture>>> sprite_frames;
     std::map<std::string, Offset> sprite_offsets;
     std::map<std::string, float> sprite_frame_delays;
-    std::map<std::string, Mix_Chunk *> sounds;
-    std::map<std::string, Mix_Music *> tracks;
-    SDL_Renderer *renderer;
-    bool load_font(TTF_Font **font, std::string filename, int size);
-    bool load_texture(SDL_Texture **texture, std::string filename);
-    bool load_sound(Mix_Chunk **sound, std::string filename);
-    bool load_track(Mix_Music **track, std::string filename);
+    std::map<std::string, std::shared_ptr<Mix_Chunk>> sounds;
+    std::map<std::string, std::shared_ptr<Mix_Music>> tracks;
+    std::shared_ptr<SDL_Renderer> renderer;
+    static std::shared_ptr<TTF_Font> load_font(const std::string& filename, int size);
+    std::shared_ptr<SDL_Texture> load_texture(const std::string& filename);
+    static std::shared_ptr<Mix_Chunk>load_sound(const std::string& filename);
+    static std::shared_ptr<Mix_Music>load_track(const std::string& filename);
 
    public:
-    Resources(SDL_Renderer *renderer);
-    void load_resources(std::string json_filename);
-    TTF_Font *get_font(std::string name);
-    Texture get_texture(std::string name);
-    Sprite get_sprite(std::string name);
-    Sound get_sound(std::string name);
-    Track get_track(std::string name);
-    ~Resources();
+    Resources(const std::shared_ptr<SDL_Renderer>& renderer);
+    void load_resources(const std::string& json_filename);
+    std::shared_ptr<TTF_Font> get_font(const std::string& name);
+    Texture get_texture(const std::string& name);
+    Sprite get_sprite(const std::string& name);
+    Sound get_sound(const std::string& name);
+    Track get_track(const std::string& name);
+    std::vector<std::string> get_sounds() const;
 };
 
 #endif

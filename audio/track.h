@@ -3,13 +3,14 @@
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_mixer.h>
+#include <memory>
 
 class Track {
-    Mix_Music *track;
+    std::shared_ptr<Mix_Music> track;
 
    public:
     Track();
-    Track(Mix_Music *track);
+    Track(const std::shared_ptr<Mix_Music>& track);
 };
 
 #endif

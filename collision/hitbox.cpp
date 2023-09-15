@@ -81,9 +81,9 @@ void Hitbox::update_pos(float x, float y, float angle) {
 }
 
 // Debug method to draw corners
-void Hitbox::render_corners(SDL_Renderer *renderer) {
+void Hitbox::render_corners(const std::shared_ptr<SDL_Renderer>& renderer) {
     // Set draw color
-    SDL_SetRenderDrawColor(renderer, POINT_R, POINT_G, POINT_B, POINT_A);
+    SDL_SetRenderDrawColor(renderer.get(), POINT_R, POINT_G, POINT_B, POINT_A);
 
     // Create rectangles over each corner
     SDL_Rect tl_rect = {tl.x - POINT_SIZE / 2, tl.y - POINT_SIZE / 2,
@@ -96,10 +96,10 @@ void Hitbox::render_corners(SDL_Renderer *renderer) {
                         POINT_SIZE, POINT_SIZE};
 
     // Draw rectangles
-    SDL_RenderFillRect(renderer, &tl_rect);
-    SDL_RenderFillRect(renderer, &tr_rect);
-    SDL_RenderFillRect(renderer, &bl_rect);
-    SDL_RenderFillRect(renderer, &br_rect);
+    SDL_RenderFillRect(renderer.get(), &tl_rect);
+    SDL_RenderFillRect(renderer.get(), &tr_rect);
+    SDL_RenderFillRect(renderer.get(), &bl_rect);
+    SDL_RenderFillRect(renderer.get(), &br_rect);
 }
 
 int Hitbox::get_center_x() { return x + w / 2.0f; }

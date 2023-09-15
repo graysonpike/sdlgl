@@ -68,7 +68,7 @@ void Channel::set_volume(float volume) {
 void Channel::play_sound(Sound sound, bool repeat, float volume) {
     Mix_HaltChannel(channel);
     set_volume(volume);
-    Mix_PlayChannel(channel, sound.sound, repeat ? REPEAT : NO_REPEAT);
+    Mix_PlayChannel(channel, sound.sound.get(), repeat ? REPEAT : NO_REPEAT);
 }
 
 void Channel::stop_playing() { Mix_HaltChannel(channel); }

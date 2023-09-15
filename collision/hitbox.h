@@ -1,6 +1,7 @@
 #ifndef HITBOX_H
 #define HITBOX_H
 
+#include <memory>
 #include <SDL2/SDL.h>
 
 // Offsets can be used to place the hitbox more accurately
@@ -16,7 +17,7 @@ class Hitbox {
     Hitbox();
     Hitbox(float x_offset, float y_offset, int w, int h);
     void update_pos(float x, float y, float angle);
-    void render_corners(SDL_Renderer *renderer);  // DEBUG METHOD
+    void render_corners(const std::shared_ptr<SDL_Renderer>& renderer);
     int get_center_x();
     int get_center_y();
     float get_radius();

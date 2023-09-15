@@ -2,4 +2,4 @@
 
 Track::Track() {}
 
-Track::Track(Mix_Music *track) { this->track = track; }
+Track::Track(const std::shared_ptr<Mix_Music>& track) { this->track = track; }

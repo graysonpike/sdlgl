@@ -9,14 +9,14 @@ Particle::Particle(const std::shared_ptr<Scene>& scene, int x, int y, int size,
 }
 
 void Particle::render() {
-    SDL_Renderer* renderer = scene->get_graphics()->get_renderer();
+    const std::shared_ptr<SDL_Renderer>& renderer = scene->get_graphics()->get_renderer();
 
     int alpha = 255 * timer.remaining();
 
     // Draw box
-    SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, alpha);
+    SDL_SetRenderDrawColor(renderer.get(), color.r, color.g, color.b, alpha);
     SDL_Rect box_rect = {(int)x, (int)y, w, h};
-    SDL_RenderFillRect(renderer, &box_rect);
+    SDL_RenderFillRect(renderer.get(), &box_rect);
 }
 
 void Particle::reset(int x, int y) {

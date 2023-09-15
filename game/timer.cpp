@@ -1,7 +1,7 @@
 #include "timer.h"
 
 #include <SDL2/SDL.h>
-
+ 
 Timer::Timer() : duration(0), active(false) {}
 
 Timer::Timer(float duration) { this->duration = (unsigned)(duration * 1000); }

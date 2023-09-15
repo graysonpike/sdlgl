@@ -7,13 +7,13 @@
 class Resources;
 
 class FontRenderer {
-    Resources *resources;
-    SDL_Renderer *renderer;
+    std::shared_ptr<Resources> resources;
+    std::shared_ptr<SDL_Renderer> renderer;
 
    public:
-    FontRenderer(SDL_Renderer *renderer, Resources *resources);
-    bool load_font_texture(SDL_Texture **texture, std::string font,
-                           std::string text, SDL_Color text_color);
+    FontRenderer(const std::shared_ptr<SDL_Renderer>& renderer, const std::shared_ptr<Resources>& resources);
+    std::shared_ptr<SDL_Texture> load_font_texture(const std::string& font,
+                           const std::string& text, SDL_Color text_color);
 };
 
 #endif

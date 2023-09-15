@@ -27,21 +27,16 @@ void FPS_Display::render() {
     if (!scene->get_graphics()->get_debug_visuals_enabled()) {
         return;
     }
-
-    SDL_Texture* text_texture = nullptr;
-    int texture_width, texture_height;
-
     std::string text = "FPS: " + std::to_string(std::lround(fps));
+    std::shared_ptr<SDL_Texture> text_texture = scene->get_graphics()->get_font_renderer()->load_font_texture(
+            font, text, color);
 
-    scene->get_graphics()->get_font_renderer()->load_font_texture(
-        &text_texture, font, text, color);
-    SDL_QueryTexture(text_texture, nullptr, nullptr, &texture_width,
+    int texture_width, texture_height;
+    SDL_QueryTexture(text_texture.get(), NULL, NULL, &texture_width,
                      &texture_height);
 
     SDL_Rect dst = {X_COORD, Y_COORD, texture_width, texture_height};
 
-    SDL_RenderCopy(scene->get_graphics()->get_renderer(), text_texture, nullptr,
+    SDL_RenderCopy(scene->get_graphics()->get_renderer().get(), text_texture.get(), NULL,
                    &dst);
-
-    SDL_DestroyTexture(text_texture);
 }

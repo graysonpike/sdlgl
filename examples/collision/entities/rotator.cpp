@@ -12,7 +12,7 @@ Rotator::Rotator(const std::shared_ptr<Scene>& scene, int x, int y, float speed)
       speed(speed),
       is_touched(false),
       hitbox(Hitbox(0, 0, 64, 64)) {
-    Resources* resources = scene->get_graphics()->get_resources();
+    const std::shared_ptr<Resources>& resources = scene->get_graphics()->get_resources();
     texture_normal = resources->get_texture("red_box");
     texture_light = resources->get_texture("light_red_box");
     int hitbox_type = 0;
@@ -34,7 +34,7 @@ void Rotator::update() {
 }
 
 void Rotator::render() {
-    SDL_Renderer* renderer = scene->get_graphics()->get_renderer();
+    const std::shared_ptr<SDL_Renderer>& renderer = scene->get_graphics()->get_renderer();
     if (!is_touched) {
         texture_normal.draw(renderer, x, y, angle, false, false);
     } else {

@@ -6,4 +6,4 @@
 
 Sound::Sound() {}
 
-Sound::Sound(Mix_Chunk *sound) { this->sound = sound; }
+Sound::Sound(const std::shared_ptr<Mix_Chunk>& sound) { this->sound = sound; }

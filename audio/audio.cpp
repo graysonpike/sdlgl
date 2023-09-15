@@ -11,13 +11,13 @@ Audio::Audio() {
     Mix_AllocateChannels(ALLOCATED_CHANNELS);
 
     for (unsigned int i = 0; i < ALLOCATED_CHANNELS; i++) {
-        channels[i] = Channel(i);
+        channels[i] = std::make_shared<Channel>(i);
     }
 }
 
 int Audio::get_next_free_channel_index() {
     for (unsigned int i = 0; i < ALLOCATED_CHANNELS; i++) {
-        if (channels[i].is_free_and_not_playing()) {
+        if (channels[i]->is_free_and_not_playing()) {
             return i;
         }
     }
@@ -26,18 +26,18 @@ int Audio::get_next_free_channel_index() {
 
 void Audio::update(float delta) {
     for (unsigned int i = 0; i < ALLOCATED_CHANNELS; i++) {
-        channels[i].update(delta);
+        channels[i]->update(delta);
     }
 }
 
-Channel *Audio::reserve_channel() {
+std::shared_ptr<Channel> Audio::reserve_channel() {
     int index = get_next_free_channel_index();
-    channels[index].reserved = true;
-    return &channels[index];
+    channels[index]->reserved = true;
+    return channels[index];
 }
 
-Channel *Audio::play_sound(Sound sound, bool repeat, float volume) {
+std::shared_ptr<Channel> Audio::play_sound(Sound sound, bool repeat, float volume) {
     int index = get_next_free_channel_index();
-    channels[index].play_sound(sound, repeat, volume);
-    return &channels[index];
+    channels[index]->play_sound(sound, repeat, volume);
+    return channels[index];
 }
