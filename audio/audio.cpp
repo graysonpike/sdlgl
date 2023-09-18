@@ -1,43 +1,60 @@
 #include "audio.h"
 
-#include <iostream>
+#define MA_NO_DEVICE_IO
+#define MINIAUDIO_IMPLEMENTATION
+#include "../dependencies/miniaudio.h"
+
+Audio &Audio::get_instance() {
+    static Audio instance;
+    return instance;
+}
 
 Audio::Audio() {
-    // Initialize Mixer
-    if (Mix_OpenAudio(AUDIO_FREQUENCY, MIX_DEFAULT_FORMAT, HARDWARE_CHANNELS,
-                      AUDIO_CHUNK_SIZE) < 0) {
-        printf("SDL_mixer failed to initialize: %s\n", Mix_GetError());
-    }
-    Mix_AllocateChannels(ALLOCATED_CHANNELS);
 
-    for (unsigned int i = 0; i < ALLOCATED_CHANNELS; i++) {
-        channels[i] = std::make_shared<Channel>(i);
+    engineConfig = ma_engine_config_init();
+    engineConfig.noDevice   = MA_TRUE;
+    engineConfig.channels   = CHANNELS;
+    engineConfig.sampleRate = SAMPLE_RATE;
+
+    ma_result result;
+    result = ma_engine_init(&engineConfig, &engine);
+    if (result != MA_SUCCESS) {
+        printf("Failed to initialize audio engine.");
     }
+
+    if (SDL_InitSubSystem(SDL_INIT_AUDIO) != 0) {
+        printf("Failed to initialize SDL sub-system.");
+    }
+
+    MA_ZERO_OBJECT(&desiredSpec);
+    desiredSpec.freq     = ma_engine_get_sample_rate(&engine);
+    desiredSpec.format   = AUDIO_F32;
+    desiredSpec.channels = ma_engine_get_channels(&engine);
+    desiredSpec.samples  = 512;
+    desiredSpec.callback = data_callback;
+    desiredSpec.userdata = this;
+
+    deviceID = SDL_OpenAudioDevice(NULL, 0, &desiredSpec, &obtainedSpec, SDL_AUDIO_ALLOW_ANY_CHANGE);
+    if (deviceID == 0) {
+        printf("Failed to open SDL audio device.");
+    }
+
+    SDL_PauseAudioDevice(deviceID, 0);
+
 }
 
-int Audio::get_next_free_channel_index() {
-    for (unsigned int i = 0; i < ALLOCATED_CHANNELS; i++) {
-        if (channels[i]->is_free_and_not_playing()) {
-            return i;
-        }
-    }
-    return -1;
+void Audio::data_callback(void* pUserData, ma_uint8* pBuffer, int bufferSizeInBytes) {
+    Audio* audioInstance = static_cast<Audio*>(pUserData);
+    ma_uint32 bufferSizeInFrames = (ma_uint32)bufferSizeInBytes / ma_get_bytes_per_frame(ma_format_f32, ma_engine_get_channels(&audioInstance->engine));
+    ma_engine_read_pcm_frames(&audioInstance->engine, pBuffer, bufferSizeInFrames, NULL);
 }
 
-void Audio::update(float delta) {
-    for (unsigned int i = 0; i < ALLOCATED_CHANNELS; i++) {
-        channels[i]->update(delta);
-    }
+ma_engine *Audio::get_engine() {
+    return &engine;
 }
 
-std::shared_ptr<Channel> Audio::reserve_channel() {
-    int index = get_next_free_channel_index();
-    channels[index]->reserved = true;
-    return channels[index];
-}
-
-std::shared_ptr<Channel> Audio::play_sound(Sound sound, bool repeat, float volume) {
-    int index = get_next_free_channel_index();
-    channels[index]->play_sound(sound, repeat, volume);
-    return channels[index];
+Audio::~Audio() {
+    ma_engine_uninit(&engine);
+    SDL_CloseAudioDevice(deviceID);
+    SDL_QuitSubSystem(SDL_INIT_AUDIO);
 }

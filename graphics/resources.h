@@ -10,8 +10,6 @@
 #include <string>
 #include <vector>
 
-#include "../audio/sound.h"
-#include "../audio/track.h"
 #include "./offset.h"
 #include "./sprite.h"
 #include "./texture.h"
@@ -27,13 +25,9 @@ class Resources {
     std::map<std::string, std::vector<std::shared_ptr<SDL_Texture>>> sprite_frames;
     std::map<std::string, Offset> sprite_offsets;
     std::map<std::string, float> sprite_frame_delays;
-    std::map<std::string, std::shared_ptr<Mix_Chunk>> sounds;
-    std::map<std::string, std::shared_ptr<Mix_Music>> tracks;
     std::shared_ptr<SDL_Renderer> renderer;
     static std::shared_ptr<TTF_Font> load_font(const std::string& filename, int size);
     std::shared_ptr<SDL_Texture> load_texture(const std::string& filename);
-    static std::shared_ptr<Mix_Chunk>load_sound(const std::string& filename);
-    static std::shared_ptr<Mix_Music>load_track(const std::string& filename);
 
    public:
     Resources(const std::shared_ptr<SDL_Renderer>& renderer);
@@ -41,9 +35,6 @@ class Resources {
     std::shared_ptr<TTF_Font> get_font(const std::string& name);
     Texture get_texture(const std::string& name);
     Sprite get_sprite(const std::string& name);
-    Sound get_sound(const std::string& name);
-    Track get_track(const std::string& name);
-    std::vector<std::string> get_sounds() const;
 };
 
 #endif

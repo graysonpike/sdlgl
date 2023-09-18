@@ -16,7 +16,6 @@ class Graphics;
 class Scene {
    protected:
     std::shared_ptr<Graphics> graphics;
-    std::shared_ptr<Audio> audio;
     std::shared_ptr<Inputs> inputs;
     std::shared_ptr<Collider> collider;
 
@@ -27,7 +26,6 @@ class Scene {
 
    public:
     Scene(const std::shared_ptr<Graphics>& graphics,
-          const std::shared_ptr<Audio>& audio,
           const std::shared_ptr<Inputs>& inputs);
     void update(float new_delta);
     void render() const;

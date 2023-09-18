@@ -3,14 +3,18 @@
 
 #include <memory>
 #include <SDL2/SDL.h>
-#include <SDL2/SDL_mixer.h>
+#include "audio.h"
 
 class Sound {
+private:
+    static const std::string sounds_dir;
+    ma_sound sound;
    public:
-    std::shared_ptr<Mix_Chunk> sound;
-
-    Sound();
-    Sound(const std::shared_ptr<Mix_Chunk>& sound);
+    Sound(const std::string& filename);
+    void play();
+    void stop();
+    void set_looping(bool looping);
+    bool is_looping();
 };
 
 #endif

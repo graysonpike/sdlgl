@@ -3,10 +3,8 @@
 #include <iostream>
 
 Scene::Scene(const std::shared_ptr<Graphics>& graphics,
-             const std::shared_ptr<Audio>& audio,
              const std::shared_ptr<Inputs>& inputs)
     : graphics(graphics),
-      audio(audio),
       inputs(inputs),
       collider(std::make_shared<Collider>()),
       delta(0) {}
@@ -68,8 +66,6 @@ std::shared_ptr<Inputs> Scene::get_inputs() const { return inputs; }
 std::shared_ptr<Graphics> Scene::get_graphics() const { return graphics; }
 
 std::shared_ptr<Collider> Scene::get_collider() const { return collider; }
-
-std::shared_ptr<Audio> Scene::get_audio() const { return audio; }
 
 float Scene::get_delta() const { return delta; }
 

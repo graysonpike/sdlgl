@@ -13,30 +13,6 @@ const std::string Resources::RES_DIR = "res/";
 
 // PRIVATE HELPER FUNCTIONS
 
-std::shared_ptr<Mix_Chunk> Resources::load_sound(const std::string& filename) {
-    // Concatenate filename to resource directory
-    std::string filepath = std::string(RES_DIR) + "sounds/" + filename;
-
-    Mix_Chunk *sound_ptr = Mix_LoadWAV(filepath.c_str());
-    if (sound_ptr == nullptr) {
-        printf("Failed to load sound: %s\n", Mix_GetError());
-        return nullptr;
-    }
-    return {sound_ptr, Mix_FreeChunk};
-}
-
-std::shared_ptr<Mix_Music> Resources::load_track(const std::string& filename) {
-    // Concatenate filename to resource directory
-    std::string filepath = std::string(RES_DIR) + "tracks/" + filename;
-
-    Mix_Music *track_ptr = Mix_LoadMUS(filepath.c_str());
-    if (track_ptr == nullptr) {
-        printf("Failed to load track: %s\n", Mix_GetError());
-        return nullptr;
-    }
-    return {track_ptr, Mix_FreeMusic};
-}
-
 std::shared_ptr<TTF_Font> Resources::load_font(const std::string& filename, int size) {
     // Concatenate filename to resource directory
     std::string filepath = std::string(RES_DIR) + "fonts/" + filename;
@@ -89,18 +65,6 @@ void Resources::load_resources(const std::string& json_filename) {
     json resources;
     file >> resources;
 
-    // Load Sounds
-    for (json::iterator it = resources["sounds"].begin();
-         it != resources["sounds"].end(); it++) {
-        sounds[it.key()] = load_sound(it.value());
-    }
-
-    // Load Tracks
-    for (json::iterator it = resources["tracks"].begin();
-         it != resources["tracks"].end(); it++) {
-        tracks[it.key()] = load_track(it.value());
-    }
-
     // Load Fonts
     for (json::iterator it = resources["fonts"].begin();
          it != resources["fonts"].end(); it++) {
@@ -151,10 +115,6 @@ void Resources::load_resources(const std::string& json_filename) {
     }
 }
 
-Sound Resources::get_sound(const std::string& name) { return Sound(sounds[name]); }
-
-Track Resources::get_track(const std::string& name) { return Track(tracks[name]); }
-
 std::shared_ptr<TTF_Font> Resources::get_font(const std::string& name) {
     return fonts[name];
 }
@@ -174,13 +134,4 @@ Sprite Resources::get_sprite(const std::string& name) {
         sprite.add_frame(Texture(sprite_frames[name][i]));
     }
     return sprite;
-}
-
-std::vector<std::string> Resources::get_sounds() const {
-    std::vector<std::string> keys;
-    keys.reserve(sounds.size());
-    for (const auto& kv : sounds) {
-        keys.push_back(kv.first);
-    }
-    return keys;
 }

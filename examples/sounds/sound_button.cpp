@@ -2,42 +2,32 @@
 
 #include <SDL2/SDL.h>
 
-#include "../../graphics/resources.h"
-#include "../../input/inputs.h"
-
 #define COLOR_CHANGE_AMOUNT 50
 
-SoundButton::SoundButton(const std::shared_ptr<Scene> &scene, int x, int y,
+SoundButton::SoundButton(const std::shared_ptr<Scene>& scene, int x, int y,
                          int width, int height, SDL_Color color,
-                         std::string sound)
-    : PhysicalEntity(scene, x, y, width, height) {
-    this->color = color;
-    this->active_color = get_lighter_color(color);
-
-    Resources *resources = scene->get_graphics()->get_resources();
-
-    this->sound = resources->get_sound(sound);
-}
+                         const std::string& sound)
+    : PhysicalEntity(scene, x, y, width, height), sound(sound), color(color), active_color(get_lighter_color(color)) {}
 
 void SoundButton::update() {
     // If clicked on, play sound
     std::shared_ptr<Inputs> inputs = scene->get_inputs();
     SDL_Rect rect = {(int)x, (int)y, w, h};
     if (inputs->is_mouse_down_event_in_rect(&rect)) {
-        scene->get_audio()->play_sound(sound);
+        sound.play();
     }
 }
 
 void SoundButton::render() {
-    std::shared_ptr<Inputs> inputs = scene->get_inputs();
-    SDL_Renderer *renderer = scene->get_graphics()->get_renderer();
+    const std::shared_ptr<Inputs>& inputs = scene->get_inputs();
+    const std::shared_ptr<SDL_Renderer>& renderer = scene->get_graphics()->get_renderer();
     SDL_Rect rect = {(int)x, (int)y, w, h};
-    SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
+    SDL_SetRenderDrawColor(renderer.get(), color.r, color.g, color.b, color.a);
     if (inputs->is_mouse_down_in_rect(&rect)) {
-        SDL_SetRenderDrawColor(renderer, active_color.r, active_color.g,
+        SDL_SetRenderDrawColor(renderer.get(), active_color.r, active_color.g,
                                active_color.b, active_color.a);
     }
-    SDL_RenderFillRect(renderer, &rect);
+    SDL_RenderFillRect(renderer.get(), &rect);
 }
 
 SDL_Color SoundButton::get_lighter_color(SDL_Color color) {
