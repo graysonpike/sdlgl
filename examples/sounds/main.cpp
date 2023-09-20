@@ -8,11 +8,10 @@
 #include "sound_button.h"
 
 int main() {
-    Context context(std::make_shared<Graphics>(640, 480), std::make_shared<Inputs>(),
-                    std::make_shared<Clock>());
-    std::shared_ptr<Scene> scene = std::make_shared<Scene>(
-        context.graphics, context.inputs);
-    context.graphics->get_resources()->load_resources("resources.json");
+    Graphics::initialize(640, 480);
+    Context context(std::make_shared<Clock>());
+    std::shared_ptr<Scene> scene = std::make_shared<Scene>();
+    Resources::get_instance().load_resources("resources.json");
 
     Audio::get_instance();
 
@@ -23,20 +22,23 @@ int main() {
     scene->add_entity(std::make_shared<SoundButton>(
         scene, 455, 195, 91, 91, (SDL_Color){26, 119, 26, 255}, "send.wav"));
 
+    Graphics &graphics = Graphics::get_instance();
+    Inputs &inputs = Inputs::get_instance();
+
     // Enter a simple update loop
     bool loop = true;
     while (loop) {
-        context.inputs->update();
+        inputs.update();
         context.clock->tick();
-        context.graphics->clear_screen((SDL_Color){255, 255, 255, 255});
+        graphics.clear_screen((SDL_Color){255, 255, 255, 255});
 
         scene->update(context.clock->get_delta());
         scene->render();
 
-        context.graphics->present_renderer(context.clock->get_delta());
+        graphics.present_renderer(context.clock->get_delta());
 
         // If ESC or 'X' button is pressed, leave the update loop and exit
-        if (context.inputs->get_quit()) {
+        if (inputs.get_quit()) {
             loop = false;
         }
     }

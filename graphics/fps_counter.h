@@ -16,7 +16,7 @@ class FPSCounter {
    public:
     FPSCounter();
     void count(float delta);
-    float get_fps();
+    float get_fps() const;
 };
 
 #endif

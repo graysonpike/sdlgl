@@ -53,7 +53,23 @@ void Graphics::init_capture_surface() {
     capture_surface = std::shared_ptr<SDL_Surface>(capture_surface_ptr, SDL_FreeSurface);
 }
 
+Graphics* Graphics::instance = nullptr;
+
 // PUBLIC FUNCTIONS
+
+Graphics& Graphics::get_instance() {
+    if (!instance) {
+        // Error or provide some default initialization.
+        throw std::runtime_error("Must call initialize() before get_instance()");
+    }
+    return *instance;
+}
+
+void Graphics::initialize(int width, int height, const std::string& window_title) {
+    if (!instance) {
+        instance = new Graphics(width, height, window_title);
+    }
+}
 
 // Initializes SDL and loads resources
 Graphics::Graphics(int width, int height, std::string window_title) {
@@ -61,8 +77,6 @@ Graphics::Graphics(int width, int height, std::string window_title) {
     this->height = height;
     debug_visuals_enabled = false;
     init_sdl(std::move(window_title));
-    resources = std::make_shared<Resources>(renderer);
-    font_renderer = std::make_shared<FontRenderer>(renderer, resources);
     fps_counter = FPSCounter();
     init_capture_surface();
 }
@@ -87,25 +101,49 @@ void Graphics::set_debug_visuals(bool enabled) {
     debug_visuals_enabled = enabled;
 }
 
-int Graphics::get_width() { return width; }
+int Graphics::get_width() const { return width; }
 
-int Graphics::get_height() { return height; }
+int Graphics::get_height() const { return height; }
 
-bool Graphics::get_debug_visuals_enabled() { return debug_visuals_enabled; }
+bool Graphics::get_debug_visuals_enabled() const { return debug_visuals_enabled; }
 
-std::shared_ptr<SDL_Renderer> Graphics::get_renderer() { return renderer; }
+std::shared_ptr<SDL_Renderer> Graphics::get_renderer() const { return renderer; }
 
-std::shared_ptr<FontRenderer> Graphics::get_font_renderer() { return font_renderer; }
-
-std::shared_ptr<Resources> Graphics::get_resources() { return resources; }
-
-float Graphics::get_fps() { return fps_counter.get_fps(); }
+float Graphics::get_fps() const { return fps_counter.get_fps(); }
 
 void Graphics::capture_bmp(std::string filename) {
     SDL_RenderReadPixels(renderer.get(), nullptr, SDL_GetWindowPixelFormat(window.get()),
                          capture_surface->pixels, capture_surface->pitch);
     SDL_SaveBMP(capture_surface.get(), filename.c_str());
 }
+
+// Draws text to a blank surface and transfers that to the given texture
+std::shared_ptr<SDL_Texture> Graphics::load_font_texture(const std::string& font,
+                                                             const std::string& text, SDL_Color text_color) {
+
+    // Load temporary surface and convert to texture
+    // TTF_RenderText_Solid = quick & dirty
+    // TTF_RenderText_Shaded = slow & antialiased, but with opaque box
+    // TTF_RenderText_Blended = very slow & antialiased with alpha blending
+    SDL_Surface *surface_ptr = TTF_RenderText_Blended(Resources::get_instance().get_font(font).get(),
+                                                      text.c_str(), text_color);
+    if (surface_ptr == nullptr) {
+        printf("Error loading font surface: %s\n", TTF_GetError());
+        return nullptr;
+    }
+
+    // Transfer surface to texture
+    SDL_Texture *texture_ptr = SDL_CreateTextureFromSurface(Graphics::get_instance().get_renderer().get(), surface_ptr);
+    if (texture_ptr == nullptr) {
+        printf("Unable to create texture from surface: %s\n", SDL_GetError());
+        return nullptr;
+    }
+
+    // Free temporary surface and exit
+    SDL_FreeSurface(surface_ptr);
+    return {texture_ptr, SDL_DestroyTexture};
+}
+
 
 Graphics::~Graphics() {
     Mix_Quit();

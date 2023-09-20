@@ -20,12 +20,17 @@ bool Inputs::check_for_quit(SDL_Event event) {
     return false;
 }
 
-// PUBLIC FUNCTIONS
-
 Inputs::Inputs() {
     quit = false;
     mouse_button_state = false;
     mouse_button_down_event = false;
+}
+
+// PUBLIC FUNCTIONS
+
+Inputs &Inputs::get_instance() {
+    static Inputs instance;
+    return instance;
 }
 
 bool Inputs::get_quit() { return quit; }

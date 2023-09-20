@@ -13,7 +13,6 @@ FILES = audio/audio \
 		game/physical_entity \
 		graphics/graphics \
 		graphics/resources \
-		graphics/font_renderer \
 		graphics/fps_counter \
 		graphics/sprite \
 		graphics/texture \

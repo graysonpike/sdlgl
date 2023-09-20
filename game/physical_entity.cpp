@@ -9,8 +9,9 @@ float PhysicalEntity::get_center_x() const { return x + (w / 2); }
 float PhysicalEntity::get_center_y() const { return y + (h / 2); }
 
 void PhysicalEntity::wrap_bounds() {
-    int screen_w = scene->get_graphics()->get_width();
-    int screen_h = scene->get_graphics()->get_height();
+    const Graphics& graphics = Graphics::get_instance();
+    int screen_w = graphics.get_width();
+    int screen_h = graphics.get_height();
 
     if (this->get_center_x() < 0) {
         x = screen_w - w / 2;
@@ -25,8 +26,9 @@ void PhysicalEntity::wrap_bounds() {
 }
 
 void PhysicalEntity::clamp() {
-    int screen_w = scene->get_graphics()->get_width();
-    int screen_h = scene->get_graphics()->get_height();
+    const Graphics& graphics = Graphics::get_instance();
+    int screen_w = graphics.get_width();
+    int screen_h = graphics.get_height();
     if (x < 0) {
         x = 0;
     }

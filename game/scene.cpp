@@ -2,11 +2,8 @@
 
 #include <iostream>
 
-Scene::Scene(const std::shared_ptr<Graphics>& graphics,
-             const std::shared_ptr<Inputs>& inputs)
-    : graphics(graphics),
-      inputs(inputs),
-      collider(std::make_shared<Collider>()),
+Scene::Scene()
+    : collider(std::make_shared<Collider>()),
       delta(0) {}
 
 void Scene::update(float new_delta) {
@@ -60,10 +57,6 @@ const std::vector<std::shared_ptr<Entity>>& Scene::get_entities_with_tag(
     static const std::vector<std::shared_ptr<Entity>> empty_vector;
     return empty_vector;
 }
-
-std::shared_ptr<Inputs> Scene::get_inputs() const { return inputs; }
-
-std::shared_ptr<Graphics> Scene::get_graphics() const { return graphics; }
 
 std::shared_ptr<Collider> Scene::get_collider() const { return collider; }
 

@@ -11,19 +11,17 @@ SoundButton::SoundButton(const std::shared_ptr<Scene>& scene, int x, int y,
 
 void SoundButton::update() {
     // If clicked on, play sound
-    std::shared_ptr<Inputs> inputs = scene->get_inputs();
     SDL_Rect rect = {(int)x, (int)y, w, h};
-    if (inputs->is_mouse_down_event_in_rect(&rect)) {
+    if (Inputs::get_instance().is_mouse_down_event_in_rect(&rect)) {
         sound.play();
     }
 }
 
 void SoundButton::render() {
-    const std::shared_ptr<Inputs>& inputs = scene->get_inputs();
-    const std::shared_ptr<SDL_Renderer>& renderer = scene->get_graphics()->get_renderer();
+    const std::shared_ptr<SDL_Renderer>& renderer = Graphics::get_instance().get_renderer();
     SDL_Rect rect = {(int)x, (int)y, w, h};
     SDL_SetRenderDrawColor(renderer.get(), color.r, color.g, color.b, color.a);
-    if (inputs->is_mouse_down_in_rect(&rect)) {
+    if (Inputs::get_instance().is_mouse_down_in_rect(&rect)) {
         SDL_SetRenderDrawColor(renderer.get(), active_color.r, active_color.g,
                                active_color.b, active_color.a);
     }

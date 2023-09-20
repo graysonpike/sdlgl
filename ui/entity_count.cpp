@@ -23,18 +23,19 @@ void EntityCount::update() {
 }
 
 void EntityCount::render() {
-    if (!scene->get_graphics()->get_debug_visuals_enabled()) {
+    const Graphics& graphics = Graphics::get_instance();
+    if (!graphics.get_debug_visuals_enabled()) {
         return;
     }
 
     std::string text = "Entity Count: " + std::to_string(entity_count);
-    std::shared_ptr<SDL_Texture> text_texture = scene->get_graphics()->get_font_renderer()->load_font_texture(font, text, color);
+    std::shared_ptr<SDL_Texture> text_texture = Graphics::load_font_texture(font, text, color);
 
     int texture_width, texture_height;
     SDL_QueryTexture(text_texture.get(), nullptr, nullptr, &texture_width, &texture_height);
 
     SDL_Rect dst = {X_COORD, Y_COORD, texture_width, texture_height};
 
-    SDL_RenderCopy(scene->get_graphics()->get_renderer().get(), text_texture.get(), nullptr,
+    SDL_RenderCopy(graphics.get_renderer().get(), text_texture.get(), nullptr,
                    &dst);
 }

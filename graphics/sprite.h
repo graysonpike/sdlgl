@@ -24,12 +24,8 @@ class Sprite {
     Sprite();
     Sprite(Offset offset, float delay);
     void add_frame(Texture frame);
-    void draw(const std::shared_ptr<Scene>& scene, int x, int y, float delta);
-    void draw(const std::shared_ptr<Scene>& scene, int x, int y, float angle, bool flip_h, bool flip_v,
-              float delta);
-    void draw(const std::shared_ptr<SDL_Renderer>& renderer, int x, int y, float delta);
-    void draw(const std::shared_ptr<SDL_Renderer>& renderer, int x, int y, float angle, bool flip_h,
-              bool flip_v, float delta);
+    void draw(int x, int y, float delta);
+    void draw(int x, int y, float angle, bool flip_h, bool flip_v, float delta);
     int get_width();
     int get_height();
     float get_delay();

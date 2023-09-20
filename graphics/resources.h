@@ -28,9 +28,12 @@ class Resources {
     std::shared_ptr<SDL_Renderer> renderer;
     static std::shared_ptr<TTF_Font> load_font(const std::string& filename, int size);
     std::shared_ptr<SDL_Texture> load_texture(const std::string& filename);
-
+    Resources();
    public:
-    Resources(const std::shared_ptr<SDL_Renderer>& renderer);
+    Resources(const Resources&) = delete;
+    Resources& operator=(const Resources&) = delete;
+    // Static method to provide global point of access to the instance.
+    static Resources& get_instance();
     void load_resources(const std::string& json_filename);
     std::shared_ptr<TTF_Font> get_font(const std::string& name);
     Texture get_texture(const std::string& name);

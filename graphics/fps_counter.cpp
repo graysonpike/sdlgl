@@ -31,4 +31,4 @@ void FPSCounter::count(float delta) {
     }
 }
 
-float FPSCounter::get_fps() { return fps; }
+float FPSCounter::get_fps() const { return fps; }

@@ -55,9 +55,14 @@ std::shared_ptr<SDL_Texture> Resources::load_texture(const std::string& filename
     return {texture_ptr, SDL_DestroyTexture};
 }
 
+Resources::Resources() {}
+
 // PUBLIC FUNCTIONS
 
-Resources::Resources(const std::shared_ptr<SDL_Renderer>& renderer) { this->renderer = renderer; }
+Resources &Resources::get_instance() {
+    static Resources instance;
+    return instance;
+}
 
 void Resources::load_resources(const std::string& json_filename) {
     // Read JSON object from resources file

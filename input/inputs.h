@@ -16,9 +16,12 @@ class Inputs {
     bool key_down_event[NUM_KEYS];
     // Returns true if ESC or 'X' button is pressed
     bool check_for_quit(SDL_Event event);
-
-   public:
     Inputs();
+   public:
+    Inputs(const Inputs&) = delete;
+    Inputs& operator=(const Inputs&) = delete;
+    // Static method to provide global point of access to the instance.
+    static Inputs& get_instance();
     void update();
     // Returns true if the ESC key or 'close window' event was triggered
     bool get_quit();

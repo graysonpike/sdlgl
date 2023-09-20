@@ -9,7 +9,7 @@ Particle::Particle(const std::shared_ptr<Scene>& scene, int x, int y, int size,
 }
 
 void Particle::render() {
-    const std::shared_ptr<SDL_Renderer>& renderer = scene->get_graphics()->get_renderer();
+    const std::shared_ptr<SDL_Renderer>& renderer = Graphics::get_instance().get_renderer();
 
     int alpha = 255 * timer.remaining();
 
