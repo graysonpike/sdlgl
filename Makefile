@@ -2,7 +2,7 @@
 SHELL := /bin/bash
 
 CC = g++
-FLAGS = -c -std=c++11 -g3 -Wall
+FLAGS = -c -std=c++17 -g3 -Wall
 FILES = audio/audio \
 		audio/sound \
 		game/clock \

@@ -1,13 +1,16 @@
+#include <sdlgl/audio/sound.h>
 #include "sound_button.h"
-
+#include <memory>
 #include <SDL2/SDL.h>
 
 #define COLOR_CHANGE_AMOUNT 50
 
 SoundButton::SoundButton(const std::shared_ptr<Scene>& scene, int x, int y,
                          int width, int height, SDL_Color color,
-                         const std::string& sound)
-    : PhysicalEntity(scene, x, y, width, height), sound(sound), color(color), active_color(get_lighter_color(color)) {}
+                         const std::string& filename)
+    : PhysicalEntity(scene, x, y, width, height), color(color), active_color(get_lighter_color(color)) {
+    sound = Sound(filename);
+}
 
 void SoundButton::update() {
     // If clicked on, play sound

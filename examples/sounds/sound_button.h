@@ -1,6 +1,6 @@
-#include "../../game/physical_entity.h"
-#include "../../game/scene.h"
-#include "../../audio/sound.h"
+#include <sdlgl/game/physical_entity.h>
+#include <sdlgl/game/scene.h>
+#include <sdlgl/audio/sound.h>
 
 class SoundButton : public PhysicalEntity {
     SDL_Color color;
@@ -10,7 +10,7 @@ class SoundButton : public PhysicalEntity {
 
    public:
     SoundButton(const std::shared_ptr<Scene>& scene, int x, int y, int width,
-                int height, SDL_Color color, const std::string& sound);
+                int height, SDL_Color color, const std::string& filename);
     void render();
     void update();
 };

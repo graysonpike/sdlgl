@@ -1,13 +1,18 @@
 #ifndef RANDOM_H
 #define RANDOM_H
 
+#include <random>
+
 class Random {
-    static void init();
+    static std::mt19937 rng;
     static bool initialized;
 
-   public:
+    static void init();
+
+public:
     // Inclusive of both min and max
     static int randint(int min, int max);
+    static float randfloat(float min, float max);
 };
 
-#endif
+#endif // RANDOM_H

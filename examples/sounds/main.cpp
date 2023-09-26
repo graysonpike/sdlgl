@@ -3,8 +3,8 @@
 
 #include <iostream>
 
-#include "../../game/clock.h"
-#include "../../game/context.h"
+#include <sdlgl/game/clock.h>
+#include <sdlgl/game/context.h>
 #include "sound_button.h"
 
 int main() {
@@ -31,7 +31,6 @@ int main() {
         inputs.update();
         context.clock->tick();
         graphics.clear_screen((SDL_Color){255, 255, 255, 255});
-
         scene->update(context.clock->get_delta());
         scene->render();
 
