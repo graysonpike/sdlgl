@@ -41,7 +41,7 @@ std::shared_ptr<SDL_Texture> Resources::load_texture(const std::string& filename
     }
 
     // If successful, transfer the surface into the texture
-    SDL_Texture *texture_ptr = SDL_CreateTextureFromSurface(renderer.get(), loaded_surface_ptr);
+    SDL_Texture *texture_ptr = SDL_CreateTextureFromSurface(Graphics::get_instance().get_renderer().get(), loaded_surface_ptr);
     if (texture_ptr == nullptr) {
         printf("Unable to create texture from surface: %s\n", SDL_GetError());
     }

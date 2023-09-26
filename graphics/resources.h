@@ -25,7 +25,6 @@ class Resources {
     std::map<std::string, std::vector<std::shared_ptr<SDL_Texture>>> sprite_frames;
     std::map<std::string, Offset> sprite_offsets;
     std::map<std::string, float> sprite_frame_delays;
-    std::shared_ptr<SDL_Renderer> renderer;
     static std::shared_ptr<TTF_Font> load_font(const std::string& filename, int size);
     std::shared_ptr<SDL_Texture> load_texture(const std::string& filename);
     Resources();
