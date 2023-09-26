@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CLionExternalBuildManager">
+    <target id="d87a0cac-1905-4a53-9669-b6b8451357f5" name="lib" defaultType="MAKE">
+      <configuration id="0e8d13a6-67d0-4433-906b-a2aeb2c082b1" name="lib">
+        <build type="MAKE">
+          <make targetName="lib" />
+        </build>
+        <clean type="MAKE">
+          <make targetName="clean" />
+        </clean>
+      </configuration>
+    </target>
+    <target id="82077375-6d83-42d3-898e-fea85de118d2" name="main.out" defaultType="MAKE">
+      <configuration id="3dd56fcc-5c89-431c-9854-04804218543b" name="main.out">
+        <build type="MAKE">
+          <make targetName="main.out" />
+        </build>
+        <clean type="MAKE">
+          <make targetName="clean" />
+        </clean>
+      </configuration>
+    </target>
+    <target id="9c89fbaf-4865-4e32-8f46-91dfe2812257" name="examples" defaultType="MAKE">
+      <configuration id="f74e70e0-73d7-4d19-aae5-8186535f2063" name="examples">
+        <build type="MAKE">
+          <make targetName="examples" />
+        </build>
+        <clean type="MAKE">
+          <make targetName="clean" />
+        </clean>
+      </configuration>
+    </target>
+  </component>
+</project>
