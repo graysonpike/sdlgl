@@ -1,12 +1,13 @@
 #ifndef ENTITY_H
 #define ENTITY_H
 
+#include <memory>
 #include "scene.h"
 
 class Scene;
 
 // Class which has entities and manages an update+render loop
-class Entity : public std::enable_shared_from_this<Entity>  {
+class Entity {
    protected:
     std::shared_ptr<Scene> scene;
     bool alive;

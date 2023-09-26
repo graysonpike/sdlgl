@@ -2,6 +2,7 @@
 #define SOUND_H
 
 #include <memory>
+#include <vector>
 #include <SDL2/SDL.h>
 #include "audio.h"
 

@@ -1,6 +1,7 @@
 #include "graphics.h"
 
 #include <utility>
+#include <stdexcept>
 
 // PRIVATE HELPER FUNCTIONS
 

@@ -2,21 +2,14 @@
 // A simple red box moving around the screen, controlled with the arrow keys
 
 #include <iostream>
-
-#include "../../game/clock.h"
-#include "../../game/context.h"
-#include "../../game/scene.h"
-#include "../../graphics/graphics.h"
-#include "../../input/inputs.h"
-#include "../../ui/fps_display.h"
+#include <sdlgl/game/context.h>
 #include "player.h"
 
 int main() {
-    Context context(std::make_shared<Graphics>(640, 480),
-                    std::make_shared<Audio>(), std::make_shared<Inputs>(),
-                    std::make_shared<Clock>());
-    std::shared_ptr<Scene> scene = std::make_shared<Scene>(
-        context.graphics, context.audio, context.inputs);
+
+    Graphics::get_instance().initialize(640, 480);
+    Context context(std::make_shared<Clock>());
+    std::shared_ptr<Scene> scene = std::make_shared<Scene>();
 
     // Load resources
     context.graphics->get_resources()->load_resources("resources.json");
