@@ -18,7 +18,7 @@ void Timer::reset() {
     active = true;
 }
 
-void Timer::set_duration(float duration) { this->duration = duration; }
+void Timer::set_duration(float duration) { this->duration = (unsigned)(duration * 1000); }
 
 bool Timer::is_done() {
     update();

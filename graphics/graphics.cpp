@@ -125,14 +125,21 @@ void Graphics::capture_bmp(std::string filename) {
 
 // Draws text to a blank surface and transfers that to the given texture
 std::shared_ptr<SDL_Texture> Graphics::load_font_texture(
-    const std::string& font, const std::string& text, SDL_Color text_color) {
+    const std::string& font, const std::string& text, SDL_Color text_color, int max_width) {
     // Load temporary surface and convert to texture
+    SDL_Surface* surface_ptr;
     // TTF_RenderText_Solid = quick & dirty
     // TTF_RenderText_Shaded = slow & antialiased, but with opaque box
     // TTF_RenderText_Blended = very slow & antialiased with alpha blending
-    SDL_Surface* surface_ptr =
-        TTF_RenderText_Blended(Resources::get_instance().get_font(font).get(),
-                               text.c_str(), text_color);
+    // If max_width is 0, we don't apply any wrapping.
+    if (max_width == 0) {
+        surface_ptr = TTF_RenderText_Blended(Resources::get_instance().get_font(font).get(),
+                                             text.c_str(), text_color);
+    } else {
+        surface_ptr = TTF_RenderText_Blended_Wrapped(Resources::get_instance().get_font(font).get(),
+                                             text.c_str(), text_color, max_width);
+    }
+
     if (surface_ptr == nullptr) {
         printf("Error loading font surface: %s\n", TTF_GetError());
         return nullptr;

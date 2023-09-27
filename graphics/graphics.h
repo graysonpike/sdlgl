@@ -48,7 +48,7 @@ class Graphics {
     float get_fps() const;
     void capture_bmp(std::string filename);
     static std::shared_ptr<SDL_Texture> load_font_texture(
-        const std::string& font, const std::string& text, SDL_Color text_color);
+        const std::string& font, const std::string& text, SDL_Color text_color, int max_width = 0);
     ~Graphics();
 };
 
