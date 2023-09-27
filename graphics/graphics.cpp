@@ -1,7 +1,7 @@
 #include "graphics.h"
 
-#include <utility>
 #include <stdexcept>
+#include <utility>
 
 // PRIVATE HELPER FUNCTIONS
 
@@ -16,13 +16,9 @@ bool Graphics::init_sdl(std::string window_title) {
     }
 
     // Create SDL Window
-    SDL_Window *window_ptr = SDL_CreateWindow(window_title.c_str(),
-                              SDL_WINDOWPOS_UNDEFINED,
-                              SDL_WINDOWPOS_UNDEFINED,
-                              width,
-                              height,
-                              SDL_WINDOW_OPENGL
-    );
+    SDL_Window* window_ptr = SDL_CreateWindow(
+        window_title.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
+        width, height, SDL_WINDOW_OPENGL);
     if (window_ptr == nullptr) {
         printf("Could not create window: %s\n", SDL_GetError());
         return false;
@@ -30,7 +26,8 @@ bool Graphics::init_sdl(std::string window_title) {
     window = std::shared_ptr<SDL_Window>(window_ptr, SDL_DestroyWindow);
 
     // Initialize renderer with flags
-    SDL_Renderer* renderer_ptr = SDL_CreateRenderer(window.get(), -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+    SDL_Renderer* renderer_ptr = SDL_CreateRenderer(
+        window.get(), -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
     if (renderer_ptr == nullptr) {
         printf("Could not init renderer: %s\n", SDL_GetError());
         return false;
@@ -49,9 +46,10 @@ bool Graphics::init_sdl(std::string window_title) {
 }
 
 void Graphics::init_capture_surface() {
-    SDL_Surface *capture_surface_ptr =
+    SDL_Surface* capture_surface_ptr =
         SDL_CreateRGBSurface(0, width, height, 32, 0, 0, 0, 0);
-    capture_surface = std::shared_ptr<SDL_Surface>(capture_surface_ptr, SDL_FreeSurface);
+    capture_surface =
+        std::shared_ptr<SDL_Surface>(capture_surface_ptr, SDL_FreeSurface);
 }
 
 Graphics* Graphics::instance = nullptr;
@@ -61,12 +59,14 @@ Graphics* Graphics::instance = nullptr;
 Graphics& Graphics::get_instance() {
     if (!instance) {
         // Error or provide some default initialization.
-        throw std::runtime_error("Must call initialize() before get_instance()");
+        throw std::runtime_error(
+            "Must call initialize() before get_instance()");
     }
     return *instance;
 }
 
-void Graphics::initialize(int width, int height, const std::string& window_title) {
+void Graphics::initialize(int width, int height,
+                          const std::string& window_title) {
     if (!instance) {
         instance = new Graphics(width, height, window_title);
     }
@@ -106,35 +106,41 @@ int Graphics::get_width() const { return width; }
 
 int Graphics::get_height() const { return height; }
 
-bool Graphics::get_debug_visuals_enabled() const { return debug_visuals_enabled; }
+bool Graphics::get_debug_visuals_enabled() const {
+    return debug_visuals_enabled;
+}
 
-std::shared_ptr<SDL_Renderer> Graphics::get_renderer() const { return renderer; }
+std::shared_ptr<SDL_Renderer> Graphics::get_renderer() const {
+    return renderer;
+}
 
 float Graphics::get_fps() const { return fps_counter.get_fps(); }
 
 void Graphics::capture_bmp(std::string filename) {
-    SDL_RenderReadPixels(renderer.get(), nullptr, SDL_GetWindowPixelFormat(window.get()),
+    SDL_RenderReadPixels(renderer.get(), nullptr,
+                         SDL_GetWindowPixelFormat(window.get()),
                          capture_surface->pixels, capture_surface->pitch);
     SDL_SaveBMP(capture_surface.get(), filename.c_str());
 }
 
 // Draws text to a blank surface and transfers that to the given texture
-std::shared_ptr<SDL_Texture> Graphics::load_font_texture(const std::string& font,
-                                                             const std::string& text, SDL_Color text_color) {
-
+std::shared_ptr<SDL_Texture> Graphics::load_font_texture(
+    const std::string& font, const std::string& text, SDL_Color text_color) {
     // Load temporary surface and convert to texture
     // TTF_RenderText_Solid = quick & dirty
     // TTF_RenderText_Shaded = slow & antialiased, but with opaque box
     // TTF_RenderText_Blended = very slow & antialiased with alpha blending
-    SDL_Surface *surface_ptr = TTF_RenderText_Blended(Resources::get_instance().get_font(font).get(),
-                                                      text.c_str(), text_color);
+    SDL_Surface* surface_ptr =
+        TTF_RenderText_Blended(Resources::get_instance().get_font(font).get(),
+                               text.c_str(), text_color);
     if (surface_ptr == nullptr) {
         printf("Error loading font surface: %s\n", TTF_GetError());
         return nullptr;
     }
 
     // Transfer surface to texture
-    SDL_Texture *texture_ptr = SDL_CreateTextureFromSurface(Graphics::get_instance().get_renderer().get(), surface_ptr);
+    SDL_Texture* texture_ptr = SDL_CreateTextureFromSurface(
+        Graphics::get_instance().get_renderer().get(), surface_ptr);
     if (texture_ptr == nullptr) {
         printf("Unable to create texture from surface: %s\n", SDL_GetError());
         return nullptr;
@@ -144,7 +150,6 @@ std::shared_ptr<SDL_Texture> Graphics::load_font_texture(const std::string& font
     SDL_FreeSurface(surface_ptr);
     return {texture_ptr, SDL_DestroyTexture};
 }
-
 
 Graphics::~Graphics() {
     Mix_Quit();

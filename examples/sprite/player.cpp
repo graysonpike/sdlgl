@@ -52,6 +52,6 @@ void Player::render() {
     if (dir == STANDING) {
         standing_texture.draw(x, y);
     } else {
-        sprites[dir].draw(x, y,scene->get_delta());
+        sprites[dir].draw(x, y, scene->get_delta());
     }
 }

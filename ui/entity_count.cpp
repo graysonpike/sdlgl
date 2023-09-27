@@ -29,10 +29,12 @@ void EntityCount::render() {
     }
 
     std::string text = "Entity Count: " + std::to_string(entity_count);
-    std::shared_ptr<SDL_Texture> text_texture = Graphics::load_font_texture(font, text, color);
+    std::shared_ptr<SDL_Texture> text_texture =
+        Graphics::load_font_texture(font, text, color);
 
     int texture_width, texture_height;
-    SDL_QueryTexture(text_texture.get(), nullptr, nullptr, &texture_width, &texture_height);
+    SDL_QueryTexture(text_texture.get(), nullptr, nullptr, &texture_width,
+                     &texture_height);
 
     SDL_Rect dst = {X_COORD, Y_COORD, texture_width, texture_height};
 

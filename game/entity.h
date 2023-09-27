@@ -2,6 +2,7 @@
 #define ENTITY_H
 
 #include <memory>
+
 #include "scene.h"
 
 class Scene;

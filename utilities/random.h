@@ -9,10 +9,10 @@ class Random {
 
     static void init();
 
-public:
+   public:
     // Inclusive of both min and max
     static int randint(int min, int max);
     static float randfloat(float min, float max);
 };
 
-#endif // RANDOM_H
+#endif  // RANDOM_H

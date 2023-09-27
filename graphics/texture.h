@@ -20,8 +20,7 @@ class Texture {
     Texture(const std::shared_ptr<SDL_Texture>& texture, Offset offset);
     void draw(int x, int y);
     void draw(int x, int y, float angle);
-    void draw(int x, int y, float angle, bool flip_h,
-              bool flip_v);
+    void draw(int x, int y, float angle, bool flip_h, bool flip_v);
     void set_offset(Offset new_offset);
     int get_width();
     int get_height();

@@ -22,12 +22,15 @@ class Resources {
     std::map<std::string, std::shared_ptr<TTF_Font>> fonts;
     std::map<std::string, std::shared_ptr<SDL_Texture>> textures;
     std::map<std::string, Offset> texture_offsets;
-    std::map<std::string, std::vector<std::shared_ptr<SDL_Texture>>> sprite_frames;
+    std::map<std::string, std::vector<std::shared_ptr<SDL_Texture>>>
+        sprite_frames;
     std::map<std::string, Offset> sprite_offsets;
     std::map<std::string, float> sprite_frame_delays;
-    static std::shared_ptr<TTF_Font> load_font(const std::string& filename, int size);
+    static std::shared_ptr<TTF_Font> load_font(const std::string& filename,
+                                               int size);
     std::shared_ptr<SDL_Texture> load_texture(const std::string& filename);
     Resources();
+
    public:
     Resources(const Resources&) = delete;
     Resources& operator=(const Resources&) = delete;

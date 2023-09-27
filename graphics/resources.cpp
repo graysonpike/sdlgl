@@ -13,10 +13,11 @@ const std::string Resources::RES_DIR = "res/";
 
 // PRIVATE HELPER FUNCTIONS
 
-std::shared_ptr<TTF_Font> Resources::load_font(const std::string& filename, int size) {
+std::shared_ptr<TTF_Font> Resources::load_font(const std::string& filename,
+                                               int size) {
     // Concatenate filename to resource directory
     std::string filepath = std::string(RES_DIR) + "fonts/" + filename;
-    TTF_Font *font_ptr = TTF_OpenFont(filepath.c_str(), size);
+    TTF_Font* font_ptr = TTF_OpenFont(filepath.c_str(), size);
     if (font_ptr == nullptr) {
         printf("Error loading font: %s\n", TTF_GetError());
         return nullptr;
@@ -24,11 +25,11 @@ std::shared_ptr<TTF_Font> Resources::load_font(const std::string& filename, int 
     return {font_ptr, TTF_CloseFont};
 }
 
-std::shared_ptr<SDL_Texture> Resources::load_texture(const std::string& filename) {
-
+std::shared_ptr<SDL_Texture> Resources::load_texture(
+    const std::string& filename) {
     // Imagefile -> Surface -> Texture
     // Empty surface to begin with
-    SDL_Surface *loaded_surface_ptr = nullptr;
+    SDL_Surface* loaded_surface_ptr = nullptr;
 
     // Concatenate filename to resource directory
     std::string filepath = std::string(RES_DIR) + "images/" + filename;
@@ -41,7 +42,8 @@ std::shared_ptr<SDL_Texture> Resources::load_texture(const std::string& filename
     }
 
     // If successful, transfer the surface into the texture
-    SDL_Texture *texture_ptr = SDL_CreateTextureFromSurface(Graphics::get_instance().get_renderer().get(), loaded_surface_ptr);
+    SDL_Texture* texture_ptr = SDL_CreateTextureFromSurface(
+        Graphics::get_instance().get_renderer().get(), loaded_surface_ptr);
     if (texture_ptr == nullptr) {
         printf("Unable to create texture from surface: %s\n", SDL_GetError());
     }
@@ -59,7 +61,7 @@ Resources::Resources() {}
 
 // PUBLIC FUNCTIONS
 
-Resources &Resources::get_instance() {
+Resources& Resources::get_instance() {
     static Resources instance;
     return instance;
 }
@@ -100,7 +102,8 @@ void Resources::load_resources(const std::string& json_filename) {
     for (json::iterator it = resources["sprites"].begin();
          it != resources["sprites"].end(); it++) {
         for (uint i = 0; i < it.value()["frames"].size(); i++) {
-            sprite_frames[it.key()].push_back(load_texture(it.value()["frames"][i]));
+            sprite_frames[it.key()].push_back(
+                load_texture(it.value()["frames"][i]));
         }
         sprite_frame_delays[it.key()] = it.value()["delay"];
         Offset offset = {0, 0, 0, 0};

@@ -81,7 +81,7 @@ void Hitbox::update_pos(float x, float y, float angle) {
 }
 
 // Debug method to draw corners
-void Hitbox::render_corners(const std::shared_ptr<SDL_Renderer>& renderer) {
+void Hitbox::render_corners(const std::shared_ptr<SDL_Renderer> &renderer) {
     // Set draw color
     SDL_SetRenderDrawColor(renderer.get(), POINT_R, POINT_G, POINT_B, POINT_A);
 

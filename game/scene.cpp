@@ -2,9 +2,7 @@
 
 #include <iostream>
 
-Scene::Scene()
-    : collider(std::make_shared<Collider>()),
-      delta(0) {}
+Scene::Scene() : collider(std::make_shared<Collider>()), delta(0) {}
 
 void Scene::update(float new_delta) {
     this->delta = new_delta;

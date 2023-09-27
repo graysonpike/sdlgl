@@ -1,10 +1,11 @@
 // Example: Red Box
 // A simple red box moving around the screen, controlled with the arrow keys
 
-#include <iostream>
-
 #include <sdlgl/game/clock.h>
 #include <sdlgl/game/context.h>
+
+#include <iostream>
+
 #include "sound_button.h"
 
 int main() {

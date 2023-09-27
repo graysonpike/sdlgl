@@ -1,6 +1,6 @@
+#include <sdlgl/audio/sound.h>
 #include <sdlgl/game/physical_entity.h>
 #include <sdlgl/game/scene.h>
-#include <sdlgl/audio/sound.h>
 
 class SoundButton : public PhysicalEntity {
     SDL_Color color;

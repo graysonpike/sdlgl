@@ -25,7 +25,8 @@ void Sprite::draw(int x, int y, float delta) {
     frames[current_frame].draw(x, y);
 }
 
-void Sprite::draw(int x, int y, float angle, bool flip_h, bool flip_v, float delta) {
+void Sprite::draw(int x, int y, float angle, bool flip_h, bool flip_v,
+                  float delta) {
     int current_frame = get_frame_num(delta);
     frames[current_frame].draw(x, y, angle, flip_h, flip_v);
 }

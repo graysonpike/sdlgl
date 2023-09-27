@@ -2,7 +2,9 @@
 
 Texture::Texture() {}
 
-Texture::Texture(const std::shared_ptr<SDL_Texture>& texture) { this->texture = texture; }
+Texture::Texture(const std::shared_ptr<SDL_Texture>& texture) {
+    this->texture = texture;
+}
 
 Texture::Texture(const std::shared_ptr<SDL_Texture>& texture, Offset offset) {
     this->texture = texture;
@@ -13,7 +15,8 @@ void Texture::draw(int x, int y) {
     int width, height;
     SDL_QueryTexture(texture.get(), nullptr, nullptr, &width, &height);
     SDL_Rect dst = {x + offset.x, y + offset.y, width, height};
-    SDL_RenderCopy(Graphics::get_instance().get_renderer().get(), texture.get(), nullptr, &dst);
+    SDL_RenderCopy(Graphics::get_instance().get_renderer().get(), texture.get(),
+                   nullptr, &dst);
 }
 
 void Texture::draw(int x, int y, float angle) {
@@ -21,7 +24,8 @@ void Texture::draw(int x, int y, float angle) {
     SDL_QueryTexture(texture.get(), nullptr, nullptr, &width, &height);
     SDL_Rect dst = {x + offset.x, y + offset.y, width, height};
 
-    SDL_RenderCopyEx(Graphics::get_instance().get_renderer().get(), texture.get(), nullptr, &dst, angle / M_PI * 180, nullptr,
+    SDL_RenderCopyEx(Graphics::get_instance().get_renderer().get(),
+                     texture.get(), nullptr, &dst, angle / M_PI * 180, nullptr,
                      SDL_FLIP_NONE);
 }
 
@@ -42,7 +46,8 @@ void Texture::draw(int x, int y, float angle, bool flip_h, bool flip_v) {
     if (flip_v) {
         flip |= (uint)SDL_FLIP_HORIZONTAL;
     }
-    SDL_RenderCopyEx(Graphics::get_instance().get_renderer().get(), texture.get(), nullptr, &dst, angle / M_PI * 180, nullptr,
+    SDL_RenderCopyEx(Graphics::get_instance().get_renderer().get(),
+                     texture.get(), nullptr, &dst, angle / M_PI * 180, nullptr,
                      (SDL_RendererFlip)flip);
 }
 
