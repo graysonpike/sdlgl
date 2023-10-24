@@ -3,25 +3,27 @@
 
 ## An SDL2 Game Library
 
-This is a simple game framework library I'm creating for use in my own games. SDLGL currently provides support for 
+This is a simple game framework library I'm creating for use in my own games.
+SDLGL currently provides support for 
 * A simple and extensible Entity + Scene organization
-* A simple 'Update and Render' game loop with time delta
-* Multi-channel audio mixing for sound effects and music
+* A simple 'Update and Render' game loop
+* Audio mixing for sound effects and music built on [miniaudio](https://github.com/mackron/miniaudio)
 * Easily configurable (JSON-defined) resources supporting:
 	* Animated sprites
 	* Static textures
 	* Sound effects
 	* Music tracks
-* Collision detection system for rotatable rects
-* An FPS counter
+* Collision detection system for rotatable rectangles
 * Font renderer
-* Direct access to the SDL2 rendering context
-* Multiple commented example programs demonstrating each engine feature
+* Debugging UI elements
+* Access to the SDL2 rendering context
+* Multiple example programs demonstrating each engine feature
 
 
 ## Demo Projects
 
-In addition to the example programs, I have some other projects that are built with SDLGL.
+In addition to the example programs, I have some other projects that are
+built with SDLGL.
 
 ### [SDLGL Knight Game](https://github.com/graysonpike/sdlgl-knight-game)
 ![Knight game gameplay](screenshots/knight.gif)
@@ -36,7 +38,10 @@ In addition to the example programs, I have some other projects that are built w
 
 ## Installation
 
-To install SDLGL, you will have to build from source using GCC's `g++` compiler.
+To install SDLGL, you will have to build from source using
+[LLVM clang](https://llvm.org/) or [GCC](https://gcc.gnu.org/). The Makefile
+defaults to `g++`.
+
 ### Linux (Debian/Ubuntu)
 
 The Makefile currently requires the following packages:
