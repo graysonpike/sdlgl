@@ -13,7 +13,7 @@ SoundButton::SoundButton(const std::shared_ptr<Scene>& scene, int x, int y,
     : PhysicalEntity(scene, x, y, width, height),
       color(color),
       active_color(get_lighter_color(color)) {
-    sound = Sound(filename);
+    sound = Sound(filename, 3);
 }
 
 void SoundButton::update() {

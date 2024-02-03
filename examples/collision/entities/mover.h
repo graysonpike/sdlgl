@@ -12,7 +12,7 @@ class Mover : public PhysicalEntity {
     bool is_touched;
 
     void collision_callback(Entity* entity, int type);
-    void move(const std::shared_ptr<Inputs>& inputs, float delta);
+    void move();
 
    public:
     Mover(const std::shared_ptr<Scene>& scene, int x, int y);

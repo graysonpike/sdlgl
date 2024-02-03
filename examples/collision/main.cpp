@@ -14,42 +14,40 @@
 #include "entities/rotator.h"
 
 void game_loop(Context& context, std::shared_ptr<Scene>& scene) {
-    context.inputs->update();
+    Graphics &graphics = Graphics::get_instance();
+    Inputs &inputs = Inputs::get_instance();
+    inputs.update();
     context.clock->tick();
-    context.graphics->clear_screen((SDL_Color){255, 255, 255, 255});
+    graphics.clear_screen((SDL_Color){255, 255, 255, 255});
 
     scene->update(context.clock->get_delta());
     scene->render();
 
-    context.audio->update(context.clock->get_delta());
-
-    if (context.inputs->get_quit()) {
+    if (inputs.get_quit()) {
         *context.loop = false;
     }
 
-    context.graphics->present_renderer(context.clock->get_delta());
+    graphics.present_renderer(context.clock->get_delta());
 }
 
 int main() {
     srand(time(NULL));
 
     // Load a window
-    Context context(std::make_shared<Graphics>(720, 640),
-                    std::make_shared<Audio>(), std::make_shared<Inputs>(),
-                    std::make_shared<Clock>());
-    context.graphics->get_resources()->load_resources("resources.json");
-    context.graphics->set_debug_visuals(true);
-
-    std::shared_ptr<Scene> scene = std::make_shared<Scene>(
-        context.graphics, context.audio, context.inputs);
+    Graphics::initialize(720, 640);
+    Context context(std::make_shared<Clock>());
+    std::shared_ptr<Scene> scene = std::make_shared<Scene>();
+    Resources::get_instance().load_resources("resources.json");
+    Graphics::get_instance().set_debug_visuals(true);
 
     scene->add_entity(std::make_shared<FPS_Display>(scene, "base_text",
                                                     (SDL_Color){0, 0, 0, 255}));
     scene->add_entity(std::make_shared<EntityCount>(scene, "base_text",
                                                     (SDL_Color){0, 0, 0, 255}));
+    Graphics& graphics = Graphics::get_instance();
     scene->add_entity(
-        std::make_shared<Rotator>(scene, context.graphics->get_width() / 2,
-                                  context.graphics->get_height() / 2, 0.0f));
+        std::make_shared<Rotator>(scene, graphics.get_width() / 2,
+                                  graphics.get_height() / 2, 0.0f));
     scene->add_entity(std::make_shared<Mover>(scene, 100, 100));
 
     while (*context.loop) {

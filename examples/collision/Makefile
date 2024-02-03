@@ -1,7 +1,7 @@
 .DEFAULT_GOAL := main.out
 
 CC = g++
-FLAGS = -std=c++11 -g
+FLAGS = -std=c++17 -g
 LIBS  = -lsdlgl -lSDL2 -lSDL2_image -lSDL2_ttf -lSDL2_mixer
 
 

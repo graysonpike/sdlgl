@@ -11,37 +11,35 @@ class ParticleExample {
     std::vector<SDL_Color> fire_colors;
     std::vector<SDL_Color> explosion_colors;
 
-    void game_loop(Context context, const std::shared_ptr<Scene>& scene) {
-        if (context.inputs->is_key_down_event(SDL_SCANCODE_SPACE)) {
+    void game_loop(Context context, std::shared_ptr<Scene>& scene) {
+        Graphics& graphics = Graphics::get_instance();
+        Inputs& inputs = Inputs::get_instance();
+        if (inputs.is_key_down_event(SDL_SCANCODE_SPACE)) {
             scene->add_entity(std::make_shared<LinearParticleEmitter>(
                 scene, 213, 240, -100, 100, -100, 100, explosion_colors, 50, 3,
                 0.3f, 0.1f, false));
         }
 
-        context.inputs->update();
+        inputs.update();
         context.clock->tick();
-        context.graphics->clear_screen((SDL_Color){255, 255, 255, 255});
+        graphics.clear_screen((SDL_Color){255, 255, 255, 255});
 
         scene->update(context.clock->get_delta());
         scene->render();
 
-        context.audio->update(context.clock->get_delta());
-
-        if (context.inputs->get_quit()) {
+        if (inputs.get_quit()) {
             *context.loop = false;
         }
 
-        context.graphics->present_renderer(context.clock->get_delta());
+        graphics.present_renderer(context.clock->get_delta());
     }
 
    public:
     int start() {
-        Context context(std::make_shared<Graphics>(640, 480),
-                        std::make_shared<Audio>(), std::make_shared<Inputs>(),
-                        std::make_shared<Clock>());
-        std::shared_ptr<Scene> scene = std::make_shared<Scene>(
-            context.graphics, context.audio, context.inputs);
-        context.graphics->get_resources()->load_resources("resources.json");
+        Graphics::initialize(640, 480);
+        Context context(std::make_shared<Clock>());
+        std::shared_ptr<Scene> scene = std::make_shared<Scene>();
+        Resources::get_instance().load_resources("resources.json");
 
         explosion_colors.push_back((SDL_Color){50, 50, 50});
         explosion_colors.push_back((SDL_Color){100, 100, 100});
@@ -62,7 +60,7 @@ class ParticleExample {
         scene->add_entity(std::make_shared<EntityCount>(
             scene, "base_text", (SDL_Color){0, 0, 0, 255}));
 
-        context.graphics->set_debug_visuals(true);
+        Graphics::get_instance().set_debug_visuals(true);
 
         while (*context.loop) {
             game_loop(context, scene);

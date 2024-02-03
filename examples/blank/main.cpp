@@ -1,23 +1,24 @@
 // Example Game to Demonstrate Blank Screen
 
 #include "../../game/clock.h"
-#include "../../graphics/graphics.h"
-#include "../../input/inputs.h"
+#include "../../game/context.h"
 
 int main() {
-    Clock clock;
-    Inputs inputs;
 
     // Load a window
-    Graphics graphics(640, 480);
+    Graphics::initialize(640, 480);
+    Context context(std::make_shared<Clock>());
+
+    Graphics &graphics = Graphics::get_instance();
+    Inputs &inputs = Inputs::get_instance();
 
     // Enter a simple update loop
     bool loop = true;
     while (loop) {
         inputs.update();
-        clock.tick();
+        context.clock->tick();
         graphics.clear_screen();
-        graphics.present_renderer(clock.get_delta());
+        graphics.present_renderer(context.clock->get_delta());
         // If ESC or 'X' button is pressed, leave the update loop and exit
         if (inputs.get_quit()) {
             loop = false;

@@ -1,4 +1,4 @@
-#include "box.h"
+    #include "box.h"
 
 #include "../../graphics/graphics.h"
 
@@ -31,36 +31,37 @@ Box::Box(const std::shared_ptr<Scene>& scene) : Entity(scene) {
     width = DEFAULT_WIDTH;
     height = DEFAULT_HEIGHT;
     // Position box in the middle of the window
-    this->x = scene->get_graphics()->get_width() / 2.0 - width / 2.0;
-    this->y = scene->get_graphics()->get_height() / 2.0 - height / 2.0;
+    Graphics& graphics = Graphics::get_instance();
+    this->x = graphics.get_width() / 2.0 - width / 2.0;
+    this->y = graphics.get_height() / 2.0 - height / 2.0;
     this->color = {DEFAULT_R, DEFAULT_G, DEFAULT_B, DEFAULT_A};
 }
 
 void Box::update() {
-    std::shared_ptr<Inputs> inputs = scene->get_inputs();
+    Inputs& inputs = Inputs::get_instance();
 
-    if (inputs->is_key_down(KEY_UP)) {
+    if (inputs.is_key_down(KEY_UP)) {
         y -= SPEED * scene->get_delta();
     }
 
-    if (inputs->is_key_down(KEY_DOWN)) {
+    if (inputs.is_key_down(KEY_DOWN)) {
         y += SPEED * scene->get_delta();
     }
 
-    if (inputs->is_key_down(KEY_LEFT)) {
+    if (inputs.is_key_down(KEY_LEFT)) {
         x -= SPEED * scene->get_delta();
     }
 
-    if (inputs->is_key_down(KEY_RIGHT)) {
+    if (inputs.is_key_down(KEY_RIGHT)) {
         x += SPEED * scene->get_delta();
     }
 }
 
 void Box::render() {
-    SDL_Renderer* renderer = scene->get_graphics()->get_renderer();
+    std::shared_ptr<SDL_Renderer> renderer = Graphics::get_instance().get_renderer();
 
     // Draw box
-    SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
+    SDL_SetRenderDrawColor(renderer.get(), color.r, color.g, color.b, color.a);
     SDL_Rect box_rect = {(int)x, (int)y, width, height};
-    SDL_RenderDrawRect(renderer, &box_rect);
+    SDL_RenderDrawRect(renderer.get(), &box_rect);
 }

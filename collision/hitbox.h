@@ -18,7 +18,7 @@ class Hitbox {
     Hitbox();
     Hitbox(float x_offset, float y_offset, int w, int h);
     void update_pos(float x, float y, float angle);
-    void render_corners(const std::shared_ptr<SDL_Renderer>& renderer);
+    void render_corners();
     int get_center_x();
     int get_center_y();
     float get_radius();

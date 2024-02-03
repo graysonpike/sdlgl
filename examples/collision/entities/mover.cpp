@@ -1,6 +1,7 @@
 #include "mover.h"
 
 #include <sdlgl/graphics/resources.h>
+#include <sdlgl/input/inputs.h>
 
 #include <functional>
 #include <vector>
@@ -21,10 +22,9 @@ Mover::Mover(const std::shared_ptr<Scene>& scene, int x, int y)
       angle(0),
       is_touched(false),
       hitbox(Hitbox(0, 0, 64, 64)) {
-    const std::shared_ptr<Resources>& resources =
-        scene->get_graphics()->get_resources();
-    texture_normal = resources->get_texture("black_box");
-    texture_light = resources->get_texture("light_black_box");
+    Resources& resources = Resources::get_instance();
+    texture_normal = resources.get_texture("black_box");
+    texture_light = resources.get_texture("light_black_box");
     int hitbox_type = 1;
     std::vector<int> hitbox_targets = {0};
     scene->get_collider()->add_hitbox(
@@ -35,41 +35,39 @@ Mover::Mover(const std::shared_ptr<Scene>& scene, int x, int y)
 
 void Mover::collision_callback(Entity* entity, int type) { is_touched = true; }
 
-void Mover::move(const std::shared_ptr<Inputs>& inputs, float delta) {
-    if (inputs->is_key_down(MOVE_UP)) {
+void Mover::move() {
+    float delta = scene->get_delta();
+    Inputs& inputs = Inputs::get_instance();
+    if (inputs.is_key_down(MOVE_UP)) {
         y -= SPEED * delta;
-    } else if (inputs->is_key_down(MOVE_DOWN)) {
+    } else if (inputs.is_key_down(MOVE_DOWN)) {
         y += SPEED * delta;
     }
 
-    if (inputs->is_key_down(MOVE_LEFT)) {
+    if (inputs.is_key_down(MOVE_LEFT)) {
         x -= SPEED * delta;
-    } else if (inputs->is_key_down(MOVE_RIGHT)) {
+    } else if (inputs.is_key_down(MOVE_RIGHT)) {
         x += SPEED * delta;
     }
 
-    if (inputs->is_key_down(ROTATE_CLOCK)) {
+    if (inputs.is_key_down(ROTATE_CLOCK)) {
         angle += ROT_SPEED * delta;
-    } else if (inputs->is_key_down(ROTATE_COUNTER)) {
+    } else if (inputs.is_key_down(ROTATE_COUNTER)) {
         angle -= ROT_SPEED * delta;
     }
 }
 
 void Mover::update() {
-    float delta = scene->get_delta();
-    const std::shared_ptr<Inputs>& inputs = scene->get_inputs();
-    move(inputs, delta);
+    move();
     hitbox.update_pos(x, y, angle);
 }
 
 void Mover::render() {
-    const std::shared_ptr<SDL_Renderer> renderer =
-        scene->get_graphics()->get_renderer();
     if (!is_touched) {
-        texture_normal.draw(renderer, x, y, angle, false, false);
+        texture_normal.draw(x, y, angle, false, false);
     } else {
-        texture_light.draw(renderer, x, y, angle, false, false);
+        texture_light.draw(x, y, angle, false, false);
         is_touched = false;
     }
-    hitbox.render_corners(renderer);
+    hitbox.render_corners();
 }
