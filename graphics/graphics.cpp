@@ -2,6 +2,7 @@
 
 #include <stdexcept>
 #include <utility>
+#include <iostream>
 
 // PRIVATE HELPER FUNCTIONS
 
@@ -18,7 +19,7 @@ bool Graphics::init_sdl(std::string window_title) {
     // Create SDL Window
     SDL_Window* window_ptr = SDL_CreateWindow(
         window_title.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
-        width, height, SDL_WINDOW_OPENGL);
+        width, height, SDL_WINDOW_OPENGL | SDL_WINDOW_ALLOW_HIGHDPI);
     if (window_ptr == nullptr) {
         printf("Could not create window: %s\n", SDL_GetError());
         return false;
@@ -33,6 +34,14 @@ bool Graphics::init_sdl(std::string window_title) {
         return false;
     }
     renderer = std::shared_ptr<SDL_Renderer>(renderer_ptr, SDL_DestroyRenderer);
+
+    // Check if High DPI mode is active
+    int renderer_w, renderer_h;
+    SDL_GetRendererOutputSize(renderer.get(), &renderer_w, &renderer_h);
+    if (renderer_w != width) {
+        std::cout << "High DPI detected, setting render scale factor to 2." << std::endl;
+        SDL_RenderSetScale(renderer.get(), 2, 2);
+    }
 
     SDL_SetRenderDrawBlendMode(renderer.get(), SDL_BLENDMODE_BLEND);
 

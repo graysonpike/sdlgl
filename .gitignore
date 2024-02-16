@@ -5,4 +5,13 @@ build/*
 
 # Development / IDE
 .vscode
+.idea
 
+#macOS
+.DS_Store
+
+# Ignore cmake-build-debug directories everywhere in the project
+cmake-build-debug/
+
+# Ignore build directories of example projects
+examples/*/build/

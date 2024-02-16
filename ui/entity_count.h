@@ -1,7 +1,7 @@
 #ifndef ENTITY_COUNT_H
 #define ENTITY_COUNT_H
 
-#include <SDL2/SDL.h>
+#include "SDL.h"
 
 #include <string>
 

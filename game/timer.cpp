@@ -1,6 +1,6 @@
 #include "timer.h"
 
-#include <SDL2/SDL.h>
+#include "SDL.h"
 
 Timer::Timer() : duration(0), active(false) {}
 

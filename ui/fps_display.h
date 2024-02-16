@@ -1,7 +1,7 @@
 #ifndef FPS_DISPLAY_H
 #define FPS_DISPLAY_H
 
-#include <SDL2/SDL.h>
+#include "SDL.h"
 
 #include <string>
 

@@ -1,7 +1,7 @@
 #ifndef HITBOX_H
 #define HITBOX_H
 
-#include <SDL2/SDL.h>
+#include "SDL.h"
 
 #include <memory>
 

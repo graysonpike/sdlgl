@@ -8,7 +8,7 @@
 #define CHANNELS 2
 #define SAMPLE_RATE 48000
 
-#include <SDL2/SDL.h>
+#include "SDL.h"
 
 // Audio system implemented as a singleton
 class Audio {

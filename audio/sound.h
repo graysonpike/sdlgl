@@ -1,7 +1,7 @@
 #ifndef SOUND_H
 #define SOUND_H
 
-#include <SDL2/SDL.h>
+#include "SDL.h"
 
 #include <memory>
 #include <vector>

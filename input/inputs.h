@@ -1,7 +1,7 @@
 #ifndef INPUTS_H
 #define INPUTS_H
 
-#include <SDL2/SDL.h>
+#include "SDL.h"
 
 #define NUM_KEYS 2014
 

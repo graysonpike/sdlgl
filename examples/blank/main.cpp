@@ -1,7 +1,7 @@
 // Example Game to Demonstrate Blank Screen
 
-#include "../../game/clock.h"
-#include "../../game/context.h"
+#include <sdlgl/game/clock.h>
+#include <sdlgl/game/context.h>
 
 int main() {
 

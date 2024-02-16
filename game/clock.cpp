@@ -1,6 +1,6 @@
 #include "clock.h"
 
-#include <SDL2/SDL.h>
+#include "SDL.h"
 
 Clock::Clock() { reset(); }
 

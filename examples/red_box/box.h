@@ -1,7 +1,7 @@
 #ifndef BOX_H
 #define BOX_H
 
-#include <SDL2/SDL.h>
+#include "SDL.h"
 
 #include "../../game/entity.h"
 #include "../../game/scene.h"

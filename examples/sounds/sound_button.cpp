@@ -1,6 +1,6 @@
 #include "sound_button.h"
 
-#include <SDL2/SDL.h>
+#include "SDL.h"
 #include <sdlgl/audio/sound.h>
 
 #include <memory>

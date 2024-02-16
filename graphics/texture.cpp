@@ -51,6 +51,19 @@ void Texture::draw(int x, int y, float angle, bool flip_h, bool flip_v) {
                      (SDL_RendererFlip)flip);
 }
 
+void Texture::draw_src(int x, int y, SDL_Rect src) {
+    int width, height;
+    SDL_QueryTexture(texture.get(), nullptr, nullptr, &width, &height);
+    SDL_Rect dst = {x + offset.x, y + offset.y, src.w, src.h};
+    SDL_RenderCopy(Graphics::get_instance().get_renderer().get(), texture.get(),
+                   &src, &dst);
+}
+
+void Texture::draw_src_dst(SDL_Rect src, SDL_Rect dst) {
+    SDL_RenderCopy(Graphics::get_instance().get_renderer().get(), texture.get(),
+                   &src, &dst);
+}
+
 void Texture::set_offset(Offset new_offset) { this->offset = new_offset; }
 
 int Texture::get_width() {

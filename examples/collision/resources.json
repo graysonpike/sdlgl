@@ -5,7 +5,6 @@
 		"red_box": { "filename": "red_box.png" },
 		"light_red_box": { "filename": "light_red_box.png" }
 	},
-
 	"fonts": {
 		"base_text": {
 			"filename": "Inconsolata/Inconsolata-Regular.ttf",
