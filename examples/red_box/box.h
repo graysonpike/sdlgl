@@ -1,10 +1,9 @@
 #ifndef BOX_H
 #define BOX_H
 
-#include "SDL.h"
-
 #include "../../game/entity.h"
 #include "../../game/scene.h"
+#include "SDL.h"
 
 class Box : public Entity {
     float x, y;

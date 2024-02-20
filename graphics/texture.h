@@ -1,14 +1,10 @@
 #ifndef TEXTURE_H
 #define TEXTURE_H
 
-#include "SDL.h"
-
 #include <vector>
 
-#include "../game/scene.h"
 #include "./offset.h"
-
-class Scene;
+#include "SDL.h"
 
 class Texture {
     std::shared_ptr<SDL_Texture> texture;

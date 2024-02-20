@@ -1,11 +1,6 @@
 #ifndef RESOURCES_H
 #define RESOURCES_H
 
-#include "SDL.h"
-#include "SDL_image.h"
-#include "SDL_ttf.h"
-#include "SDL_mixer.h"
-
 #include <map>
 #include <string>
 #include <vector>
@@ -13,6 +8,12 @@
 #include "./offset.h"
 #include "./sprite.h"
 #include "./texture.h"
+#include "./tilemap.h"
+#include "SDL.h"
+#include "SDL_image.h"
+#include "SDL_mixer.h"
+#include "SDL_ttf.h"
+#include "../dependencies/json.hpp"
 
 class Sprite;
 class Texture;
@@ -26,9 +27,13 @@ class Resources {
         sprite_frames;
     std::map<std::string, Offset> sprite_offsets;
     std::map<std::string, float> sprite_frame_delays;
+    std::map<std::string, Tileset> tilesets;
+    std::map<std::string, Tilemap> tilemaps;
     static std::shared_ptr<TTF_Font> load_font(const std::string& filename,
                                                int size);
     std::shared_ptr<SDL_Texture> load_texture(const std::string& filename);
+    Tileset load_tileset(nlohmann::json &resources_json, const std::string &name);
+    Tilemap load_tilemap(const std::string &filename);
     Resources();
 
    public:
@@ -40,6 +45,8 @@ class Resources {
     std::shared_ptr<TTF_Font> get_font(const std::string& name);
     Texture get_texture(const std::string& name);
     Sprite get_sprite(const std::string& name);
+    Tileset get_tileset(const std::string &name);
+    Tilemap get_tilemap(const std::string &name);
 };
 
 #endif

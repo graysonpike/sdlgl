@@ -1,11 +1,10 @@
 #ifndef SOUND_H
 #define SOUND_H
 
-#include "SDL.h"
-
 #include <memory>
 #include <vector>
 
+#include "SDL.h"
 #include "audio.h"
 
 class Sound {

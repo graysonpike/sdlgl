@@ -15,7 +15,7 @@ Rotator::Rotator(const std::shared_ptr<Scene>& scene, int x, int y, float vx,
       vx(vx),
       vy(vy),
       hitbox(Hitbox(0, 0, SIZE, SIZE)) {
-    Resources &resources = Resources::get_instance();
+    Resources& resources = Resources::get_instance();
     texture_normal = resources.get_texture("red_box");
     texture_light = resources.get_texture("light_red_box");
     scene->get_collider()->add_hitbox(

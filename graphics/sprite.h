@@ -1,13 +1,12 @@
 #ifndef SPRITE_H
 #define SPRITE_H
 
-#include "SDL.h"
-
 #include <vector>
 
 #include "../game/scene.h"
 #include "./offset.h"
 #include "./texture.h"
+#include "SDL.h"
 
 class Texture;
 

@@ -1,9 +1,10 @@
 #include "sound_button.h"
 
-#include "SDL.h"
 #include <sdlgl/audio/sound.h>
 
 #include <memory>
+
+#include "SDL.h"
 
 #define COLOR_CHANGE_AMOUNT 50
 

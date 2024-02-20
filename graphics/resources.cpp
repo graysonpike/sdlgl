@@ -57,6 +57,42 @@ std::shared_ptr<SDL_Texture> Resources::load_texture(
     return {texture_ptr, SDL_DestroyTexture};
 }
 
+Tileset Resources::load_tileset(json &resources_json, const std::string& name) {
+    return Tileset(
+        get_texture(resources_json["tilesets"][name]["texture"]),
+        resources_json["tilesets"][name]["src_scale"],
+        resources_json["tilesets"][name]["dst_scale"]
+        );
+}
+
+Tilemap Resources::load_tilemap(const std::string& filename) {
+    // Concatenate filename to resource directory
+    std::string filepath = std::string(RES_DIR) + "tilemaps/" + filename;
+
+    // Read JSON object from tilemap file
+    std::ifstream file(filepath);
+    json tilemap_json;
+    file >> tilemap_json;
+
+    // Create Tilemap class instance from JSON definition
+    int scale = tilemap_json["scale"];
+    int width = tilemap_json["width"];
+    int height = tilemap_json["height"];
+    std::string tileset_name = tilemap_json["tileset"];
+    Tilemap tilemap = Tilemap(scale, width, height, get_tileset(tileset_name));
+
+    for(int layer_index = 0; layer_index < tilemap_json["layers"].size(); layer_index ++) {
+        tilemap.add_layer();
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                tilemap.set_tile(layer_index, x, y, tilemap_json["layers"][layer_index][y][x]);
+            }
+        }
+    }
+
+    return tilemap;
+}
+
 Resources::Resources() {}
 
 // PUBLIC FUNCTIONS
@@ -120,6 +156,20 @@ void Resources::load_resources(const std::string& json_filename) {
             offset.hflip_y = it.value()["offset_hflip_y"];
         }
         sprite_offsets[it.key()] = offset;
+    }
+
+    // Load Tilesets
+    for (json::iterator it = resources["tilesets"].begin();
+         it != resources["tilesets"].end(); it++) {
+        tilesets[it.key()] =
+            load_tileset(resources, it.key());
+    }
+
+    // Load Tilemaps
+    for (json::iterator it = resources["tilemaps"].begin();
+         it != resources["tilemaps"].end(); it++) {
+        tilemaps[it.key()] =
+            load_tilemap(it.value()["filename"]);
     }
 }
 

@@ -1,13 +1,12 @@
 #ifndef FPS_DISPLAY_H
 #define FPS_DISPLAY_H
 
-#include "SDL.h"
-
 #include <string>
 
 #include "../game/entity.h"
 #include "../game/scene.h"
 #include "../graphics/graphics.h"
+#include "SDL.h"
 
 class FPS_Display : public Entity {
     float fps;

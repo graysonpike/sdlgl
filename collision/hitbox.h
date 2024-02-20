@@ -1,9 +1,9 @@
 #ifndef HITBOX_H
 #define HITBOX_H
 
-#include "SDL.h"
-
 #include <memory>
+
+#include "SDL.h"
 
 // Offsets can be used to place the hitbox more accurately
 

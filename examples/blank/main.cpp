@@ -4,7 +4,6 @@
 #include <sdlgl/game/context.h>
 
 int main() {
-
     // Load a window
     Graphics::initialize(640, 480);
     Context context(std::make_shared<Clock>());

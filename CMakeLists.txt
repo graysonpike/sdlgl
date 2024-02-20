@@ -25,6 +25,8 @@ set(SOURCES
         graphics/resources.cpp
         graphics/sprite.cpp
         graphics/texture.cpp
+        graphics/tileset.cpp
+        graphics/tilemap.cpp
         input/inputs.cpp
         ui/entity_count.cpp
         ui/fps_display.cpp

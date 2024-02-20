@@ -1,8 +1,8 @@
 #include "graphics.h"
 
+#include <iostream>
 #include <stdexcept>
 #include <utility>
-#include <iostream>
 
 // PRIVATE HELPER FUNCTIONS
 
@@ -39,7 +39,8 @@ bool Graphics::init_sdl(std::string window_title) {
     int renderer_w, renderer_h;
     SDL_GetRendererOutputSize(renderer.get(), &renderer_w, &renderer_h);
     if (renderer_w != width) {
-        std::cout << "High DPI detected, setting render scale factor to 2." << std::endl;
+        std::cout << "High DPI detected, setting render scale factor to 2."
+                  << std::endl;
         SDL_RenderSetScale(renderer.get(), 2, 2);
     }
 
@@ -134,7 +135,8 @@ void Graphics::capture_bmp(std::string filename) {
 
 // Draws text to a blank surface and transfers that to the given texture
 std::shared_ptr<SDL_Texture> Graphics::load_font_texture(
-    const std::string& font, const std::string& text, SDL_Color text_color, int max_width) {
+    const std::string& font, const std::string& text, SDL_Color text_color,
+    int max_width) {
     // Load temporary surface and convert to texture
     SDL_Surface* surface_ptr;
     // TTF_RenderText_Solid = quick & dirty
@@ -142,11 +144,13 @@ std::shared_ptr<SDL_Texture> Graphics::load_font_texture(
     // TTF_RenderText_Blended = very slow & antialiased with alpha blending
     // If max_width is 0, we don't apply any wrapping.
     if (max_width == 0) {
-        surface_ptr = TTF_RenderText_Blended(Resources::get_instance().get_font(font).get(),
-                                             text.c_str(), text_color);
+        surface_ptr = TTF_RenderText_Blended(
+            Resources::get_instance().get_font(font).get(), text.c_str(),
+            text_color);
     } else {
-        surface_ptr = TTF_RenderText_Blended_Wrapped(Resources::get_instance().get_font(font).get(),
-                                             text.c_str(), text_color, max_width);
+        surface_ptr = TTF_RenderText_Blended_Wrapped(
+            Resources::get_instance().get_font(font).get(), text.c_str(),
+            text_color, max_width);
     }
 
     if (surface_ptr == nullptr) {

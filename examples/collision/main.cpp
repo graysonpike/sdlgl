@@ -14,8 +14,8 @@
 #include "entities/rotator.h"
 
 void game_loop(Context& context, std::shared_ptr<Scene>& scene) {
-    Graphics &graphics = Graphics::get_instance();
-    Inputs &inputs = Inputs::get_instance();
+    Graphics& graphics = Graphics::get_instance();
+    Inputs& inputs = Inputs::get_instance();
     inputs.update();
     context.clock->tick();
     graphics.clear_screen((SDL_Color){255, 255, 255, 255});
@@ -45,9 +45,8 @@ int main() {
     scene->add_entity(std::make_shared<EntityCount>(scene, "base_text",
                                                     (SDL_Color){0, 0, 0, 255}));
     Graphics& graphics = Graphics::get_instance();
-    scene->add_entity(
-        std::make_shared<Rotator>(scene, graphics.get_width() / 2,
-                                  graphics.get_height() / 2, 0.0f));
+    scene->add_entity(std::make_shared<Rotator>(
+        scene, graphics.get_width() / 2, graphics.get_height() / 2, 0.0f));
     scene->add_entity(std::make_shared<Mover>(scene, 100, 100));
 
     while (*context.loop) {

@@ -1,0 +1,22 @@
+{
+    "textures": {
+        "furniture": { "filename": "japan_home_interior.png" },
+        "room_builder": { "filename": "room_builder.png" }
+    },
+    "tilesets": {
+        "furniture": {
+            "texture": "furniture",
+            "src_scale": 16,
+            "dst_scale": 64
+        },
+        "room_builder": {
+            "texture": "room_builder",
+            "src_scale": 16,
+            "dst_scale": 64
+        }
+    },
+    "tilemaps": {
+        "furniture": { "filename": "furniture.json" },
+        "room_builder": { "filename": "room_builder.json" }
+    }
+}

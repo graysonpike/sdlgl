@@ -1,13 +1,12 @@
 #ifndef GRAPHICS_H
 #define GRAPHICS_H
 
-#include "SDL.h"
-#include "SDL_image.h"
-#include "SDL_ttf.h"
-
 #include <string>
 #include <vector>
 
+#include "SDL.h"
+#include "SDL_image.h"
+#include "SDL_ttf.h"
 #include "fps_counter.h"
 #include "resources.h"
 
@@ -47,7 +46,8 @@ class Graphics {
     float get_fps() const;
     void capture_bmp(std::string filename);
     static std::shared_ptr<SDL_Texture> load_font_texture(
-        const std::string& font, const std::string& text, SDL_Color text_color, int max_width = 0);
+        const std::string& font, const std::string& text, SDL_Color text_color,
+        int max_width = 0);
     ~Graphics();
 };
 

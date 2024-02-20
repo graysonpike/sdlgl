@@ -25,8 +25,8 @@ float rand_float(float min, float max) {
 }
 
 void game_loop(Context& context, std::shared_ptr<Scene>& scene) {
-    Graphics &graphics = Graphics::get_instance();
-    Inputs &inputs = Inputs::get_instance();
+    Graphics& graphics = Graphics::get_instance();
+    Inputs& inputs = Inputs::get_instance();
     inputs.update();
     context.clock->tick();
     graphics.clear_screen((SDL_Color){255, 255, 255, 255});
@@ -42,7 +42,7 @@ void game_loop(Context& context, std::shared_ptr<Scene>& scene) {
 }
 
 int main() {
-//    srand(time(NULL));
+    //    srand(time(NULL));
 
     // Load a window
     Graphics::initialize(720, 640);

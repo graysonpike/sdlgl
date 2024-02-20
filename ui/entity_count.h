@@ -1,13 +1,12 @@
 #ifndef ENTITY_COUNT_H
 #define ENTITY_COUNT_H
 
-#include "SDL.h"
-
 #include <string>
 
 #include "../game/entity.h"
 #include "../game/scene.h"
 #include "../graphics/graphics.h"
+#include "SDL.h"
 
 class EntityCount : public Entity {
     float update_delay_timer;

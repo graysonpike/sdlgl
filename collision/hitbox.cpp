@@ -1,8 +1,9 @@
 
 #include "hitbox.h"
-#include "../graphics/graphics.h"
 
 #include <algorithm>
+
+#include "../graphics/graphics.h"
 
 // Size of rects drawn on corners by render_corners()
 // Should be an even integer
@@ -83,8 +84,8 @@ void Hitbox::update_pos(float x, float y, float angle) {
 
 // Debug method to draw corners
 void Hitbox::render_corners() {
-
-    const std::shared_ptr<SDL_Renderer> &renderer = Graphics::get_instance().get_renderer();
+    const std::shared_ptr<SDL_Renderer> &renderer =
+        Graphics::get_instance().get_renderer();
 
     // Set draw color
     SDL_SetRenderDrawColor(renderer.get(), POINT_R, POINT_G, POINT_B, POINT_A);

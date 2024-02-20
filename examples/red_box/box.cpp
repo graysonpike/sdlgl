@@ -1,4 +1,4 @@
-    #include "box.h"
+#include "box.h"
 
 #include "../../graphics/graphics.h"
 
@@ -58,7 +58,8 @@ void Box::update() {
 }
 
 void Box::render() {
-    std::shared_ptr<SDL_Renderer> renderer = Graphics::get_instance().get_renderer();
+    std::shared_ptr<SDL_Renderer> renderer =
+        Graphics::get_instance().get_renderer();
 
     // Draw box
     SDL_SetRenderDrawColor(renderer.get(), color.r, color.g, color.b, color.a);
