@@ -12,7 +12,7 @@ class Tilemap {
     std::vector<std::vector<int> > layers;
     Tileset tileset;
 
-    int coords_to_index(int x, int y);
+    [[nodiscard]] int coords_to_index(int x, int y) const;
     SDL_Point index_to_coords(int index);
 
    public:

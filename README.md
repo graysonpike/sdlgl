@@ -90,7 +90,7 @@ using the clang-format tool.
 
 To run the auto-formatter on all files, use the following command:
 ```shell
-find . -path ./dependencies -prune -o \( -name "*.cpp" -o -name "*.h" \) -print | xargs clang-format -i
+bash clang_format_project.sh
 ```
 
 ## License

@@ -1,11 +1,13 @@
 #include "tilemap.h"
 
-Tilemap::Tilemap() {}
+#include <utility>
+
+Tilemap::Tilemap() = default;
 
 Tilemap::Tilemap(int scale, int width, int height, Tileset tileset)
-    : scale(scale), width(width), height(height), tileset(tileset) {}
+    : scale(scale), width(width), height(height), tileset(std::move(tileset)) {}
 
-int Tilemap::coords_to_index(int x, int y) { return x + (y * width); }
+int Tilemap::coords_to_index(int x, int y) const { return x + (y * width); }
 
 SDL_Point Tilemap::index_to_coords(int index) {
     return (SDL_Point){index % width, index / width};

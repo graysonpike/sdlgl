@@ -6,7 +6,7 @@
 #include <iostream>
 #include <random>
 
-std::array<int, PerlinNoise::repeat* 2> PerlinNoise::permutation = {0};
+std::array<int, PerlinNoise::repeat * 2> PerlinNoise::permutation = {0};
 
 void PerlinNoise::init() {
     // Note: Could be an issue that we are shuffling entire (512) array

@@ -16,7 +16,7 @@
         }
     },
     "tilemaps": {
-        "furniture": { "filename": "furniture.json" },
-        "room_builder": { "filename": "room_builder.json" }
+        "room_builder": { "filename": "room_builder.json" },
+        "furniture": { "filename": "furniture.json" }
     }
 }

@@ -57,14 +57,6 @@ std::shared_ptr<SDL_Texture> Resources::load_texture(
     return {texture_ptr, SDL_DestroyTexture};
 }
 
-Tileset Resources::load_tileset(json &resources_json, const std::string& name) {
-    return Tileset(
-        get_texture(resources_json["tilesets"][name]["texture"]),
-        resources_json["tilesets"][name]["src_scale"],
-        resources_json["tilesets"][name]["dst_scale"]
-        );
-}
-
 Tilemap Resources::load_tilemap(const std::string& filename) {
     // Concatenate filename to resource directory
     std::string filepath = std::string(RES_DIR) + "tilemaps/" + filename;
@@ -81,11 +73,13 @@ Tilemap Resources::load_tilemap(const std::string& filename) {
     std::string tileset_name = tilemap_json["tileset"];
     Tilemap tilemap = Tilemap(scale, width, height, get_tileset(tileset_name));
 
-    for(int layer_index = 0; layer_index < tilemap_json["layers"].size(); layer_index ++) {
+    for (int layer_index = 0; layer_index < tilemap_json["layers"].size();
+         layer_index++) {
         tilemap.add_layer();
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
-                tilemap.set_tile(layer_index, x, y, tilemap_json["layers"][layer_index][y][x]);
+                tilemap.set_tile(layer_index, x, y,
+                                 tilemap_json["layers"][layer_index][y][x]);
             }
         }
     }
@@ -162,14 +156,15 @@ void Resources::load_resources(const std::string& json_filename) {
     for (json::iterator it = resources["tilesets"].begin();
          it != resources["tilesets"].end(); it++) {
         tilesets[it.key()] =
-            load_tileset(resources, it.key());
+            Tileset(get_texture(resources["tilesets"][it.key()]["texture"]),
+                    resources["tilesets"][it.key()]["src_scale"],
+                    resources["tilesets"][it.key()]["dst_scale"]);
     }
 
     // Load Tilemaps
     for (json::iterator it = resources["tilemaps"].begin();
          it != resources["tilemaps"].end(); it++) {
-        tilemaps[it.key()] =
-            load_tilemap(it.value()["filename"]);
+        tilemaps[it.key()] = load_tilemap(it.value()["filename"]);
     }
 }
 
@@ -192,4 +187,12 @@ Sprite Resources::get_sprite(const std::string& name) {
         sprite.add_frame(Texture(sprite_frames[name][i]));
     }
     return sprite;
+}
+
+Tileset Resources::get_tileset(const std::string& name) {
+    return tilesets[name];
+}
+
+Tilemap Resources::get_tilemap(const std::string& name) {
+    return tilemaps[name];
 }

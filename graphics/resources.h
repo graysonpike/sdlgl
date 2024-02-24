@@ -13,7 +13,6 @@
 #include "SDL_image.h"
 #include "SDL_mixer.h"
 #include "SDL_ttf.h"
-#include "../dependencies/json.hpp"
 
 class Sprite;
 class Texture;
@@ -32,8 +31,7 @@ class Resources {
     static std::shared_ptr<TTF_Font> load_font(const std::string& filename,
                                                int size);
     std::shared_ptr<SDL_Texture> load_texture(const std::string& filename);
-    Tileset load_tileset(nlohmann::json &resources_json, const std::string &name);
-    Tilemap load_tilemap(const std::string &filename);
+    Tilemap load_tilemap(const std::string& filename);
     Resources();
 
    public:
@@ -45,8 +43,8 @@ class Resources {
     std::shared_ptr<TTF_Font> get_font(const std::string& name);
     Texture get_texture(const std::string& name);
     Sprite get_sprite(const std::string& name);
-    Tileset get_tileset(const std::string &name);
-    Tilemap get_tilemap(const std::string &name);
+    Tileset get_tileset(const std::string& name);
+    Tilemap get_tilemap(const std::string& name);
 };
 
 #endif
