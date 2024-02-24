@@ -19,7 +19,6 @@ SDLGL currently provides support for
 * Access to the SDL2 rendering context
 * Multiple example programs demonstrating each engine feature
 
-
 ## Demo Projects
 
 In addition to the example programs, I have some other projects that are
@@ -34,41 +33,32 @@ built with SDLGL.
 ### [SDGL Tank Game](https://github.com/graysonpike/sdlgl-tank-game)
 ![Tank game gameplay](screenshots/tanks.png)
 
+## Dependencies
 
+To install SDLGL, you will have to build from source. Before building, there are 4 dependencies required for static linking:
+- SDL2
+- SDL2 Image
+- SDL2 TTF
+- SDL2 Mixer
 
-## Installation
-
-To install SDLGL, you will have to build from source using
-[LLVM clang](https://llvm.org/) or [GCC](https://gcc.gnu.org/). The Makefile
-defaults to `g++`.
-
-### Linux (Debian/Ubuntu)
-
-The Makefile currently requires the following packages:
-
+### Installing Dependencies on Linux (Debian/Ubuntu)
+You can use apt to install the libraries.
 ```
-sudo apt-get install -y g++ libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-ttf-dev
-```
-
-Finally, use the Makefile to build and install the library for development. The `install` rule creates `/usr/local/lib/libsdlgl.a` and copies headers to `/usr/local/lib/sdlgl`.
-```
-make
-make install
+sudo apt-get install -y libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-ttf-dev
 ```
 
 ### MacOS
-
-The Makefile currently requires the following packages:
-
+You can use homebrew to install the libraries.
 ```
 brew install sdl2 sdl2_image sdl2_mixer sdl2_ttf
 ```
 
-Use the Makefile to build and install the library for development:
-```
-make
-make install
-```
+## Building
+Currently, no binaries are published for SDLGL. A CMake configuration is provided to enable easy building across platforms.
+This project provides SDL2 CMake modules to enable CMake to find the SDL2 libraries on all systems. The modules are taken from
+[this repository](https://github.com/aminosbh/sdl2-cmake-modules) by [Amine B. Hassouna](https://github.com/aminosbh).
+
+
 
 ## Development
 

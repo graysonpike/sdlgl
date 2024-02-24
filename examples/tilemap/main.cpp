@@ -3,9 +3,6 @@
 
 #include <sdlgl/game/context.h>
 #include <sdlgl/graphics/tilemap.h>
-#include <sdlgl/ui/fps_display.h>
-
-#include <iostream>
 
 int main() {
     Graphics::initialize(1020, 768);
