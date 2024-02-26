@@ -1,5 +1,5 @@
-#ifndef GRAPHICS_H
-#define GRAPHICS_H
+#ifndef SDLGL_GRAPHICS_H
+#define SDLGL_GRAPHICS_H
 
 #include <string>
 #include <vector>

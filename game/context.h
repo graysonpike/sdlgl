@@ -1,5 +1,5 @@
-#ifndef CONTEXT_H
-#define CONTEXT_H
+#ifndef SDLGL_CONTEXT_H
+#define SDLGL_CONTEXT_H
 
 #include "../audio/audio.h"
 #include "../graphics/graphics.h"

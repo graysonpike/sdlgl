@@ -1,5 +1,5 @@
-#ifndef UTILMATH_H
-#define UTILMATH_H
+#ifndef SDLGL_UTILMATH_H
+#define SDLGL_UTILMATH_H
 
 #include <utility>
 

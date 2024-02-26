@@ -1,5 +1,5 @@
-#ifndef TIMER_H
-#define TIMER_H
+#ifndef SDLGL_TIMER_H
+#define SDLGL_TIMER_H
 
 class Timer {
     unsigned int start_time;

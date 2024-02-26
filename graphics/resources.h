@@ -1,5 +1,5 @@
-#ifndef RESOURCES_H
-#define RESOURCES_H
+#ifndef SDLGL_RESOURCES_H
+#define SDLGL_RESOURCES_H
 
 #include <map>
 #include <string>

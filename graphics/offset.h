@@ -1,5 +1,5 @@
-#ifndef SPRITE_OFFSET_H
-#define SPRITE_OFFSET_H
+#ifndef SDLGL_SPRITE_OFFSET_H
+#define SDLGL_SPRITE_OFFSET_H
 
 struct Offset {
     int x;

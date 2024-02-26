@@ -1,5 +1,5 @@
-#ifndef FPS_DISPLAY_H
-#define FPS_DISPLAY_H
+#ifndef SDLGL_FPS_DISPLAY_H
+#define SDLGL_FPS_DISPLAY_H
 
 #include <string>
 

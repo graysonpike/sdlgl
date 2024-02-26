@@ -1,5 +1,5 @@
-#ifndef ENTITY_COUNT_H
-#define ENTITY_COUNT_H
+#ifndef SDLGL_ENTITY_COUNT_H
+#define SDLGL_ENTITY_COUNT_H
 
 #include <string>
 

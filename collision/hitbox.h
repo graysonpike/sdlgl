@@ -1,5 +1,5 @@
-#ifndef HITBOX_H
-#define HITBOX_H
+#ifndef SDLGL_HITBOX_H
+#define SDLGL_HITBOX_H
 
 #include <memory>
 

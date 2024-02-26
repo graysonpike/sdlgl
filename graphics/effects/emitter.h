@@ -1,5 +1,5 @@
-#ifndef PARTICLE_EMITTER_H
-#define PARTICLE_EMITTER_H
+#ifndef SDLGL_PARTICLE_EMITTER_H
+#define SDLGL_PARTICLE_EMITTER_H
 
 #include "../../game/physical_entity.h"
 #include "particle.h"

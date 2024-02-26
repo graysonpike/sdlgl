@@ -1,5 +1,5 @@
-#ifndef RANDOM_H
-#define RANDOM_H
+#ifndef SDLGL_RANDOM_H
+#define SDLGL_RANDOM_H
 
 #include <random>
 

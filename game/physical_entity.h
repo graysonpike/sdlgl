@@ -1,5 +1,5 @@
-#ifndef PHYSICAL_ENTITY_H
-#define PHYSICAL_ENTITY_H
+#ifndef SDLGL_PHYSICAL_ENTITY_H
+#define SDLGL_PHYSICAL_ENTITY_H
 
 #include "entity.h"
 

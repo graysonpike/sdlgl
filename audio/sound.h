@@ -1,5 +1,5 @@
-#ifndef SOUND_H
-#define SOUND_H
+#ifndef SDLGL_SOUND_H
+#define SDLGL_SOUND_H
 
 #include <memory>
 #include <vector>

@@ -1,5 +1,5 @@
-#ifndef TILESET_H
-#define TILESET_H
+#ifndef SDLGL_TILESET_H
+#define SDLGL_TILESET_H
 
 #include <map>
 

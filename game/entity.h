@@ -1,5 +1,5 @@
-#ifndef ENTITY_H
-#define ENTITY_H
+#ifndef SDLGL_ENTITY_H
+#define SDLGL_ENTITY_H
 
 #include <memory>
 

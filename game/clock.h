@@ -1,5 +1,5 @@
-#ifndef CLOCK_H
-#define CLOCK_H
+#ifndef SDLGL_CLOCK_H
+#define SDLGL_CLOCK_H
 
 // Keeps track of 'delta' times between frames
 class Clock {

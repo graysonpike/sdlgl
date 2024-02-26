@@ -1,5 +1,5 @@
-#ifndef COLLIDER_H
-#define COLLIDER_H
+#ifndef SDLGL_COLLIDER_H
+#define SDLGL_COLLIDER_H
 
 #include <functional>
 #include <vector>

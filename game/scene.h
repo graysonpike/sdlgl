@@ -1,5 +1,5 @@
-#ifndef SCENE_H
-#define SCENE_H
+#ifndef SDLGL_SCENE_H
+#define SDLGL_SCENE_H
 
 #include <unordered_map>
 #include <vector>

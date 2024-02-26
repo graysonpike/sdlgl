@@ -1,9 +1,9 @@
-#ifndef INPUTS_H
-#define INPUTS_H
+#ifndef SDLGL_INPUTS_H
+#define SDLGL_INPUTS_H
 
 #include "SDL.h"
 
-#define NUM_KEYS 2014
+#define SDLGL_NUM_KEYS 2014
 
 class Inputs {
     bool quit;

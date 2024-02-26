@@ -1,5 +1,5 @@
-#ifndef SPRITE_H
-#define SPRITE_H
+#ifndef SDLGL_SPRITE_H
+#define SDLGL_SPRITE_H
 
 #include <vector>
 

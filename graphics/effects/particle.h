@@ -1,5 +1,5 @@
-#ifndef PARTICLE_H
-#define PARTICLE_H
+#ifndef SDLGL_PARTICLE_H
+#define SDLGL_PARTICLE_H
 
 #include "../../game/physical_entity.h"
 #include "../../game/timer.h"

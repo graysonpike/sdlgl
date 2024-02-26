@@ -1,5 +1,5 @@
-#ifndef TEXTURE_H
-#define TEXTURE_H
+#ifndef SDLGL_TEXTURE_H
+#define SDLGL_TEXTURE_H
 
 #include <vector>
 

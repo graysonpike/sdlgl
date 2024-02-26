@@ -1,5 +1,5 @@
-#ifndef LINEAR_PARTICLE_H
-#define LINEAR_PARTICLE_H
+#ifndef SDLGL_LINEAR_PARTICLE_H
+#define SDLGL_LINEAR_PARTICLE_H
 
 #include "particle.h"
 

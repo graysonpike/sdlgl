@@ -1,5 +1,5 @@
-#ifndef TILEMAP_H
-#define TILEMAP_H
+#ifndef SDLGL_TILEMAP_H
+#define SDLGL_TILEMAP_H
 
 #include <vector>
 

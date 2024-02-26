@@ -1,5 +1,5 @@
-#ifndef NOISE_H
-#define NOISE_H
+#ifndef SDLGL_NOISE_H
+#define SDLGL_NOISE_H
 
 #include <array>
 
