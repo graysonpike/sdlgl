@@ -53,12 +53,35 @@ You can use homebrew to install the libraries.
 brew install sdl2 sdl2_image sdl2_mixer sdl2_ttf
 ```
 
-## Building
+## Building and Installation
 Currently, no binaries are published for SDLGL. A CMake configuration is provided to enable easy building across platforms.
 This project provides SDL2 CMake modules to enable CMake to find the SDL2 libraries on all systems. The modules are taken from
 [this repository](https://github.com/aminosbh/sdl2-cmake-modules) by [Amine B. Hassouna](https://github.com/aminosbh).
 
+To generate the build files:
+```shell
+cmake -S . -B build
+```
 
+To build the library:
+```shell
+cd build
+make
+```
+
+To install the library:
+```shell
+# From within the build directory
+sudo cmake --install . 
+
+# Or from within the project root
+sudo cmake --install build
+```
+
+The library will be installed to:
+- Headers to `/usr/local/include`
+- Static library archive to `/usr/local/lib`
+- CMake targets export file and CMake configuration file (`sdlglTargets.cmake`) to `/usr/local/lib/cmake/sdlgl`
 
 ## Development
 
