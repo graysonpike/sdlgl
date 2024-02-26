@@ -5,6 +5,13 @@
 
 #include "./tileset.h"
 
+/*
+ * A class for drawing a map of tiles with an arbitrary number of layers.
+ * Uses a Tileset object to draw tiles as defined by the map layout.
+ *
+ * Tilemaps are defined in JSON in the resources directory and listed in
+ * resources.json.
+ */
 class Tilemap {
     int scale;   // Px per tile
     int width;   // In tiles
