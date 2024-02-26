@@ -3,7 +3,7 @@
 
 #include "SDL.h"
 
-#define SDLGL_NUM_KEYS 2014
+#define NUM_KEYS 2014
 
 class Inputs {
     bool quit;

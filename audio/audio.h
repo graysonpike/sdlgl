@@ -2,11 +2,11 @@
 #define SDLGL_AUDIO_H
 
 // Disable the miniaudio Device API, we are using SDL Audio as our device
-#define SDLGL_MA_NO_DEVICE_IO
+#define MA_NO_DEVICE_IO
 #include "../dependencies/miniaudio.h"
 
-#define SDLGL_CHANNELS 2
-#define SDLGL_SAMPLE_RATE 48000
+#define CHANNELS 2
+#define SAMPLE_RATE 48000
 
 #include "SDL.h"
 
