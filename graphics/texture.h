@@ -9,6 +9,8 @@
 class Texture {
     std::shared_ptr<SDL_Texture> texture;
     Offset offset;
+    int width;
+    int height;
 
    public:
     Texture();
@@ -20,8 +22,8 @@ class Texture {
     void draw_src(int x, int y, SDL_Rect src);
     void draw_src_dst(SDL_Rect src, SDL_Rect dst);
     void set_offset(Offset new_offset);
-    int get_width();
-    int get_height();
+    int get_width() const;
+    int get_height() const;
 };
 
 #endif
