@@ -72,10 +72,6 @@ void Texture::draw_src_dst(SDL_Rect src, SDL_Rect dst) {
 
 void Texture::set_offset(Offset new_offset) { this->offset = new_offset; }
 
-int Texture::get_width() const {
-    return width;
-}
+int Texture::get_width() const { return width; }
 
-int Texture::get_height() const {
-    return height;
-}
+int Texture::get_height() const { return height; }
