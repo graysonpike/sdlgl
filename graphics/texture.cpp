@@ -6,15 +6,13 @@ Texture::Texture() {}
 
 Texture::Texture(const std::shared_ptr<SDL_Texture>& texture) {
     this->texture = texture;
-    int width, height;
-    SDL_QueryTexture(texture.get(), nullptr, nullptr, &width, &height);
+    SDL_QueryTexture(texture.get(), nullptr, nullptr, &this->width, &this->height);
 }
 
 Texture::Texture(const std::shared_ptr<SDL_Texture>& texture, Offset offset) {
     this->texture = texture;
     this->offset = offset;
-    int width, height;
-    SDL_QueryTexture(texture.get(), nullptr, nullptr, &width, &height);
+    SDL_QueryTexture(texture.get(), nullptr, nullptr, &this->width, &this->height);
 }
 
 void Texture::draw(int x, int y) {
