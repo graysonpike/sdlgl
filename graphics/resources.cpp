@@ -1,5 +1,6 @@
 #include "resources.h"
 
+#include <filesystem>
 #include <fstream>
 
 #include "../dependencies/json.hpp"
@@ -26,13 +27,16 @@ std::shared_ptr<TTF_Font> Resources::load_font(const std::string& filename,
 }
 
 std::shared_ptr<SDL_Texture> Resources::load_texture(
-    const std::string& filename) {
+    const std::string& filename, bool prepend_images_path) {
     // Imagefile -> Surface -> Texture
     // Empty surface to begin with
     SDL_Surface* loaded_surface_ptr = nullptr;
 
     // Concatenate filename to resource directory
-    std::string filepath = std::string(RES_DIR) + "images/" + filename;
+    std::string filepath = filename;
+    if (prepend_images_path) {
+        filepath = std::string(RES_DIR) + "images/" + filepath;
+    }
 
     // Load imagefile into surface
     loaded_surface_ptr = IMG_Load(filepath.c_str());
@@ -166,6 +170,80 @@ void Resources::load_resources(const std::string& json_filename) {
          it != resources["tilemaps"].end(); it++) {
         tilemaps[it.key()] = load_tilemap(it.value()["filename"]);
     }
+
+    // Load Characters
+    for (json::iterator it = resources["characters"].begin();
+         it != resources["characters"].end(); it++) {
+        json character_json = resources["characters"][it.key()];
+        Character character;
+        // Load Character Sprites
+        json sprites_json = character_json["sprites"];
+        for (json::iterator sprite_it = sprites_json.begin();
+             sprite_it != sprites_json.end(); sprite_it++) {
+            Character::CharacterSprite sprite;
+            std::string sprite_name = sprite_it.key();
+            json facings_json = sprite_it.value();
+            for (json::iterator sprite_facing_it = facings_json.begin();
+                 sprite_facing_it != facings_json.end(); sprite_facing_it++) {
+                Character::Cell cell;
+                std::string facing_name = sprite_facing_it.key();
+                cell.row = sprite_facing_it.value()["row"];
+                cell.column = sprite_facing_it.value()["col"];
+                sprite.cells[facing_name] = cell;
+            }
+            character.add_sprite(sprite_name, sprite);
+        }
+        // Load Character Animations
+        json animations_json = character_json["animations"];
+        for (json::iterator animation_it = animations_json.begin();
+             animation_it != animations_json.end(); animation_it++) {
+            Character::CharacterAnimation animation;
+            json animation_json = animation_it.value();
+            animation.num_frames = animation_json["num_frames"];
+            animation.frame_delay = animation_json["frame_duration"];
+            for (json::iterator sprite_facing_it = animation_json.begin();
+                 sprite_facing_it != animation_json.end(); sprite_facing_it++) {
+                if (sprite_facing_it.key() == "frame_duration" ||
+                    sprite_facing_it.key() == "num_frames") {
+                    continue;
+                }
+                Character::Cell cell;
+                std::string facing_name = sprite_facing_it.key();
+                cell.row = sprite_facing_it.value()["row"];
+                cell.column = sprite_facing_it.value()["col"];
+                animation.cells[facing_name] = cell;
+            }
+            character.add_animation(animation_it.key(), animation);
+        }
+        // Load layer textures
+        std::string character_dir =
+            "res/images/" + character_json["directory"].get<std::string>();
+        json layers_json = character_json["layers"];
+        int layer_index = 0;
+        for (json::iterator layer_it = layers_json.begin();
+             layer_it != layers_json.end(); layer_it++, layer_index++) {
+            std::string layer_name = layer_it.value();
+            character.add_layer(layer_name);
+            std::string layer_textures_dir = character_dir + "/" + layer_name;
+            // Store file paths in a vector and sort them, so that ordering is
+            // guaranteed
+            std::vector<std::filesystem::path> file_paths;
+            for (const auto& entry :
+                 std::filesystem::directory_iterator(layer_textures_dir)) {
+                file_paths.push_back(entry.path());
+            }
+            std::sort(file_paths.begin(), file_paths.end());
+            for (const auto& file_path : file_paths) {
+                std::shared_ptr<SDL_Texture> layer_texture =
+                    load_texture(file_path, false);
+                character.add_layer_style(layer_index, Texture(layer_texture));
+            }
+        }
+        character.set_dimensions(
+            character_json["src_width"], character_json["src_height"],
+            character_json["dst_width"], character_json["dst_height"]);
+        characters[it.key()] = character;
+    }
 }
 
 std::shared_ptr<TTF_Font> Resources::get_font(const std::string& name) {
@@ -187,6 +265,10 @@ Sprite Resources::get_sprite(const std::string& name) {
         sprite.add_frame(Texture(sprite_frames[name][i]));
     }
     return sprite;
+}
+
+Character Resources::get_character(const std::string& name) {
+    return characters[name];
 }
 
 Tileset Resources::get_tileset(const std::string& name) {

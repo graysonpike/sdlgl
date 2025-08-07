@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 
+#include "./character.h"
 #include "./offset.h"
 #include "./sprite.h"
 #include "./texture.h"
@@ -28,9 +29,11 @@ class Resources {
     std::map<std::string, float> sprite_frame_delays;
     std::map<std::string, Tileset> tilesets;
     std::map<std::string, Tilemap> tilemaps;
+    std::map<std::string, Character> characters;
     static std::shared_ptr<TTF_Font> load_font(const std::string& filename,
                                                int size);
-    std::shared_ptr<SDL_Texture> load_texture(const std::string& filename);
+    std::shared_ptr<SDL_Texture> load_texture(const std::string& filename,
+                                              bool prepend_images_path = true);
     Tilemap load_tilemap(const std::string& filename);
     Resources();
 
@@ -43,6 +46,7 @@ class Resources {
     std::shared_ptr<TTF_Font> get_font(const std::string& name);
     Texture get_texture(const std::string& name);
     Sprite get_sprite(const std::string& name);
+    Character get_character(const std::string& name);
     Tileset get_tileset(const std::string& name);
     Tilemap get_tilemap(const std::string& name);
 };
