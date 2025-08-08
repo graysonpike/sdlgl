@@ -1,0 +1,120 @@
+{
+    "textures": {
+        "furniture": { "filename": "japan_home_interior.png" },
+        "room_builder": { "filename": "room_builder.png" },
+        "ui": { "filename": "ui.png" }
+    },
+    "tilesets": {
+        "furniture": {
+            "texture": "furniture",
+            "src_scale": 16,
+            "dst_scale": 64
+        },
+        "room_builder": {
+            "texture": "room_builder",
+            "src_scale": 16,
+            "dst_scale": 64
+        },
+        "ui": {
+            "texture": "ui",
+            "src_scale": 16,
+            "dst_scale": 64
+        }
+    },
+    "tilemaps": {
+        "room_builder": { "filename": "room_builder.json" },
+        "furniture": { "filename": "furniture.json" }
+    },
+    "fonts": {
+        "base_text": {
+            "filename": "Inconsolata/Inconsolata-Regular.ttf",
+            "size": 16
+        }
+    },
+    "characters": {
+        "adult_character": {
+            "directory": "adult_character",
+            "src_width": 16,
+            "src_height": 32,
+            "dst_width": 64,
+            "dst_height": 128,
+            "layers": [
+                "Bodies",
+                "Eyes",
+                "Outfits",
+                "Hairstyles",
+                "Accessories",
+                "Books",
+                "Smartphones"
+            ],
+            "sprites": {
+                "standing": {
+                    "right": {
+                        "row": 0,
+                        "col": 0
+                    },
+                    "up": {
+                        "row": 0,
+                        "col": 1
+                    },
+                    "left": {
+                        "row": 0,
+                        "col": 2
+                    },
+                    "down": {
+                        "row": 0,
+                        "col": 3
+                    }
+                }
+            },
+            "animations": {
+                "idle": {
+                    "num_frames": 6,
+                    "frame_duration": 0.2,
+                    "right": {
+                        "row": 1,
+                        "col": 0
+                    },
+                    "up": {
+                        "row": 1,
+                        "col": 6
+                    },
+                    "left": {
+                        "row": 1,
+                        "col": 12
+                    },
+                    "down": {
+                        "row": 1,
+                        "col": 18
+                    }
+                },
+                "walking": {
+                    "num_frames": 6,
+                    "frame_duration": 0.2,
+                    "right": {
+                        "row": 2,
+                        "col": 0
+                    },
+                    "up": {
+                        "row": 2,
+                        "col": 6
+                    },
+                    "left": {
+                        "row": 2,
+                        "col": 12
+                    },
+                    "down": {
+                        "row": 2,
+                        "col": 18
+                    }
+                }
+            }
+        }
+    },
+    "menu_backgrounds": {
+        "default": {
+            "tileset": "ui",
+            "tiles": [0, 1, 2, 61, 62, 63, 122, 123, 124]
+        }
+    }
+}

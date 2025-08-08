@@ -244,6 +244,23 @@ void Resources::load_resources(const std::string& json_filename) {
             character_json["dst_width"], character_json["dst_height"]);
         characters[it.key()] = character;
     }
+
+    // Load MenuBackgrounds
+    if (resources.find("menu_backgrounds") != resources.end()) {
+        for (json::iterator it = resources["menu_backgrounds"].begin();
+             it != resources["menu_backgrounds"].end(); it++) {
+            json menu_bg_json = it.value();
+            std::string tileset_name = menu_bg_json["tileset"];
+            Tileset tileset = get_tileset(tileset_name);
+            
+            std::vector<int> tiles;
+            for (auto& tile : menu_bg_json["tiles"]) {
+                tiles.push_back(tile);
+            }
+            
+            menu_backgrounds[it.key()] = MenuBackground(tileset, tiles);
+        }
+    }
 }
 
 std::shared_ptr<TTF_Font> Resources::get_font(const std::string& name) {
@@ -277,4 +294,8 @@ Tileset Resources::get_tileset(const std::string& name) {
 
 Tilemap Resources::get_tilemap(const std::string& name) {
     return tilemaps[name];
+}
+
+MenuBackground Resources::get_menu_background(const std::string& name) {
+    return menu_backgrounds[name];
 }

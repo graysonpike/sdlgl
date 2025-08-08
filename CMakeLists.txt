@@ -32,6 +32,7 @@ set(SOURCES
         input/inputs.cpp
         ui/entity_count.cpp
         ui/fps_display.cpp
+        ui/menu_background.cpp
         utilities/math.cpp
         utilities/noise.cpp
         utilities/random.cpp

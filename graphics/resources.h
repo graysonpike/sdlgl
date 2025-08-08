@@ -10,6 +10,7 @@
 #include "./sprite.h"
 #include "./texture.h"
 #include "./tilemap.h"
+#include "../ui/menu_background.h"
 #include "SDL.h"
 #include "SDL_image.h"
 #include "SDL_mixer.h"
@@ -30,6 +31,7 @@ class Resources {
     std::map<std::string, Tileset> tilesets;
     std::map<std::string, Tilemap> tilemaps;
     std::map<std::string, Character> characters;
+    std::map<std::string, MenuBackground> menu_backgrounds;
     static std::shared_ptr<TTF_Font> load_font(const std::string& filename,
                                                int size);
     std::shared_ptr<SDL_Texture> load_texture(const std::string& filename,
@@ -49,6 +51,7 @@ class Resources {
     Character get_character(const std::string& name);
     Tileset get_tileset(const std::string& name);
     Tilemap get_tilemap(const std::string& name);
+    MenuBackground get_menu_background(const std::string& name);
 };
 
 #endif

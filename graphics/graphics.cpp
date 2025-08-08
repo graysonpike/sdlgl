@@ -142,8 +142,8 @@ std::shared_ptr<SDL_Texture> Graphics::load_font_texture(
     // TTF_RenderText_Solid = quick & dirty
     // TTF_RenderText_Shaded = slow & antialiased, but with opaque box
     // TTF_RenderText_Blended = very slow & antialiased with alpha blending
-    // If max_width is 0, we don't apply any wrapping.
-    if (max_width == 0) {
+    // If max_width is -1 or 0, we don't apply any wrapping.
+    if (max_width <= 0) {
         surface_ptr = TTF_RenderText_Blended(
             Resources::get_instance().get_font(font).get(), text.c_str(),
             text_color);
