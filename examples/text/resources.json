@@ -1,0 +1,12 @@
+{
+    "fonts": {
+        "base_text": {
+            "filename": "Inconsolata/Inconsolata-Regular.ttf",
+            "size": 16
+        },
+        "large_text": {
+            "filename": "Inconsolata/Inconsolata-Bold.ttf",
+            "size": 24
+        }
+    }
+}
