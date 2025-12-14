@@ -26,8 +26,10 @@ class Menu {
     int selected_index;
     std::string font_name;
     std::string selector;
+    std::string title;
     int item_height;
     int padding;
+    int title_spacing;  // Extra spacing between title and first item
 
     // Calculated dimensions
     int content_width_tiles;
@@ -37,6 +39,10 @@ class Menu {
 
    public:
     Menu(const MenuBackground& background, const std::string& font_name);
+
+    // Title
+    void set_title(const std::string& title);
+    const std::string& get_title() const { return title; }
 
     // Add menu items
     void add_item(const std::string& label,
@@ -62,6 +68,7 @@ class Menu {
     }
     void set_item_height(int height) { item_height = height; }
     void set_padding(int padding) { this->padding = padding; }
+    void set_title_spacing(int spacing) { title_spacing = spacing; }
 };
 
 #endif

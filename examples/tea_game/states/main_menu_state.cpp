@@ -17,6 +17,7 @@ void MainMenuState::setup_menu() {
         Resources::get_instance().get_menu_background("default");
 
     menu = std::make_unique<Menu>(background, "base_text");
+    menu->set_title("Cozy Tea Game");
 
     // Add menu items with callbacks
     menu->add_item("Play", [this]() {

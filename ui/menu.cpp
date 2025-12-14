@@ -11,10 +11,17 @@ Menu::Menu(const MenuBackground& background, const std::string& font_name)
       selected_index(0),
       font_name(font_name),
       selector("> "),
+      title(""),
       item_height(40),
       padding(32),
+      title_spacing(24),
       content_width_tiles(5),
       content_height_tiles(3) {}
+
+void Menu::set_title(const std::string& new_title) {
+    title = new_title;
+    calculate_dimensions();
+}
 
 void Menu::add_item(const std::string& label, std::function<void()> on_select) {
     items.emplace_back(label, on_select);
@@ -31,6 +38,11 @@ void Menu::calculate_dimensions() {
     // Calculate the height needed based on number of items
     // Each item needs item_height pixels, plus padding top and bottom
     int total_content_height = (items.size() * item_height) + (padding * 2);
+
+    // Add space for title if present
+    if (!title.empty()) {
+        total_content_height += item_height + title_spacing;
+    }
 
     // Tile size is 64 (from the tileset dst_scale)
     int tile_size = 64;
@@ -112,8 +124,16 @@ void Menu::render() {
                                content_height_tiles);
 
     // Calculate content area for text
-    int content_x = bg_x;
     int content_y = bg_y + padding;
+    int center_x = bg_x + (content_width_tiles * tile_size) / 2;
+
+    // Draw title if present
+    SDL_Color title_color = {30, 30, 80, 255};
+    if (!title.empty()) {
+        Text::draw_text_center_justified(center_x, content_y, title, font_name,
+                                         title_color);
+        content_y += item_height + title_spacing;
+    }
 
     // Draw menu items
     SDL_Color text_color = {0, 0, 0, 255};
@@ -135,7 +155,6 @@ void Menu::render() {
         }
 
         // Center the text horizontally within the menu
-        int center_x = bg_x + (content_width_tiles * tile_size) / 2;
         Text::draw_text_center_justified(center_x, item_y, display_text,
                                          font_name, color);
     }
