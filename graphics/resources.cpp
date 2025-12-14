@@ -252,12 +252,12 @@ void Resources::load_resources(const std::string& json_filename) {
             json menu_bg_json = it.value();
             std::string tileset_name = menu_bg_json["tileset"];
             Tileset tileset = get_tileset(tileset_name);
-            
+
             std::vector<int> tiles;
             for (auto& tile : menu_bg_json["tiles"]) {
                 tiles.push_back(tile);
             }
-            
+
             menu_backgrounds[it.key()] = MenuBackground(tileset, tiles);
         }
     }

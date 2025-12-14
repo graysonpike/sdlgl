@@ -5,12 +5,12 @@
 #include <string>
 #include <vector>
 
+#include "../ui/menu_background.h"
 #include "./character.h"
 #include "./offset.h"
 #include "./sprite.h"
 #include "./texture.h"
 #include "./tilemap.h"
-#include "../ui/menu_background.h"
 #include "SDL.h"
 #include "SDL_image.h"
 #include "SDL_mixer.h"

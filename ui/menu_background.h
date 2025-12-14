@@ -6,7 +6,8 @@
 #include "../graphics/tileset.h"
 
 /*
- * A class to draw a menu background. Uses a tileset under the hood which should be a UI tileset.
+ * A class to draw a menu background. Uses a tileset under the hood which should
+ be a UI tileset.
 
  * The tiles vector is a list of menu tiles, in the following order:
  * - Top left corner
@@ -19,7 +20,8 @@
  * - Bottom center
  * - Bottom right corner
  *
- * The tileset is drawn at the given coordinates with the top left corner of the top left "center" tile being at the coordinates.
+ * The tileset is drawn at the given coordinates with the top left corner of the
+ top left "center" tile being at the coordinates.
  *
  * MenuBackgrounds are defined in resources.json.
  */

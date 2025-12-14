@@ -7,6 +7,7 @@
 #include <sdlgl/graphics/resources.h>
 #include <sdlgl/input/inputs.h>
 #include <sdlgl/ui/typewriter_text.h>
+
 #include <iostream>
 
 int main() {
@@ -18,8 +19,14 @@ int main() {
 
     // Create a dialogue TypewriterText
     std::cout << "Before dialogue" << std::endl;
-    TypewriterText dialogue(50, 200, "Welcome to the dialogue system! This demonstrates how the TypewriterText class can be used to create engaging dialogue effects in games. The text appears character by character, creating a natural reading experience.", "base_text", 0.03f, 400);
-    
+    TypewriterText dialogue(
+        50, 200,
+        "Welcome to the dialogue system! This demonstrates how the "
+        "TypewriterText class can be used to create engaging dialogue effects "
+        "in games. The text appears character by character, creating a natural "
+        "reading experience.",
+        "base_text", 0.03f, 400);
+
     // Start the dialogue
     dialogue.start();
 
@@ -31,15 +38,19 @@ int main() {
         Graphics::get_instance().clear_screen((SDL_Color){255, 255, 255, 255});
 
         // Update dialogue
-         dialogue.update(context.clock->get_delta());
+        dialogue.update(context.clock->get_delta());
 
-         // Render dialogue
-         dialogue.render();
+        // Render dialogue
+        dialogue.render();
 
         // Instructions
-        Text::draw_text_left_justified(50, 100, "Dialogue System Demo", "base_text", {0, 0, 0});
-        Text::draw_text_left_justified(50, 400, "Press SPACE to restart dialogue", "base_text", {0, 100, 0});
-        Text::draw_text_left_justified(50, 420, "Press ESC to exit", "base_text", {100, 0, 0});
+        Text::draw_text_left_justified(50, 100, "Dialogue System Demo",
+                                       "base_text", {0, 0, 0});
+        Text::draw_text_left_justified(50, 400,
+                                       "Press SPACE to restart dialogue",
+                                       "base_text", {0, 100, 0});
+        Text::draw_text_left_justified(50, 420, "Press ESC to exit",
+                                       "base_text", {100, 0, 0});
 
         Graphics::get_instance().present_renderer(context.clock->get_delta());
 

@@ -1,4 +1,5 @@
 #include "menu_background.h"
+
 #include <stdexcept>
 
 MenuBackground::MenuBackground() {}
@@ -6,14 +7,18 @@ MenuBackground::MenuBackground() {}
 MenuBackground::MenuBackground(Tileset tileset, std::vector<int> tiles)
     : tileset(tileset), tiles(tiles) {}
 
-void MenuBackground::draw_background(int x, int y, int width_tiles, int height_tiles) {
+void MenuBackground::draw_background(int x, int y, int width_tiles,
+                                     int height_tiles) {
     // Validate tile configuration
     if (tiles.size() != 9) {
-        throw std::runtime_error("MenuBackground: Invalid tile configuration. Expected 9 tiles, got " + std::to_string(tiles.size()));
+        throw std::runtime_error(
+            "MenuBackground: Invalid tile configuration. Expected 9 tiles, "
+            "got " +
+            std::to_string(tiles.size()));
     }
 
     int tile_size = tileset.get_dst_scale();
-    
+
     // The dimensions represent the center content area only
     // We need to add 2 tiles in each direction for the borders
     int total_width_tiles = width_tiles + 2;
@@ -22,14 +27,15 @@ void MenuBackground::draw_background(int x, int y, int width_tiles, int height_t
     int tiles_y = total_height_tiles;
 
     // Calculate the offset to position the center tile at the given coordinates
-    // The center tile should be at (x, y), so we need to offset by one tile in each direction
+    // The center tile should be at (x, y), so we need to offset by one tile in
+    // each direction
     int offset_x = x - tile_size;
     int offset_y = y - tile_size;
 
     for (int bg_y = 0; bg_y < tiles_y; bg_y++) {
         for (int bg_x = 0; bg_x < tiles_x; bg_x++) {
             int tile_index;
-            
+
             // Determine which tile to use based on position
             if (bg_y == 0) {
                 // Top row (border)
@@ -60,7 +66,8 @@ void MenuBackground::draw_background(int x, int y, int width_tiles, int height_t
                 }
             }
 
-            tileset.draw_tile(offset_x + bg_x * tile_size, offset_y + bg_y * tile_size, tile_index);
+            tileset.draw_tile(offset_x + bg_x * tile_size,
+                              offset_y + bg_y * tile_size, tile_index);
         }
     }
 }

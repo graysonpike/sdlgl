@@ -144,8 +144,9 @@ std::shared_ptr<SDL_Texture> Graphics::load_font_texture(
     // TTF_RenderText_Blended = very slow & antialiased with alpha blending
     // If max_width is -1 or 0, we don't apply any wrapping.
     if (max_width <= 0) {
-        // Here we still use the wrapped version, but we pass 0 as the max width.
-        // This is so that the text is still wrapped on newlines characters.
+        // Here we still use the wrapped version, but we pass 0 as the max
+        // width. This is so that the text is still wrapped on newlines
+        // characters.
         surface_ptr = TTF_RenderText_Blended_Wrapped(
             Resources::get_instance().get_font(font).get(), text.c_str(),
             text_color, 0);

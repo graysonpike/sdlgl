@@ -19,7 +19,7 @@ int main() {
         Resources::get_instance().get_tilemap("room_builder");
     Tilemap furniture_tilemap =
         Resources::get_instance().get_tilemap("furniture");
-    
+
     MenuBackground menu_background =
         Resources::get_instance().get_menu_background("default");
 
