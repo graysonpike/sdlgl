@@ -1,0 +1,28 @@
+{
+    "fonts": {
+        "base_text": {
+            "filename": "Inconsolata/Inconsolata-Regular.ttf",
+            "size": 16
+        },
+        "large_text": {
+            "filename": "Inconsolata/Inconsolata-Bold.ttf",
+            "size": 24
+        }
+    },
+    "textures": {
+        "ui": { "filename": "ui.png" }
+    },
+    "tilesets": {
+        "ui": {
+            "texture": "ui",
+            "src_scale": 16,
+            "dst_scale": 64
+        }
+    },
+    "menu_backgrounds": {
+        "default": {
+            "tileset": "ui",
+            "tiles": [0, 1, 2, 61, 62, 63, 122, 123, 124]
+        }
+    }
+}

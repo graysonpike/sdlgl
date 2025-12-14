@@ -33,9 +33,11 @@ set(SOURCES
         ui/entity_count.cpp
         ui/fps_display.cpp
         ui/menu_background.cpp
+        ui/typewriter_text.cpp
         utilities/math.cpp
         utilities/noise.cpp
         utilities/random.cpp
+        utilities/string_utils.cpp
 )
 
 add_library(sdlgl STATIC ${SOURCES})
