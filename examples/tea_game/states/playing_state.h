@@ -7,7 +7,6 @@
 #include <sdlgl/game/game_state.h>
 #include <sdlgl/game/scene.h>
 #include <sdlgl/graphics/tilemap.h>
-#include <sdlgl/ui/menu_background.h>
 
 class PlayingState : public GameState {
    private:
@@ -16,7 +15,6 @@ class PlayingState : public GameState {
     // Game resources
     std::unique_ptr<Tilemap> room_builder_tilemap;
     std::unique_ptr<Tilemap> furniture_tilemap;
-    std::unique_ptr<MenuBackground> menu_background;
 
    public:
     PlayingState();

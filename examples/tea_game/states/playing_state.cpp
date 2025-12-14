@@ -18,8 +18,6 @@ void PlayingState::on_enter() {
         Resources::get_instance().get_tilemap("room_builder"));
     furniture_tilemap = std::make_unique<Tilemap>(
         Resources::get_instance().get_tilemap("furniture"));
-    menu_background = std::make_unique<MenuBackground>(
-        Resources::get_instance().get_menu_background("default"));
 
     // Create and add player to scene
     scene->add_entity(std::make_shared<Player>(scene, 384, 320));
@@ -29,7 +27,6 @@ void PlayingState::on_exit() {
     // Clean up resources if needed
     room_builder_tilemap.reset();
     furniture_tilemap.reset();
-    menu_background.reset();
 }
 
 void PlayingState::on_pause() {
@@ -57,7 +54,4 @@ void PlayingState::render() {
 
     // Render scene (entities)
     scene->render();
-
-    // Draw UI elements
-    menu_background->draw_background(100, 100, 3, 2);
 }

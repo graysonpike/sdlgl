@@ -6,7 +6,7 @@
 #include <sdlgl/graphics/resources.h>
 #include <sdlgl/input/inputs.h>
 
-#include "states/playing_state.h"
+#include "states/main_menu_state.h"
 
 #ifdef __EMSCRIPTEN__
 #include <emscripten.h>
@@ -29,8 +29,8 @@ void Game::load_resources() {
 }
 
 void Game::setup_initial_state() {
-    // Start with the playing state
-    state_manager.push(std::make_shared<PlayingState>());
+    // Start with the main menu
+    state_manager.push(std::make_shared<MainMenuState>());
 }
 
 void Game::run() {

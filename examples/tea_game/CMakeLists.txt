@@ -9,6 +9,7 @@ set(SOURCES
         game.cpp
         entities/player.cpp
         states/playing_state.cpp
+        states/main_menu_state.cpp
 )
 
 add_compile_options(-g)
@@ -65,6 +66,7 @@ if(EMSCRIPTEN)
         ${SDLGL_DIR}/ui/entity_count.cpp
         ${SDLGL_DIR}/ui/fps_display.cpp
         ${SDLGL_DIR}/ui/menu_background.cpp
+        ${SDLGL_DIR}/ui/menu.cpp
         ${SDLGL_DIR}/ui/typewriter_text.cpp
         ${SDLGL_DIR}/utilities/math.cpp
         ${SDLGL_DIR}/utilities/noise.cpp

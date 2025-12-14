@@ -34,6 +34,7 @@ set(SOURCES
         ui/entity_count.cpp
         ui/fps_display.cpp
         ui/menu_background.cpp
+        ui/menu.cpp
         ui/typewriter_text.cpp
         utilities/math.cpp
         utilities/noise.cpp
