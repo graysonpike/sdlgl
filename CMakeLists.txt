@@ -16,6 +16,7 @@ set(SOURCES
         game/physical_entity.cpp
         game/scene.cpp
         game/timer.cpp
+        game/game_state_manager.cpp
         graphics/effects/emitter.cpp
         graphics/effects/linear_emitter.cpp
         graphics/effects/linear_particle.cpp

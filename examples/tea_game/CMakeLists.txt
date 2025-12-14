@@ -6,7 +6,9 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 set(SOURCES
         main.cpp
+        game.cpp
         entities/player.cpp
+        states/playing_state.cpp
 )
 
 add_compile_options(-g)
@@ -45,6 +47,7 @@ if(EMSCRIPTEN)
         ${SDLGL_DIR}/game/physical_entity.cpp
         ${SDLGL_DIR}/game/scene.cpp
         ${SDLGL_DIR}/game/timer.cpp
+        ${SDLGL_DIR}/game/game_state_manager.cpp
         ${SDLGL_DIR}/graphics/effects/emitter.cpp
         ${SDLGL_DIR}/graphics/effects/linear_emitter.cpp
         ${SDLGL_DIR}/graphics/effects/linear_particle.cpp
